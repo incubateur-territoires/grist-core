@@ -247,6 +247,12 @@
     "HorizontalGridlines": "Horizontal Gridlines",
     "ZebraStripes": "Zebra Stripes"
   },
+  "GridOptions": {
+    "GridOptions": "Grid Options",
+    "VerticalGridlines": "Vertical Gridlines",
+    "HorizontalGridlines": "Horizontal Gridlines",
+    "ZebraStripes": "Zebra Stripes"
+  },
   "GridViewMenus": {
     "AddColumn": "Add Column",
     "ShowColumn": "Show Column {{label}}",
