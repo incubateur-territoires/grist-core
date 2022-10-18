@@ -468,6 +468,9 @@
     "SwitchSites":"Switch Sites",
     "CreateNewTeamSite":"Create new team site"
   },
+  "TopBar": {
+    "ManageTeam": "Manage Team"
+  },
   "TriggerFormulas": {
     "AnyField": "Any field",
     "NewRecords": "Apply to new records",
