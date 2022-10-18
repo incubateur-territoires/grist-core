@@ -467,6 +467,18 @@
     "SwitchSites": "Switch Sites",
     "CreateNewTeamSite": "Create new team site"
   },
+  "TriggerFormulas": {
+    "AnyField": "Any field",
+    "NewRecords": "Apply to new records",
+    "ChangesTo": "Apply on changes to:",
+    "RecordChanges": "Apply on record changes",
+    "CurrentField": "Current field ",
+    "DataCleaning": "(data cleaning)",
+    "ExceptFormulas": "(except formulas)",
+    "OK": "OK",
+    "Cancel": "Cancel",
+    "Close": "Close"
+  },
   "VisibleFieldsConfig": {
     "NoReorderHiddenField": "Hidden Fields cannot be reordered",
     "NoDropInHiddenField": "Cannot drop items into Hidden Fields",
