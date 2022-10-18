@@ -473,5 +473,18 @@
     "NoDropInHiddenField": "Cannot drop items into Hidden Fields",
     "SelectAll": "Select All",
     "Clear": "Clear"
+  },
+  "ViewSectionMenu": {
+    "UpdateSortFilterSettings": "Update Sort&Filter settings",
+    "Save": "Save",
+    "Revert": "Revert",
+    "SortedBy": "Sorted by",
+    "AddFilter": "Add Filter",
+    "ToggleFilterBar": "Toggle Filter Bar",
+    "FilteredBy": "Filtered by",
+    "Customized":"(customized)",
+    "Modified":"(modified)",
+    "Empty":"(empty)",
+    "CustomOptions":"Custom options"
   }
 }
