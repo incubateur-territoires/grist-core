@@ -44,6 +44,21 @@
     "InsertColumnRight": "Insert column to the right",
     "InsertColumnLeft": "Insert column to the left"
   },
+  "ColumnFilterMenu": {
+    "FilterByRange": "Filter by Range",
+    "Search": "Search",
+    "SearchValues": "Search values",
+    "All": "All",
+    "AllShown": "All Shown",
+    "AllExcept": "All Except",
+    "None": "None",
+    "NoMatchingValues": "No matching values",
+    "OtherMatching": "Other matching",
+    "OtherNonMatching": "Other non-matching",
+    "OtherValues": "Other Values",
+    "FutureValues": "Future Values",
+    "Others": "Others"
+  },
   "DocHistory": {
     "Activity": "Activity",
     "Snapshots": "Snapshots",
