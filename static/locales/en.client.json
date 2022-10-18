@@ -44,6 +44,14 @@
     "InsertColumnRight": "Insert column to the right",
     "InsertColumnLeft": "Insert column to the left"
   },
+  "DocHistory": {
+    "Activity": "Activity",
+    "Snapshots": "Snapshots",
+    "OpenSnapshot": "Open Snapshot",
+    "CompareToCurrent": "Compare to Current",
+    "CompareToPrevious": "Compare to Previous",
+    "Beta": "Beta"
+  },
   "DocMenu": {
     "OtherSites": "Other Sites",
     "OtherSitesWelcome": "You are on the {{siteName}} site. You also have access to the following sites:",
