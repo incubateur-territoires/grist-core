@@ -467,6 +467,26 @@
     "SwitchSites": "Switch Sites",
     "CreateNewTeamSite": "Create new team site"
   },
+  "ThemeConfig": {
+    "Appearance": "Appearance ",
+    "SyncWithOS": "Switch appearance automatically to match system"
+  },
+  "Tools": {
+    "Tools": "TOOLS",
+    "AccessRules": "Access Rules",
+    "Data": "Raw Data",
+    "DocumentHistory": "Document History",
+    "ValidateData": "Validate Data",
+    "CodeView": "Code View",
+    "HowToTutorial": "How-to Tutorial",
+    "DocumentTour": "Tour of this Document",
+    "DeleteDocumentTour": "Delete document tour?",
+    "Delete": "Delete",
+    "ViewingAsYourself": "Return to viewing as yourself"
+  },
+  "TopBar": {
+    "ManageTeam": "Manage Team"
+  },
   "TriggerFormulas": {
     "AnyField": "Any field",
     "NewRecords": "Apply to new records",
