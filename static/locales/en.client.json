@@ -474,6 +474,20 @@
     "SelectAll": "Select All",
     "Clear": "Clear"
   },
+  "ViewLayoutMenu": {
+    "DeleteRecord": "Delete record",
+    "CopyAnchorLink": "Copy anchor link",
+    "ShowRawData": "Show raw data",
+    "PrintWidget": "Print widget",
+    "DownloadCSV": "Download as CSV",
+    "DownloadXLSX": "Download as XLSX",
+    "EditCardLayout": "Edit Card Layout",
+    "WidgetOptions": "Widget options",
+    "AdvancedSortFilter": "Advanced Sort & Filter",
+    "DataSelection": "Data selection",
+    "OpenConfiguration": "Open configuration",
+    "DeleteWidget": "Delete widget"
+  },
   "ViewSectionMenu": {
     "UpdateSortFilterSettings": "Update Sort&Filter settings",
     "Save": "Save",
