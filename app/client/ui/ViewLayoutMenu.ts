@@ -1,9 +1,12 @@
+import {t} from 'app/client/lib/localization';
 import {allCommands} from 'app/client/components/commands';
 import {ViewSectionRec} from 'app/client/models/DocModel';
 import {urlState} from 'app/client/models/gristUrlState';
 import {testId} from 'app/client/ui2018/cssVars';
 import {menuDivider, menuItemCmd, menuItemLink} from 'app/client/ui2018/menus';
 import {dom} from 'grainjs';
+
+const translate = (x: string, args?: any): string => t(`ViewLayoutMenu.${x}`, args);
 
 /**
  * Returns a list of menu items for a view section.
@@ -21,11 +24,11 @@ export function makeViewLayoutMenu(viewSection: ViewSectionRec, isReadonly: bool
 
   const contextMenu = [
     menuItemCmd(allCommands.deleteRecords,
-      'Delete record',
+      translate('DeleteRecord'),
       testId('section-delete-card'),
       dom.cls('disabled', isReadonly || isAddRow)),
     menuItemCmd(allCommands.copyLink,
-      'Copy anchor link',
+      translate('CopyAnchorLink'),
       testId('section-card-link'),
     ),
     menuDivider(),
@@ -36,30 +39,30 @@ export function makeViewLayoutMenu(viewSection: ViewSectionRec, isReadonly: bool
   return [
     dom.maybe((use) => ['single'].includes(use(viewSection.parentKey)), () => contextMenu),
     dom.maybe((use) => !use(viewSection.isRaw) && !isLight,
-      () => menuItemCmd(allCommands.showRawData, 'Show raw data', testId('show-raw-data')),
+      () => menuItemCmd(allCommands.showRawData, translate('ShowRawData'), testId('show-raw-data')),
     ),
-    menuItemCmd(allCommands.printSection, 'Print widget', testId('print-section')),
+    menuItemCmd(allCommands.printSection, translate('PrintWidget'), testId('print-section')),
     menuItemLink({ href: gristDoc.getCsvLink(), target: '_blank', download: ''},
-      'Download as CSV', testId('download-section')),
+      translate('DownloadCSV'), testId('download-section')),
     menuItemLink({ href: gristDoc.getXlsxActiveViewLink(), target: '_blank', download: ''},
-    'Download as XLSX', testId('download-section')),
+    translate('DownloadXLSX'), testId('download-section')),
     dom.maybe((use) => ['detail', 'single'].includes(use(viewSection.parentKey)), () =>
-      menuItemCmd(allCommands.editLayout, 'Edit Card Layout',
+      menuItemCmd(allCommands.editLayout, translate('EditCardLayout'),
         dom.cls('disabled', isReadonly))),
 
     dom.maybe(!isLight, () => [
       menuDivider(),
-      menuItemCmd(allCommands.viewTabOpen, 'Widget options', testId('widget-options')),
-      menuItemCmd(allCommands.sortFilterTabOpen, 'Advanced Sort & Filter'),
-      menuItemCmd(allCommands.dataSelectionTabOpen, 'Data selection'),
+      menuItemCmd(allCommands.viewTabOpen, translate('WidgetOptions'), testId('widget-options')),
+      menuItemCmd(allCommands.sortFilterTabOpen, translate('AdvancedSortFilter')),
+      menuItemCmd(allCommands.dataSelectionTabOpen, translate('DataSelection')),
     ]),
 
     menuDivider(),
     dom.maybe((use) => use(viewSection.parentKey) === 'custom' && use(viewSection.hasCustomOptions), () =>
-      menuItemCmd(allCommands.openWidgetConfiguration, 'Open configuration',
+      menuItemCmd(allCommands.openWidgetConfiguration, translate('Open configuration'),
         testId('section-open-configuration')),
     ),
-    menuItemCmd(allCommands.deleteSection, 'Delete widget',
+    menuItemCmd(allCommands.deleteSection, translate('Delete widget'),
       dom.cls('disabled', !viewRec.getRowId() || viewRec.viewSections().peekLength <= 1 || isReadonly),
       testId('section-delete')),
   ];
