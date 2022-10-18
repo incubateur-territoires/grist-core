@@ -102,7 +102,7 @@ export function columnFilterMenu(owner: IDisposableOwner, opts: IFilterMenuOptio
     ]),
 
     cssMenuHeader(
-      cssSearchIcon(translate('Search')),
+      cssSearchIcon('Search'),
       searchInput = cssSearch(
         searchValueObs, { onInput: true },
         testId('search-input'),
