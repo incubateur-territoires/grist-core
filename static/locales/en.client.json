@@ -169,7 +169,7 @@
     "Currency": "Currency:",
     "LocalCurrency": "Local currency {{currency}}",
     "EngineRisk": "Engine (experimental {{- span}} change at own risk):",
-    "Save": "Save",
+    "Save": "S:ave",
     "SaveAndReload": "Save and Reload"
   },
   "DuplicateTable": {
