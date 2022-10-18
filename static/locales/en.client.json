@@ -468,6 +468,10 @@
     "SwitchSites":"Switch Sites",
     "CreateNewTeamSite":"Create new team site"
   },
+  "ThemeConfig": {
+    "Appearance": "Appearance ",
+    "SyncWithOS": "Switch appearance automatically to match system"
+  },
   "Tools": {
     "Tools": "TOOLS",
     "AccessRules": "Access Rules",
