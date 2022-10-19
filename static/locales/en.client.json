@@ -532,6 +532,13 @@
     "Empty":"(empty)",
     "CustomOptions":"Custom options"
   },
+  "lib": {
+    "ACUserManager": {
+      "InviteNewMember": "Invite new member",
+      "EmailInputPlaceholder": "Enter email address",
+      "InviteEnail": "`We'll email an invite to {{emailObs}}"
+    }
+  },
   "models": {
     "AppModels": {
       "TeamSiteSuspended": "This team site is suspended. Documents can be read, but not modified."
