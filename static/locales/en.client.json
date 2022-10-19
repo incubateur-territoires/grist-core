@@ -550,6 +550,16 @@
       "AddWidgetToPage": "Add Widget to Page",
       "AddEmptyTable": "Add Empty Table",
       "NoEditAccess": "You do not have edit access to this document"
+    },
+    "UserManagerModel": {
+      "Owner": "Owner",
+      "Editor": "Editor",
+      "Viewer": "Viewer",
+      "NoDefaultAccess": "No Default Access",
+      "InFull": "In Full",
+      "ViewAndEdit": "View & Edit",
+      "ViewOnly": "View Only",
+      "None": "None"
     }
   },
   "ui2018": {
