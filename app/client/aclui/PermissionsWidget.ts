@@ -10,9 +10,12 @@ import {ALL_PERMISSION_PROPS, emptyPermissionSet} from 'app/common/ACLPermission
 import {capitalize} from 'app/common/gutil';
 import {dom, DomElementArg, Observable, styled} from 'grainjs';
 import isEqual = require('lodash/isEqual');
+import {t} from 'app/client/lib/localization';
 
 // One of the strings 'read', 'update', etc.
 export type PermissionKey = keyof PartialPermissionSet;
+
+const translate = (x: string, args?: any): string => t(`aclui.PermissionsWidget.${x}`, args);
 
 /**
  * Renders a box for each of availableBits, and a dropdown with a description and some shortcuts.
@@ -61,13 +64,13 @@ export function permissionsWidget(
           null
         ),
         // If the set matches any recognized pattern, mark that item with a tick (checkmark).
-        cssMenuItem(() => setPermissions(allowAll), tick(isEqual(pset.get(), allowAll)), 'Allow All',
+        cssMenuItem(() => setPermissions(allowAll), tick(isEqual(pset.get(), allowAll)), translate('AllowAll'),
           dom.cls('disabled', options.disabled)
         ),
-        cssMenuItem(() => setPermissions(denyAll), tick(isEqual(pset.get(), denyAll)), 'Deny All',
+        cssMenuItem(() => setPermissions(denyAll), tick(isEqual(pset.get(), denyAll)), translate('DenyAll'),
           dom.cls('disabled', options.disabled)
         ),
-        cssMenuItem(() => setPermissions(readOnly), tick(isEqual(pset.get(), readOnly)), 'Read Only',
+        cssMenuItem(() => setPermissions(readOnly), tick(isEqual(pset.get(), readOnly)), translate('ReadOnly'),
           dom.cls('disabled', options.disabled)
         ),
         cssMenuItem(() => setPermissions(empty),

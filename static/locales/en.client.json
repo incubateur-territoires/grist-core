@@ -532,6 +532,43 @@
     "Empty":"(empty)",
     "CustomOptions":"Custom options"
   },
+  "aclui": {
+    "AccessRules": {
+      "Checking": "Checking...",
+      "Saved": "Saved",
+      "Invalid": "Invalid",
+      "Save": "Save",
+      "Reset": "Reset",
+      "AddTableRules": "Add Table Rules",
+      "AddUserAttributes": "Add User Attributes",
+      "Users": "Users",
+      "UserAttributes": "User Attributes",
+      "AttributeToLookUp": "Attribute to Look Up",
+      "LookupTable": "Lookup Table",
+      "LookupColumn": "Lookup Column",
+      "DefaultRules": "Default Rules",
+      "Condition": "Condition",
+      "Permissions": "Permissions",
+      "RulesForTable": "Rules for table ",
+      "AddColumnRule": "Add Column Rule",
+      "AddDefaultRule": "Add Default Rule",
+      "DeleteTableRules": "Delete Table Rules",
+      "SpecialRules": "Special Rules",
+      "AccessRulesDescription": "Allow everyone to view Access Rules.",
+      "FullCopiesDescription": "Allow everyone to copy the entire document, or view it in full in fiddle mode.\nUseful for examples and templates, but not for sensitive data.",
+      "AccessRulesName": "Permission to view Access Rules",
+      "FullCopies": "Permission to access the document in full when needed",
+      "AttributeNamePlaceholder": "Attribute name",
+      "Everyone": "Everyone",
+      "EveryoneElse": "Everyone Else",
+      "EnterCondition": "Enter Condition"
+    },
+    "PermissionsWidget": {
+      "AllowAll": "Allow All",
+      "DenyAll": "Deny All",
+      "ReadOnly": "Read Only"
+    }
+  },
   "lib": {
     "ACUserManager": {
       "InviteNewMember": "Invite new member",
