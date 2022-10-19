@@ -1,25 +1,4 @@
 {
-  "AddNewButton": {
-    "AddNew": "Nouveau"
-  },
-  "CustomSectionConfig": {
-    "Add": "Ajouter",
-    "EnterCustomURL": "Entrer une URL personnalisée",
-    "FullDocumentAccess": "Full document access",
-    "LearnMore": "Learn more about custom widgets",
-    "PickAColumn": "Choisir une colonne",
-    "PickAColumnWithType": "Choisir une colonne {{columnType}}",
-    "NoDocumentAccess": "Pas d'accès au document",
-    "OpenConfiguration": "Open configuration",
-    "Optional": " (facultatif)",
-    "ReadSelectedTable": "Read selected table",
-    "SelectCustomWidget": "Select Custom Widget",
-    "WidgetNeedFullAccess": "Widget needs {{fullAcces}} to this document.",
-    "WidgetNeedRead": "Widget needs to {{ read }} the current table.",
-    "WidgetNoPermissison": "Widget does not require any permissions.",
-    "WrongTypesMenuText_one": "{{wrongTypeCount}} non-{{columnType}} column is not shown",
-    "WrongTypesMenuText_others": "{{wrongTypeCount}} non-{{columnType}} columns are not shown"
-  },
   "AccountPage": {
     "AccountSettings": "Account settings",
     "API": "API",
@@ -49,6 +28,9 @@
     "Accounts": "Accounts",
     "AddAccount": "Add Account",
     "SignOut": "Sign Out"
+  },
+  "AddNewButton": {
+    "AddNew": "Nouveau"
   },
   "AppHeader": {
     "HomePage": "Home page",
@@ -106,6 +88,24 @@
     "OtherValues": "Other Values",
     "FutureValues": "Future Values",
     "Others": "Others"
+  },
+  "CustomSectionConfig": {
+    "Add": "Ajouter",
+    "EnterCustomURL": "Entrer une URL personnalisée",
+    "FullDocumentAccess": "Full document access",
+    "LearnMore": "Learn more about custom widgets",
+    "PickAColumn": "Pick a column",
+    "PickAColumnWithType": "Pick a {{columnType}} column",
+    "NoDocumentAccess": "Pas d'accès au document",
+    "OpenConfiguration": "Open configuration",
+    "Optional": " (facultatif)",
+    "ReadSelectedTable": "Read selected table",
+    "SelectCustomWidget": "Select Custom Widget",
+    "WidgetNeedFullAccess": "Widget needs {{fullAcces}} to this document.",
+    "WidgetNeedRead": "Widget needs to {{ read }} the current table.",
+    "WidgetNoPermissison": "Widget does not require any permissions.",
+    "WrongTypesMenuText_one": "{{wrongTypeCount}} non-{{columnType}} column is not shown",
+    "WrongTypesMenuText_others": "{{wrongTypeCount}} non-{{columnType}} columns are not shown"
   },
   "DocHistory": {
     "Activity": "Activity",
@@ -201,10 +201,10 @@
     "ColumnType_formula_one": "Colonne Formule",
     "ColumnType_data_one": "Colonne de données",
     "ColumnType_empty_one": "Colonne vide",
-    "ColumnType_formula": "Colonnes formule",
-    "ColumnType_data": "Colonnes de données",
-    "ColumnType_empty": "Colonnes vides",
-    "ColumnType_mixed": "Mixed Behavior",
+    "ColumnType_formula_other": "Formula Columns",
+    "ColumnType_data_other": "Data Columns",
+    "ColumnType_empty_other": "Empty Columns",
+    "ColumnType_mixed_other": "Mixed Behavior",
     "ConvertColumn_formula": "Vider et transformer en formule",
     "ConvertColumn_data": "Convertir la colonne en données",
     "ConvertColumn_triggerformula": "Convert to trigger formula",
@@ -393,7 +393,7 @@
     "SelectWidget": "Select Widget",
     "SelectData": "Select Data",
     "GroupBy": "Group by",
-    "Add to Page": "AddToPage"
+    "AddToPage": "Add to Page"
   },
   "RightPanel": {
     "Column_one": "Colonne",
@@ -480,7 +480,8 @@
     "DocumentTour": "Tour of this Document",
     "DeleteDocumentTour": "Delete document tour?",
     "Delete": "Delete",
-    "ViewingAsYourself": "Return to viewing as yourself"
+    "ViewingAsYourself": "Return to viewing as yourself",
+    "RawData": "Raw Data"
   },
   "TopBar": {
     "ManageTeam": "Manage Team"
@@ -529,6 +530,33 @@
     "Modified": "(modified)",
     "Empty": "(empty)",
     "CustomOptions": "Custom options"
+  },
+  "models": {
+    "AppModels": {
+      "TeamSiteSuspended": "This team site is suspended. Documents can be read, but not modified."
+    },
+    "DocPageModel": {
+      "ErrorAccessingDocument": "Error accessing document",
+      "Reload": "Reload",
+      "ReloadingOrRecoveryMode": "You can try reloading the document, or using recovery mode. Recovery mode opens the document to be fully accessible to owners, and inaccessible to others. It also disables formulas. {{error}}",
+      "AccessError_denied": "Sorry, access to this document has been denied. {{error}}",
+      "AccessError_recover": "Document owners can attempt to recover the document. {{error}}",
+      "EnterRecoveryMode": "Enter recovery mode",
+      "AddPage": "Add Page",
+      "AddWidgetToPage": "Add Widget to Page",
+      "AddEmptyTable": "Add Empty Table",
+      "NoEditAccess": "You do not have edit access to this document"
+    },
+    "UserManagerModel": {
+      "Owner": "Owner",
+      "Editor": "Editor",
+      "Viewer": "Viewer",
+      "NoDefaultAccess": "No Default Access",
+      "InFull": "In Full",
+      "ViewAndEdit": "View & Edit",
+      "ViewOnly": "View Only",
+      "None": "None"
+    }
   },
   "ui2018": {
     "breadcrumbs": {
