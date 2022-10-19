@@ -93,7 +93,7 @@
   "CustomSectionConfig": {
     "Add": "Add",
     "EnterCustomURL": "Enter Custom URL",
-    "Full document access": "Full document access",
+    "FullDocumentAccess": "Full document access",
     "LearnMore": "Learn more about custom widgets",
     "PickupColumn": "Pick a column",
     "PickupColumnType": "Pick a {{columnType}} column",

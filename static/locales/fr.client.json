@@ -5,7 +5,7 @@
   "CustomSectionConfig": {
     "Add": "Ajouter",
     "EnterCustomURL": "Entrer une URL personnalisée",
-    "Full document access": "Full document access",
+    "FullDocumentAccess": "Full document access",
     "LearnMore": "Learn more about custom widgets",
     "PickupColumn": "Choisir une colonne",
     "PickupColumnType": "Choisir une colonne {{columnType}}",
