@@ -7,11 +7,11 @@
     "EnterCustomURL": "Entrer une URL personnalisée",
     "Full document access": "Full document access",
     "LearnMore": "Learn more about custom widgets",
-    "PickupColumn": "Pick a column",
-    "PickupColumnType": "Pick a {{columnType}} column",
-    "NoDocumentAccess": "No document access",
+    "PickupColumn": "Choisir une colonne",
+    "PickupColumnType": "Choisir une colonne {{columnType}}",
+    "NoDocumentAccess": "Pas d'accès au document",
     "OpenConfiguration": "Open configuration",
-    "Optional": " (optional)",
+    "Optional": " (facultatif)",
     "ReadSelectedTable": "Read selected table",
     "SelectCustomWidget": "Select Custom Widget",
     "WidgetNeedFullAccess": "Widget needs {{fullAcces}} to this document.",
@@ -48,7 +48,7 @@
     "SwitchAccounts": "Switch Accounts",
     "Accounts": "Accounts",
     "AddAccount": "Add Account",
-    "Sign Out": "SignOut"
+    "SignOut": "Sign Out"
   },
   "AppHeader": {
     "HomePage": "Home page",
@@ -444,13 +444,14 @@
     "SendingToGoogleDrive": "Sending file to Google Drive"
   },
   "ShareMenu": {
+    "BackToCurrent": "Back to Current",
     "SaveDocument": "Save Document",
     "SaveCopy": "Save Copy",
     "Unsaved": "Unsaved",
     "DuplicateDocument": "Duplicate Document",
     "ManageUsers": "Manage Users",
     "AccessDetails": "Access Details",
-    "Current Version": "CurrentVersion",
+    "CurrentVersion": "Current Version",
     "Original": "Original",
     "ReturnToTermToUse": "Return to {{termToUse}}",
     "ReplaceTermToUse": "Replace {{termToUse}}...",
@@ -531,5 +532,42 @@
     "Modified": "(modified)",
     "Empty": "(empty)",
     "CustomOptions": "Custom options"
+  },
+  "ui2018": {
+    "breadcrumbs": {
+      "FiddleExplanation": "You may make edits, but they will create a new copy and will\nnot affect the original document.",
+      "Snapshot": "snapshot",
+      "Unsaved": "unsaved",
+      "RecoveryMode": "recovery mode",
+      "Override": "override",
+      "Fiddle": "fiddle"
+    },
+    "ColorSelect": {
+      "DefaultCellStyle": "Default cell style",
+      "Apply": "Apply",
+      "Cancel": "Cancel"
+    },
+    "menus": {
+      "SelectFields": "Select fields",
+      "WorkspacesAvailableOnTeamPlans": "* Workspaces are available on team plans. ",
+      "UpgradeNow": "Upgrade now"
+    },
+    "modals": {
+      "Save": "Save",
+      "Cancel": "Cancel",
+      "Ok": "Ok"
+    },
+    "pages": {
+      "Rename": "Rename",
+      "Remove": "Remove",
+      "DuplicatePage": "Duplicate Page",
+      "NoEditAccess": "You do not have edit access to this document"
+    },
+    "search": {
+      "SearchInDocument": "Search in document",
+      "NoResults": "No results",
+      "FindNext": "Find Next ",
+      "FindPrevious": "Find Previous "
+    }
   }
 }
