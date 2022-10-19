@@ -595,5 +595,42 @@
       "FindNext": "Find Next ",
       "FindPrevious": "Find Previous "
     }
+  },
+  "components":{
+    "ActionLog": {
+      "ActionLogFailed":"Action Log failed to load",
+      "TableRemovedInAction":"Table {{tableId}} was subsequently removed in action #{{actionNum}}",
+      "RowRemovedInAction":"This row was subsequently removed in action {{action.actionNum}}",
+      "ColumnRemovedInAction":"Column {{colId}} was subsequently removed in action #{{action.actionNum}}"
+    },
+    "ChartView":{
+      "EachYFollowedByOne":"Each Y series is followed by a series for the length of error bars.",
+      "EachYFollowedByTwo":"Each Y series is followed by two series, for top and bottom error bars.",
+      "CreateSeparateSeries":"Create separate series for each value of the selected column.",
+      "PickColumn":"Pick a column",
+      "SelectedNewGroupDataColumnd":"selected new group data columnd",
+      "ToggleChartAggregation":"Toggle chart aggregation"
+    },
+    "CodeEditorPanel":{
+      "AccessDenied":"Access denied",
+      "CodeViewOnlyFullAccess.":"Code View is available only when you have full document access."
+    },
+    "DataTables":{
+      "RawDataTables":"Raw Data Tables",
+      "ClickToCopy":"Click to copy",
+      "TableIDCopied":"Table ID copied to clipboard",
+      "DuplicateTable":"Duplicate Table",
+      "NoEditAccess":"You do not have edit access to this document",
+      "DeleteData":"Delete {{formattedTableName}} data, and remove it from all pages?"
+    },
+    "DocumentUsage":{
+      "UsageStatisticsOnlyFullAccess":"Usage statistics are only available to users with full access to the document data.",
+      "TotalSize":"The total size of all data in this document, excluding attachments.",
+      "Updates":"Updates every 5 minutes."
+    },
+    "Drafts":{
+      "UndoDiscard":"Undo discard",
+      "RestoreLastEdit":"Restore last edit"
+    }
   }
 }

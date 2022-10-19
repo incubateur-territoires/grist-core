@@ -12,8 +12,11 @@ import {loadingDots} from 'app/client/ui2018/loaders';
 import {menu, menuItem, menuText} from 'app/client/ui2018/menus';
 import {confirmModal} from 'app/client/ui2018/modals';
 import {Computed, Disposable, dom, fromKo, makeTestId, Observable, styled} from 'grainjs';
+import {t} from 'app/client/lib/localization';
 
 const testId = makeTestId('test-raw-data-');
+
+const translate = (x: string, args?: any): string => t(`DataTables.${x}`, args);
 
 export class DataTables extends Disposable {
   private _tables: Observable<TableRec[]>;
@@ -42,7 +45,7 @@ export class DataTables extends Disposable {
       cssTableList(
         /***************  List section **********/
         testId('list'),
-        docListHeader('Raw Data Tables'),
+        docListHeader(translate('RawDataTables')),
         cssList(
           dom.forEach(this._tables, tableRec =>
             cssItem(
@@ -62,11 +65,11 @@ export class DataTables extends Disposable {
                       testId('table-id'),
                       dom.text(tableRec.tableId),
                     ),
-                    { title : 'Click to copy' },
+                    { title : translate('ClickToCopy') },
                     dom.on('click', async (e, t) => {
                       e.stopImmediatePropagation();
                       e.preventDefault();
-                      showTransientTooltip(t, 'Table ID copied to clipboard', {
+                      showTransientTooltip(t, translate('TableIDCopied'), {
                         key: 'copy-table-id'
                       });
                       await copyToClipboard(tableRec.tableId.peek());
@@ -124,7 +127,7 @@ export class DataTables extends Disposable {
     return [
       menuItem(
         () => this._duplicateTable(table),
-        'Duplicate Table',
+        translate('DuplicateTable'),
         testId('menu-duplicate-table'),
         dom.cls('disabled', use =>
           use(isReadonly) ||
@@ -141,7 +144,7 @@ export class DataTables extends Disposable {
           use(docModel.visibleTables.getObservable()).length <= 1 && !use(table.isHidden)
         ))
       ),
-      dom.maybe(isReadonly, () => menuText('You do not have edit access to this document')),
+      dom.maybe(isReadonly, () => menuText(translate("NoEditAccess"))),
     ];
   }
 
@@ -157,7 +160,7 @@ export class DataTables extends Disposable {
     function doRemove() {
       return docModel.docData.sendAction(['RemoveTable', t.tableId()]);
     }
-    confirmModal(`Delete ${t.formattedTableName()} data, and remove it from all pages?`, 'Delete', doRemove);
+    confirmModal(translate("DeleteData", {formattedTableName : t.formattedTableName()}), 'Delete', doRemove);
   }
 
   private _tableRows(table: TableRec) {
