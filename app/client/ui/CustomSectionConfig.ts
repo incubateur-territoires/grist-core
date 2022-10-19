@@ -61,7 +61,7 @@ class ColumnPicker extends Disposable {
     return [
       cssLabel(
         this._column.title,
-        this._column.optional ? cssSubLabel(` (${translate('Optional')})`) : null,
+        this._column.optional ? cssSubLabel(translate('Optional')) : null,
         testId('label-for-' + this._column.name),
       ),
       this._column.description ? cssHelp(
