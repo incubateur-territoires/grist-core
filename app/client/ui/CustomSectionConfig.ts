@@ -61,11 +61,7 @@ class ColumnPicker extends Disposable {
     return [
       cssLabel(
         this._column.title,
-<<<<<<< HEAD
         this._column.optional ? cssSubLabel(translate('Optional')) : null,
-=======
-        this._column.optional ? cssSubLabel(` (${translate('Optional')})`) : null,
->>>>>>> d33303d (Traduction c2)
         testId('label-for-' + this._column.name),
       ),
       this._column.description ? cssHelp(
@@ -77,11 +73,7 @@ class ColumnPicker extends Disposable {
           properValue,
           options,
           {
-<<<<<<< HEAD
             defaultLabel: this._column.typeDesc != "any" ? translate('PickAColumnWithType', {"columnType": this._column.typeDesc}) : translate('PickAColumn')
-=======
-            defaultLabel: this._column.typeDesc != "any" ? translate('PickupColumnType', {"columnType": this._column.typeDesc}) : translate('Pick a column')
->>>>>>> d33303d (Traduction c2)
           }
         ),
         testId('mapping-for-' + this._column.name),
