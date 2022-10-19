@@ -542,6 +542,12 @@
       "RecoveryMode": "recovery mode",
       "Override": "override",
       "Fiddle": "fiddle"
+    },
+    "ColorSelect": {
+      "DefaultCellStyle": "Default cell style",
+      "Apply": "Apply",
+      "Cancel": "Cancel"
+
     }
   }
 }
