@@ -2,6 +2,7 @@
  * Search icon that expands to a search bar and collapse on 'x' or blur.
  * Takes a `SearchModel` that controls the search behavior.
  */
+import {t} from 'app/client/lib/localization';
 import { createGroup } from 'app/client/components/commands';
 import { reportError } from 'app/client/models/AppModel';
 import { SearchModel } from 'app/client/models/SearchModel';
@@ -15,6 +16,8 @@ import { noTestId, TestId } from 'grainjs';
 import debounce = require('lodash/debounce');
 
 export * from 'app/client/models/SearchModel';
+
+const translate = (x: string, args?: any): string => t(`ui2018.search.${x}`, args);
 
 const EXPAND_TIME = .5;
 
@@ -149,7 +152,7 @@ export function searchBar(model: SearchModel, testId: TestId = noTestId) {
     model.isOpen.set(_value === undefined ? !model.isOpen.get() : _value);
   }, 100);
   const inputElem: HTMLInputElement = searchInput(model.value, {onInput: true},
-    {type: 'text', placeholder: 'Search in document'},
+    {type: 'text', placeholder: translate('SearchInDocument')},
     dom.on('blur', () => (
       keepExpanded ?
         setTimeout(() => inputElem.focus(), 0) :
@@ -187,7 +190,7 @@ export function searchBar(model: SearchModel, testId: TestId = noTestId) {
         const noMatch = use(model.noMatch);
         const isEmpty = use(model.isEmpty);
         if (isEmpty) { return null; }
-        if (noMatch) { return cssLabel("No results"); }
+        if (noMatch) { return cssLabel(translate("NoResults")); }
         return [
           cssArrowBtn(
             icon('Dropdown'),
@@ -195,7 +198,7 @@ export function searchBar(model: SearchModel, testId: TestId = noTestId) {
             // Prevent focus from being stolen from the input
             dom.on('mousedown', (event) => event.preventDefault()),
             dom.on('click', () => model.findNext()),
-            hoverTooltip(() => ['Find Next ', cssShortcut('(Enter, ⌘G)')], searchArrowBtnTooltipOptions),
+            hoverTooltip(() => [translate('FindNext'), cssShortcut('(Enter, ⌘G)')], searchArrowBtnTooltipOptions),
           ),
           cssArrowBtn(
             icon('DropdownUp'),
@@ -203,7 +206,7 @@ export function searchBar(model: SearchModel, testId: TestId = noTestId) {
             // Prevent focus from being stolen from the input
             dom.on('mousedown', (event) => event.preventDefault()),
             dom.on('click', () => model.findPrev()),
-            hoverTooltip(() => ['Find Previous ', cssShortcut('(⌘⇧G)')], searchArrowBtnTooltipOptions),
+            hoverTooltip(() => [translate('FindPrevious'), cssShortcut('(⌘⇧G)')], searchArrowBtnTooltipOptions),
           )
         ];
       }),
