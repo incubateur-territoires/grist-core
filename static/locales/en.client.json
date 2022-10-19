@@ -547,7 +547,11 @@
       "DefaultCellStyle": "Default cell style",
       "Apply": "Apply",
       "Cancel": "Cancel"
-
+    },
+    "menus": {
+      "SelectFields": "Select fields",
+      "WorkspacesAvailableOnTeamPlans": "* Workspaces are available on team plans. ",
+      "UpgradeNow": "Upgrade now"
     }
   }
 }

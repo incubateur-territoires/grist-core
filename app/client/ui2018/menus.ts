@@ -9,6 +9,9 @@ import { cssSelectBtn } from 'app/client/ui2018/select';
 import { BindableValue, Computed, dom, DomElementArg, DomElementMethod, IDomArgs,
          MaybeObsArray, MutableObsArray, Observable, styled } from 'grainjs';
 import * as weasel from 'popweasel';
+import {t} from 'app/client/lib/localization';
+
+const translate = (x: string, args?: any): string => t(`ui2018.menus.${x}`, args);
 
 export interface IOptionFull<T> {
   value: T;
@@ -175,7 +178,7 @@ export function multiSelect<T>(selectedOptions: MutableObsArray<T>,
 
   const selectedOptionsText = Computed.create(null, selectedOptionsSet, (use, selectedOpts) => {
     if (selectedOpts.size === 0) {
-      return options.placeholder ?? 'Select fields';
+      return options.placeholder ?? translate('SelectFields');
     }
 
     const optionArray = Array.isArray(availableOptions) ? availableOptions : use(availableOptions);
@@ -309,8 +312,8 @@ export function upgradableMenuItem(needUpgrade: boolean, action: () => void, ...
 
 export function upgradeText(needUpgrade: boolean, onClick: () => void) {
   if (!needUpgrade) { return null; }
-  return menuText(dom('span', '* Workspaces are available on team plans. ',
-    cssUpgradeTextButton('Upgrade now', dom.on('click', () => onClick()))));
+  return menuText(dom('span', translate('WorkspacesAvailableOnTeamPlans'),
+    cssUpgradeTextButton(translate('Upgrade now'), dom.on('click', () => onClick()))));
 }
 
 /**
