@@ -552,6 +552,23 @@
       "SelectFields": "Select fields",
       "WorkspacesAvailableOnTeamPlans": "* Workspaces are available on team plans. ",
       "UpgradeNow": "Upgrade now"
+    },
+    "modals": {
+      "Save": "Save",
+      "Cancel": "Cancel",
+      "Ok": "Ok"
+    },
+    "pages": {
+      "Rename": "Rename",
+      "Remove": "Remove",
+      "DuplicatePage": "Duplicate Page",
+      "NoEditAccess": "You do not have edit access to this document"
+    },
+    "search": {
+      "SearchInDocument": "Search in document",
+      "NoResults": "No results",
+      "FindNext": "Find Next ",
+      "FindPrevious": "Find Previous "
     }
   }
 }

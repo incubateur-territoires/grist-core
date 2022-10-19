@@ -1,3 +1,4 @@
+import {t} from 'app/client/lib/localization';
 import { isDesktop } from 'app/client/lib/browserInfo';
 import { cssEditorInput } from "app/client/ui/HomeLeftPane";
 import { itemHeader, itemHeaderWrapper, treeViewContainer } from "app/client/ui/TreeViewComponentCss";
@@ -5,6 +6,8 @@ import { theme } from "app/client/ui2018/cssVars";
 import { icon } from "app/client/ui2018/icons";
 import { menu, menuItem, menuText } from "app/client/ui2018/menus";
 import { dom, domComputed, DomElementArg, makeTestId, observable, Observable, styled } from "grainjs";
+
+const translate = (x: string, args?: any): string => t(`ui2018.pages.${x}`, args);
 
 const testId = makeTestId('test-docpage-');
 
@@ -31,13 +34,13 @@ export function buildPageDom(name: Observable<string>, actions: PageActions, ...
 
   const isRenaming = observable(false);
   const pageMenu = () => [
-    menuItem(() => isRenaming.set(true), "Rename", testId('rename'),
+    menuItem(() => isRenaming.set(true), translate("Rename"), testId('rename'),
             dom.cls('disabled', actions.isReadonly)),
-    menuItem(actions.onRemove, 'Remove', testId('remove'),
+    menuItem(actions.onRemove, translate('Remove'), testId('remove'),
              dom.cls('disabled', (use) => use(actions.isReadonly) || actions.isRemoveDisabled())),
-    menuItem(actions.onDuplicate, 'Duplicate Page', testId('duplicate'),
+    menuItem(actions.onDuplicate, translate('DuplicatePage'), testId('duplicate'),
              dom.cls('disabled', actions.isReadonly)),
-    dom.maybe(actions.isReadonly, () => menuText('You do not have edit access to this document')),
+    dom.maybe(actions.isReadonly, () => menuText(translate('NoEditAccess'))),
   ];
   let pageElem: HTMLElement;
 
