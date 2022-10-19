@@ -208,10 +208,10 @@ export function buildFormulaConfig(
   const behaviorName = Computed.create(owner, behavior, (use, type) => {
     if (use(isMultiSelect)) {
       const commonType = use(multiType);
-      if (commonType === 'formula') { return translate('ColumnType', {context: 'formula'}); }
-      if (commonType === 'data') { return translate('ColumnType', {context: 'data'}); }
-      if (commonType === 'mixed') { return translate('ColumnType', {context: 'mixed'}); }
-      return translate('ColumnType', {context: 'empty'});
+      if (commonType === 'formula') { return translate('ColumnType', {context: 'formula', count: 2}); }
+      if (commonType === 'data') { return translate('ColumnType', {context: 'data', count: 2}); }
+      if (commonType === 'mixed') { return translate('ColumnType', {context: 'mixed', count: 2}); }
+      return translate('ColumnType', {context: 'empty', count: 2});
     } else {
       if (type === 'formula') { return translate('ColumnType', {context: 'formula', count: 1}); }
       if (type === 'data') { return translate('ColumnType', {context: 'data', count: 1}); }
@@ -219,7 +219,7 @@ export function buildFormulaConfig(
     }
   });
   const behaviorIcon = Computed.create<IconName>(owner, (use) => {
-    return use(behaviorName) === translate('ColumnType', {context: 'data'}) ||
+    return use(behaviorName) === translate('ColumnType', {context: 'data', count: 2}) ||
            use(behaviorName) === translate('ColumnType', {context: 'data', count: 1}) ? "Database" : "Script";
   });
   const behaviorLabel = () => selectTitle(behaviorName, behaviorIcon);
