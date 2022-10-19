@@ -36,9 +36,9 @@ export function buildShareMenuButton(pageModel: DocPageModel): DomContents {
     const saveCopy = () => makeCopy(doc, appModel, translate('SaveDocument')).catch(reportError);
     if (doc.idParts.snapshotId) {
       const backToCurrent = () => urlState().pushUrl({doc: buildOriginalUrlId(doc.id, true)});
-      return shareButton('Back to Current', () => [
+      return shareButton(translate('BackToCurrent'), () => [
         menuManageUsers(doc, pageModel),
-        menuSaveCopy('Save Copy', doc, appModel),
+        menuSaveCopy(translate('SaveCopy'), doc, appModel),
         menuOriginal(doc, appModel, true),
         menuExports(doc, pageModel),
       ], {buttonAction: backToCurrent});
@@ -127,7 +127,7 @@ function shareButton(buttonText: string|null, menuCreateFunc: MenuCreateFunc,
 function menuManageUsers(doc: DocInfo, pageModel: DocPageModel) {
   return [
     menuItem(() => manageUsers(doc, pageModel),
-      roles.canEditAccess(doc.access) ? translate('Manage Users') : translate('AccessDetails'),
+      roles.canEditAccess(doc.access) ? translate('ManageUsers') : translate('AccessDetails'),
       dom.cls('disabled', doc.isFork),
       testId('tb-share-option')
     ),

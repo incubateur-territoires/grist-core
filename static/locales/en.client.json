@@ -28,7 +28,7 @@
     "SwitchAccounts":"Switch Accounts",
     "Accounts":"Accounts",
     "AddAccount":"Add Account",
-    "Sign Out":"SignOut"
+    "SignOut":"Sign Out"
   },
   "AddNewButton": {
     "AddNew": "Add New"
@@ -445,13 +445,14 @@
     "SendingToGoogleDrive":"Sending file to Google Drive"
   },
   "ShareMenu":{
+    "BackToCurrent": "Back to Current",
     "SaveDocument":"Save Document",
     "SaveCopy":"Save Copy",
     "Unsaved":"Unsaved",
     "DuplicateDocument":"Duplicate Document",
     "ManageUsers":"Manage Users",
     "AccessDetails":"Access Details",
-    "Current Version":"CurrentVersion",
+    "CurrentVersion":"Current Version",
     "Original":"Original",
     "ReturnToTermToUse":"Return to {{termToUse}}",
     "ReplaceTermToUse":"Replace {{termToUse}}...",
