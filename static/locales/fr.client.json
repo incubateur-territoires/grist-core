@@ -17,8 +17,8 @@
     "WidgetNeedFullAccess": "Widget needs {{fullAcces}} to this document.",
     "WidgetNeedRead": "Widget needs to {{ read }} the current table.",
     "WidgetNoPermissison": "Widget does not require any permissions.",
-    "WrongTypesMenuText_one": "`{{wrongTypeCount}} non-{{columnType}} column is not shown",
-    "WrongTypesMenuText_others": "`{{wrongTypeCount}} non-{{columnType}} columns are not shown"
+    "WrongTypesMenuText_one": "{{wrongTypeCount}} non-{{columnType}} column is not shown",
+    "WrongTypesMenuText_others": "{{wrongTypeCount}} non-{{columnType}} columns are not shown"
   },
   "AccountPage": {
     "AccountSettings": "Account settings",
