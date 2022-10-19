@@ -535,6 +535,23 @@
     "Empty":"(empty)",
     "CustomOptions":"Custom options"
   },
+  "models": {
+    "AppModels": {
+      "TeamSiteSuspended": "This team site is suspended. Documents can be read, but not modified."
+    },
+    "DocPageModel": {
+      "ErrorAccessingDocument": "Error accessing document",
+      "Reload": "Reload",
+      "ReloadingOrRecoveryMode": "You can try reloading the document, or using recovery mode. Recovery mode opens the document to be fully accessible to owners, and inaccessible to others. It also disables formulas. {{error}}",
+      "AccessError_denied": "Sorry, access to this document has been denied. {{error}}",
+      "AccessError_recover": "Document owners can attempt to recover the document. {{error}}",
+      "EnterRecoveryMode": "Enter recovery mode",
+      "AddPage": "Add Page",
+      "AddWidgetToPage": "Add Widget to Page",
+      "AddEmptyTable": "Add Empty Table",
+      "NoEditAccess": "You do not have edit access to this document"
+    }
+  },
   "ui2018": {
     "breadcrumbs": {
       "FiddleExplanation": "You may make edits, but they will create a new copy and will\nnot affect the original document.",
