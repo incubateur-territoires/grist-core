@@ -1,3 +1,4 @@
+import {t} from 'app/client/lib/localization';
 import {GristDoc} from 'app/client/components/GristDoc';
 import {AppModel} from 'app/client/models/AppModel';
 import {DocPageModel} from 'app/client/models/DocPageModel';
@@ -9,6 +10,8 @@ import {ANONYMOUS_USER_EMAIL, Document, EVERYONE_EMAIL, FullUser, getRealAccess,
         PermissionData, PermissionDelta, UserAPI, Workspace} from 'app/common/UserAPI';
 import {computed, Computed, Disposable, obsArray, ObsArray, observable, Observable} from 'grainjs';
 import some = require('lodash/some');
+
+const translate = (x: string, args?: any): string => t(`models.UserManagerModel.${x}`, args);
 
 export interface UserManagerModel {
   initData: PermissionData;                    // PermissionData used to initialize the UserManager
@@ -95,28 +98,28 @@ interface IBuildMemberOptions {
 export class UserManagerModelImpl extends Disposable implements UserManagerModel {
   // Select options for each individual user's role dropdown.
   public readonly userSelectOptions: IMemberSelectOption[] = [
-    { value: roles.OWNER,  label: 'Owner'  },
-    { value: roles.EDITOR, label: 'Editor' },
-    { value: roles.VIEWER, label: 'Viewer' }
+    { value: roles.OWNER,  label: translate('Owner')  },
+    { value: roles.EDITOR, label: translate('Editor') },
+    { value: roles.VIEWER, label: translate('Viewer') }
   ];
   // Select options for each individual user's role dropdown in the org.
   public readonly orgUserSelectOptions: IOrgMemberSelectOption[] = [
-    { value: roles.OWNER,  label: 'Owner'  },
-    { value: roles.EDITOR, label: 'Editor' },
-    { value: roles.VIEWER, label: 'Viewer' },
-    { value: roles.MEMBER, label: 'No Default Access' },
+    { value: roles.OWNER,  label: translate('Owner')  },
+    { value: roles.EDITOR, label: translate('Editor') },
+    { value: roles.VIEWER, label: translate('Viewer') },
+    { value: roles.MEMBER, label: translate('NoDefaultAccess') },
   ];
   // Select options for the resource's maxInheritedRole dropdown.
   public readonly inheritSelectOptions: IMemberSelectOption[] = [
-    { value: roles.OWNER,  label: 'In Full'     },
-    { value: roles.EDITOR, label: 'View & Edit' },
-    { value: roles.VIEWER, label: 'View Only'   },
-    { value: null,         label: 'None'        }
+    { value: roles.OWNER,  label: translate('InFull')     },
+    { value: roles.EDITOR, label: translate('ViewAndEdit') },
+    { value: roles.VIEWER, label: translate('ViewOnly')   },
+    { value: null,         label: translate('None')        }
   ];
   // Select options for the public member's role dropdown.
   public readonly publicUserSelectOptions: IMemberSelectOption[] = [
-    { value: roles.EDITOR, label: 'Editor' },
-    { value: roles.VIEWER, label: 'Viewer' },
+    { value: roles.EDITOR, label: translate('Editor') },
+    { value: roles.VIEWER, label: translate('Viewer') },
   ];
 
   public activeUser: FullUser|null = this._options.activeUser ?? null;
