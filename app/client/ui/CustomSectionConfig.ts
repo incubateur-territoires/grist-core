@@ -73,7 +73,7 @@ class ColumnPicker extends Disposable {
           properValue,
           options,
           {
-            defaultLabel: this._column.typeDesc != "any" ? translate('PickupColumnType', {"columnType": this._column.typeDesc}) : translate('Pick a column')
+            defaultLabel: this._column.typeDesc != "any" ? translate('PickAColumnWithType', {"columnType": this._column.typeDesc}) : translate('PickAColumn')
           }
         ),
         testId('mapping-for-' + this._column.name),
