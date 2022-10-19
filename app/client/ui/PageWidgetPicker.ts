@@ -297,7 +297,7 @@ export class PageWidgetSelect extends Disposable {
         ),
         cssPanel(
           testId('data'),
-          header(translate('Select Data')),
+          header(translate('SelectData')),
           cssEntry(
             cssIcon('TypeTable'), 'New Table',
             // prevent the selection of 'New Table' if it is disabled
