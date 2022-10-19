@@ -532,5 +532,15 @@
     "Modified":"(modified)",
     "Empty":"(empty)",
     "CustomOptions":"Custom options"
+  },
+  "ui2018": {
+    "breadcrumbs": {
+      "FiddleExplanation": "You may make edits, but they will create a new copy and will\nnot affect the original document.",
+      "Snapshot": "snapshot",
+      "Unsaved": "unsaved",
+      "RecoveryMode": "recovery mode",
+      "Override": "override",
+      "Fiddle": "fiddle"
+    }
   }
 }
