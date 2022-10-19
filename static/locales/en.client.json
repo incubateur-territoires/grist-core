@@ -484,7 +484,8 @@
     "DocumentTour": "Tour of this Document",
     "DeleteDocumentTour": "Delete document tour?",
     "Delete": "Delete",
-    "ViewingAsYourself": "Return to viewing as yourself"
+    "ViewingAsYourself": "Return to viewing as yourself",
+    "RawData": "Raw Data"
   },
   "TopBar": {
     "ManageTeam": "Manage Team"
