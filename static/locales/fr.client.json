@@ -79,8 +79,8 @@
     "Search": "Rechercher",
     "SearchValues": "Chercher",
     "All": "Tous",
-    "AllShown": "All Shown",
-    "AllExcept": "All Except",
+    "AllShown": "Ces valeurs",
+    "AllExcept": "Pas ces valeurs",
     "None": "Aucun",
     "NoMatchingValues": "Aucune valeur trouvée",
     "OtherMatching": "Other matching",
@@ -211,7 +211,7 @@
     "ClearAndReset": "Effacer et réinitialiser",
     "EnterFormula": "Saisir la formule",
     "ColumnBehavior": "NATURE DE COLONNE",
-    "SetFormula": "Set formula",
+    "SetFormula": "Définir la formule",
     "SetTriggerFormula": "Définir une formule d’initialisation",
     "MakeIntoDataColumn": "Transformer en colonne de données",
     "TriggerFormula": "TRIGGER FORMULA"
@@ -244,7 +244,7 @@
     "GridOptions": "Options de la grille",
     "VerticalGridlines": "Grille verticale",
     "HorizontalGridlines": "Grille horizontale",
-    "ZebraStripes": "Zebra Stripes"
+    "ZebraStripes": "Couleurs alternées"
   },
   "GridViewMenus": {
     "AddColumn": "Ajouter une colonne",
@@ -308,7 +308,7 @@
     "Workspaces": "Dossiers",
     "WorkspaceDeleteTitle": "Supprimer le dossier {{workspace}} et tous les documents qu'il contient ?",
     "WorkspaceDeleteText": "Le dossier va être mis à la corbeille.",
-    "ManageUsers": "Manage Users",
+    "ManageUsers": "Gérer les utilisateurs",
     "AccessDetails": "Access Details"
   },
   "LeftPanelCommon": {
@@ -327,8 +327,8 @@
     "WarningWillBeOverwritten": "It will be overwritten, losing any content not in this document.",
     "OriginalLooksIdentical": "Original Looks Identical",
     "WarningAlreadyIdentical": "However, it appears to be already identical.",
-    "SignUp": "Sign up",
-    "ToSaveSignUpAndReload": "To save your changes, please sign up, then reload this page.",
+    "SignUp": "Inscription",
+    "ToSaveSignUpAndReload": "Pour enregistrer vos modifications, veuillez vous inscrire, puis recharger cette page.",
     "NoDestinationWorkspace": "Aucun dossier destination",
     "Name": "Nom",
     "EnterDocumentName": "Saisir le nom du document",
@@ -398,25 +398,25 @@
   "RightPanel": {
     "Column_one": "Colonne",
     "Column_other": "Colonnes",
-    "Field_one": "Field",
-    "Field_other": "Fields",
-    "Series_one": "Series",
-    "Series_other": "Series",
-    "ColumnType": "COLUMN TYPE",
+    "Field_one": "Champ",
+    "Field_other": "Champs",
+    "Series_one": "Séries",
+    "Series_other": "Séries",
+    "ColumnType": "TYPE DE COLONNE",
     "Transform": "TRANSFORM",
-    "Widget": "Widget",
-    "SortAndFilter": "Sort & Filter",
-    "Data": "Data",
-    "DataTableName": "DATA TABLE NAME",
-    "WidgetTitle": "WIDGET TITLE",
-    "ChangeWidget": "Change Widget",
+    "Widget": "Vue",
+    "SortAndFilter": "Trier et Filtrer",
+    "Data": "Données source",
+    "DataTableName": "NOM DE LA TABLE",
+    "WidgetTitle": "TITRE DE LA VUE",
+    "ChangeWidget": "Modifier la vue",
     "Theme": "Thème",
     "RowStyleUpper": "ROW STYLE",
     "RowStyle": "Row Style",
     "ChartType": "CHART TYPE",
     "Custom": "CUSTOM",
-    "Sort": "SORT",
-    "Filter": "FILTER",
+    "Sort": "TRI",
+    "Filter": "FILTRE",
     "DataTable": "DONNÉES SOURCE",
     "SourceData": "DONNÉES SOURCE",
     "GroupedBy": "GROUPER PAR",
@@ -435,16 +435,16 @@
     "DuplicateRows_one": "Dupliquer la ligne",
     "DuplicateRows_other": "Dupliquer les lignes",
     "Delete": "Supprimer",
-    "CopyAnchorLink": "Copy anchor link"
+    "CopyAnchorLink": "Copier l'ancre"
   },
   "sendToDrive": {
     "SendingToGoogleDrive": "Envoi en cours vers Google Drive"
   },
   "ShareMenu": {
-    "BackToCurrent": "Back to Current",
+    "BackToCurrent": "Retour à la version active",
     "SaveDocument": "Enregistrer le document",
     "SaveCopy": "Enregistrer une copie",
-    "Unsaved": "Unsaved",
+    "Unsaved": "Non enregistré",
     "DuplicateDocument": "Dupliquer le document",
     "ManageUsers": "Gérer les utilisateurs",
     "AccessDetails": "Informations d’accès",
@@ -487,8 +487,8 @@
     "ManageTeam": "Gestion de l'équipe"
   },
   "TriggerFormulas": {
-    "AnyField": "Any field",
-    "NewRecords": "Apply to new records",
+    "AnyField": "N'importe quel champ",
+    "NewRecords": "Nouveaux enregistrements",
     "ChangesTo": "Appliquer sur les modifications à :",
     "RecordChanges": "Réappliquer en cas de modification de la ligne",
     "CurrentField": "Champ actif ",
@@ -502,18 +502,18 @@
     "NoReorderHiddenField": "Les champs masqués ne peuvent pas être réordonnés",
     "NoDropInHiddenField": "Impossible de mettre des éléments dans les champs cachés",
     "SelectAll": "Sélectionner tout",
-    "Clear": "Clear"
+    "Clear": "Effacer"
   },
   "ViewLayoutMenu": {
-    "DeleteRecord": "Delete record",
-    "CopyAnchorLink": "Copy anchor link",
-    "ShowRawData": "Show raw data",
-    "PrintWidget": "Print widget",
+    "DeleteRecord": "Supprimer la ligne",
+    "CopyAnchorLink": "Copier l'ancre",
+    "ShowRawData": "Afficher les données source",
+    "PrintWidget": "Imprimer la vue",
     "DownloadCSV": "Télécharger en CSV",
     "DownloadXLSX": "Télécharger en XLSX",
     "EditCardLayout": "Edit Card Layout",
-    "WidgetOptions": "Widget options",
-    "AdvancedSortFilter": "Advanced Sort & Filter",
+    "WidgetOptions": "Options de la vue",
+    "AdvancedSortFilter": "Tri et filtre avancés",
     "DataSelection": "Sélection des données",
     "OpenConfiguration": "Ouvrir la configuration",
     "DeleteWidget": "Supprimer la vue"
@@ -522,8 +522,8 @@
     "UpdateSortFilterSettings": "Mettre à jour le tri et le filtre",
     "Save": "Enregistrer",
     "Revert": "Restaurer",
-    "SortedBy": "Sorted by",
-    "AddFilter": "Add Filter",
+    "SortedBy": "Trier par",
+    "AddFilter": "Ajouter un filtre",
     "ToggleFilterBar": "Toggle Filter Bar",
     "FilteredBy": "Filtré par",
     "Customized": "(personnalisé)",
@@ -535,13 +535,13 @@
     "AccessRules": {
       "Checking": "Vérification en cours…",
       "Saved": "Enregistré",
-      "Invalid": "Invalid",
-      "Save": "Save",
+      "Invalid": "Invalide",
+      "Save": "Enregistrer",
       "Reset": "Reset",
-      "AddTableRules": "Add Table Rules",
-      "AddUserAttributes": "Add User Attributes",
-      "Users": "Users",
-      "UserAttributes": "User Attributes",
+      "AddTableRules": "Ajouter des règles pour la table",
+      "AddUserAttributes": "Ajouter des propriétés d'utilisateur",
+      "Users": "Utilisateurs",
+      "UserAttributes": "Propriétés de l'utilisateur",
       "AttributeToLookUp": "Attribute to Look Up",
       "LookupTable": "Lookup Table",
       "LookupColumn": "Colonne cible",
@@ -680,7 +680,7 @@
       "StatusMessageGracePeriod": "Limites du document {{- link}}.",
       "StatusMessageGracePeriodElse": "Document limits {{- link}}. In {{gracePeriodDays}} days, this document will be read-only.",
       "StatusMessageDeleteOnly": "This document {{- link}} free plan limits and is now read-only, but you can delete rows.",
-      "Rows": "Rows"
+      "Rows": "Lignes"
     },
     "ViewConfigTab": {
       "Save": "Enregistrer",
@@ -750,11 +750,11 @@
       "Preview": "Aperçu",
       "UpdateFormula": "Mettre à jour la formule (Shift+Entrée)",
       "Revise": "Réviser",
-      "Apply": "Apply"
+      "Apply": "Appliquer"
     },
     "ValidationPanel": {
-      "RuleLength": "Rule {{number}}",
-      "UpdateFormula": "Update formula (Shift+Enter)"
+      "RuleLength": "Règle {{number}}",
+      "UpdateFormula": "Mettre à jour la formule (Maj+Entrée)"
     }
   }
 }
