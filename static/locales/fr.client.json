@@ -290,11 +290,11 @@
     "PersonalIntroGetStarted": "Commencez en créant votre premier document Grist.",
     "AnonIntroGetStarted": "Get started by exploring templates, or creating your first Grist document.",
     "Welcome": "Bienvenue sur Grist !",
-    "HelpCenter": "Help Center",
+    "HelpCenter": "Centre d'aide",
     "InviteTeamMembers": "Inviter un nouveau membre",
     "BrowseTemplates": "Parcourir les modèles",
     "CreateEmptyDocument": "Créer un document vide",
-    "ImportDocument": "Import Document"
+    "ImportDocument": "Importer un Fichier"
   },
   "HomeLeftPane": {
     "AllDocuments": "Tous les documents",
@@ -676,10 +676,11 @@
       "LimitContactSiteOwner": "Contactez l’administrateur pour mettre à niveau le plan afin de relever les limites.",
       "UpgradeLinkText": "débutez votre essai gratuit de 30 jours du forfait Pro.",
       "ForHigherLimits": "Pour des limites plus élevées, ",
-      "StatusMessageApproachingLimit": "This document is {{- linkg}} free plan limits.",
+      "StatusMessageApproachingLimit": "This document is {{- link}} free plan limits.",
       "StatusMessageGracePeriod": "Limites du document {{- link}}.",
       "StatusMessageGracePeriodElse": "Document limits {{- link}}. In {{gracePeriodDays}} days, this document will be read-only.",
-      "StatusMessageDeleteOnly": "This document {{- link}} free plan limits and is now read-only, but you can delete rows."
+      "StatusMessageDeleteOnly": "This document {{- link}} free plan limits and is now read-only, but you can delete rows.",
+      "Rows": "Rows"
     },
     "ViewConfigTab": {
       "Save": "Save",
@@ -709,6 +710,51 @@
     "Drafts": {
       "UndoDiscard": "Annuler la suppression",
       "RestoreLastEdit": "Restaurer la dernière modification"
+    },
+    "duplicatePage": {
+      "DoesNotCopyData": "Note that this does not copy data, but creates another view of the same data.",
+      "DuplicatePageName": "Duplicate page {{pageName}}"
+    },
+    "GristDoc": {
+      "ImportFromFile": "Import from file",
+      "AddedNewLinkedSection": "Added new linked section to view {{viewName}}",
+      "SavedLinkedSectionIn": "Saved linked section {{title}} in view {{name}}"
+    },
+    "Importer": {
+      "UpdateExistingRecords": "Update existing records",
+      "MergeRowsThatMatch": "Merge rows that match these fields:",
+      "SelectFieldsToMatch": "Select fields to match on"
+    },
+    "PluginScreen": {
+      "ImportFailed": "Import failed: "
+    },
+    "RecordLayout": {
+      "UpdatingRecordLayout.": "Updating record layout."
+    },
+    "RecordLayoutEditor": {
+      "AddField": "Add Field",
+      "CreateNewField": "Create New Field",
+      "ShowField": "Show field {{label}}",
+      "SaveLayout": "Save Layout",
+      "Cancel": "Cancel"
+    },
+    "RefSelect": {
+      "AddColumn": "Add Column",
+      "NoColumnsAdd": "No columns to add"
+    },
+    "SelectionSummary": {
+      "CopiedClipboard": "Copied to clipboard"
+    },
+    "TypeTransformation": {
+      "Cancel": "Cancel",
+      "Preview": "Preview",
+      "UpdateFormula": "Update formula (Shift+Enter)",
+      "Revise": "Revise",
+      "Apply": "Apply"
+    },
+    "ValidationPanel": {
+      "RuleLength": "Rule {{number}}",
+      "UpdateFormula": "Update formula (Shift+Enter)"
     }
   }
 }
