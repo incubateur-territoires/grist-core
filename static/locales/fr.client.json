@@ -1,15 +1,15 @@
 {
   "AccountPage": {
-    "AccountSettings": "Account settings",
+    "AccountSettings": "Paramètres du compte",
     "API": "API",
     "Edit": "Modifier",
     "Email": "E-mail",
     "Name": "Nom",
     "Save": "Enregistrer",
     "PasswordSecurity": "Mot de passe & Sécurité",
-    "LoginMethod": "Login Method",
+    "LoginMethod": "Mode de connexion",
     "ChangePassword": "Modifier le mot de passe",
-    "AllowGoogleSigning": "Allow signing in to this account with Google",
+    "AllowGoogleSigning": "Autoriser la connexion à ce compte avec Google",
     "TwoFactorAuth": "Authentification à deux facteurs",
     "TwoFactorAuthDescription": "Two-factor authentication is an extra layer of security for your Grist account designed to ensure that you're the only person who can access your account, even if someone knows your password",
     "Theme": "Theme",
