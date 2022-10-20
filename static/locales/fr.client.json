@@ -669,7 +669,17 @@
     "DocumentUsage": {
       "UsageStatisticsOnlyFullAccess": "Usage statistics are only available to users with full access to the document data.",
       "TotalSize": "The total size of all data in this document, excluding attachments.",
-      "Updates": "Updates every 5 minutes."
+      "Updates": "Updates every 5 minutes.",
+      "AttachmentsSize": "Attachments Size",
+      "DataSize": "Data Size",
+      "Usage": "Usage",
+      "LimitContactSiteOwner": "Contact the site owner to upgrade the plan to raise limits.",
+      "UpgradeLinkText": "start your 30-day free trial of the Pro plan.",
+      "ForHigherLimits": "For higher limits, ",
+      "StatusMessageApproachingLimit": "This document is {{- linkg}} free plan limits.",
+      "StatusMessageGracePeriod": "Document limits {{- link}}.",
+      "StatusMessageGracePeriodElse": "Document limits {{- link}}. In {{gracePeriodDays}} days, this document will be read-only.",
+      "StatusMessageDeleteOnly": "This document {{- link}} free plan limits and is now read-only, but you can delete rows."
     },
     "Drafts": {
       "UndoDiscard": "Undo discard",
