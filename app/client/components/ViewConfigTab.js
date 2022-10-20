@@ -482,9 +482,9 @@ ViewConfigTab.prototype._buildThemeDom = function() {
       return cssRow(
         dom.autoDispose(theme),
         select(theme, [
-          {label: 'Form',        value: 'form'   },
-          {label: 'Compact',     value: 'compact'},
-          {label: 'Blocks',      value: 'blocks'  },
+          {label: translate('Form'),        value: 'form'   },
+          {label: translate('Compact'),     value: 'compact'},
+          {label: translate('Blocks'),      value: 'blocks'  },
         ]),
         testId('detail-theme')
       );
@@ -503,7 +503,7 @@ ViewConfigTab.prototype._buildLayoutDom = function() {
       const layoutEditorObs = ko.computed(() => view && view.recordLayout && view.recordLayout.layoutEditor());
       return cssRow({style: 'margin-top: 16px;'},
         kd.maybe(layoutEditorObs, (editor) => editor.buildFinishButtons()),
-        primaryButton('Edit Card Layout',
+        primaryButton(translate('EditCardLayout'),
           dom.autoDispose(layoutEditorObs),
           dom.on('click', () => commands.allCommands.editLayout.run()),
           grainjsDom.hide(layoutEditorObs),
@@ -551,8 +551,8 @@ ViewConfigTab.prototype._buildCustomTypeItems = function() {
     // 3)
     showObs: () => activeSection().customDef.mode() === "plugin",
     buildDom: () => kd.scope(activeSection, ({customDef}) => dom('div',
-      kf.row(5, "Plugin: ", 13, kf.text(customDef.pluginId, {}, {list: "list_plugin"}, dom.testId('ViewConfigTab_customView_pluginId'))),
-      kf.row(5, "Section: ", 13, kf.text(customDef.sectionId, {}, {list: "list_section"},  dom.testId('ViewConfigTab_customView_sectionId'))),
+      kf.row(5, translate("PluginColon"), 13, kf.text(customDef.pluginId, {}, {list: "list_plugin"}, dom.testId('ViewConfigTab_customView_pluginId'))),
+      kf.row(5, translate("SectionColon"), 13, kf.text(customDef.sectionId, {}, {list: "list_section"},  dom.testId('ViewConfigTab_customView_sectionId'))),
       // For both `customPlugin` and `selectedSection` it is possible for the value not to be in the
       // list of options. Combining <datalist> and <input> allows both to freely edit the value with
       // keyboard and to select it from a list. Although the content of the list seems to be
