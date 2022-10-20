@@ -242,8 +242,8 @@
   },
   "GridOptions": {
     "GridOptions": "Options de la grille",
-    "VerticalGridlines": "Vertical Gridlines",
-    "HorizontalGridlines": "Horizontal Gridlines",
+    "VerticalGridlines": "Grille verticale",
+    "HorizontalGridlines": "Grille horizontale",
     "ZebraStripes": "Zebra Stripes"
   },
   "GridViewMenus": {
@@ -276,16 +276,16 @@
     "AddToSort_added": "Sorted (#{{count}})"
   },
   "HomeIntro": {
-    "SignUp": "Sign up",
+    "SignUp": "S'inscrire",
     "EmptyWorkspace": "Ce dossier est vide.",
     "PersonalSite": "espace personnel",
     "WelcomeTo": "Bienvenue sur {{orgName}}",
-    "WelcomeInfoNoDocuments": "You have read-only access to this site. Currently there are no documents.",
-    "WelcomeInfoAppearHere": "Any documents created in this site will appear here.",
-    "WelcomeTextVistGrist": "Interested in using Grist outside of your team? Visit your free ",
+    "WelcomeInfoNoDocuments": "Vous avez un accès en lecture seule à ce site. Il n'y a actuellement aucun document.",
+    "WelcomeInfoAppearHere": "Tous les documents créés dans ce site apparaîtront ici.",
+    "WelcomeTextVistGrist": "Vous souhaitez utiliser Grist en dehors de votre équipe ? Visitez votre site gratuit ",
     "SproutsProgram": "Sprouts Program",
     "WelcomeUser": "Bienvenue sur Grist, {{name}} !",
-    "TeamSiteIntroGetStarted": "Get started by inviting your team and creating your first Grist document.",
+    "TeamSiteIntroGetStarted": "Pour commencer, inviter votre équipe et créer votre premier document Grist.",
     "OrFindAndExpert": ", or find an expert via our ",
     "PersonalIntroGetStarted": "Commencez en créant votre premier document Grist.",
     "AnonIntroGetStarted": "Get started by exploring templates, or creating your first Grist document.",
@@ -662,7 +662,7 @@
       "RawDataTables": "Données sources",
       "ClickToCopy": "Cliquez ici pour copier",
       "TableIDCopied": "Identifiant de table copié",
-      "DuplicateTable": "Duplicate Table",
+      "DuplicateTable": "Dupliquer la page",
       "NoEditAccess": "Vous n’avez pas accès en écriture à ce document",
       "DeleteData": "Supprimer les données de {{formattedTableName}} et les supprimer de toutes les pages ?"
     },
@@ -683,26 +683,26 @@
       "Rows": "Rows"
     },
     "ViewConfigTab": {
-      "Save": "Save",
-      "Revert": "Revert",
-      "UpdateData": "Update Data",
+      "Save": "Enregistrer",
+      "Revert": "Restaurer",
+      "UpdateData": "Mettre à jour les données",
       "UseChoicePosition": "Use choice position",
       "NaturalSort": "Natural sort",
       "EmptyValuesLast": "Empty values last",
-      "AddColumn": "Add Column",
+      "AddColumn": "Ajouter une colonne",
       "UnmarkOnDemandTitle": "Unmark table On-Demand?",
       "UnmarkOnDemandButton": "Unmark On-Demand",
       "UnmarkOnDemandText": "If you unmark table {{- table}}' as On-Demand, its data will be loaded into the calculation engine and will be available for use in formulas. For a big table, this may greatly increase load times.{{- br}}{{-br}}Changing this setting will reload the document for all users.",
       "MakeOnDemandTitle": "Make table On-Demand?",
       "MakeOnDemanButton": "Make On-Demand",
       "MakeOnDemandText": "If you make table {{table}} On-Demand, its data will no longer be loaded into the calculation engine and will not be available for use in formulas. It will remain available for viewing and editing.",
-      "AdvancedSettings": "Advanced settings",
+      "AdvancedSettings": "Paramètres avancés",
       "BigTablesMaybeMarked": "Big tables may be marked as \"on-demand\" to avoid loading them into the data engine.",
       "UpdateFilterSettings": "Update Filter settings",
-      "AddFilter": "Add Filter",
-      "Form": "Form",
+      "AddFilter": "Ajouter un filtre",
+      "Form": "Formulaire",
       "Compact": "Compact",
-      "Blocks": "Blocks",
+      "Blocks": "Blocs",
       "EditCardLayout": "Edit Card Layout",
       "PluginColon": "Plugin: ",
       "SectionColon": "Section: "
@@ -713,10 +713,10 @@
     },
     "duplicatePage": {
       "DoesNotCopyData": "Note that this does not copy data, but creates another view of the same data.",
-      "DuplicatePageName": "Duplicate page {{pageName}}"
+      "DuplicatePageName": "Dupliquer la page {{pageName}}"
     },
     "GristDoc": {
-      "ImportFromFile": "Import from file",
+      "ImportFromFile": "Importer depuis un fichier",
       "AddedNewLinkedSection": "Added new linked section to view {{viewName}}",
       "SavedLinkedSectionIn": "Saved linked section {{title}} in view {{name}}"
     },
@@ -726,30 +726,30 @@
       "SelectFieldsToMatch": "Select fields to match on"
     },
     "PluginScreen": {
-      "ImportFailed": "Import failed: "
+      "ImportFailed": "Échec de l'importation: "
     },
     "RecordLayout": {
       "UpdatingRecordLayout.": "Updating record layout."
     },
     "RecordLayoutEditor": {
-      "AddField": "Add Field",
-      "CreateNewField": "Create New Field",
-      "ShowField": "Show field {{label}}",
+      "AddField": "Ajouter un champ",
+      "CreateNewField": "Créer un nouveau champ",
+      "ShowField": "Afficher le champ {{label}}",
       "SaveLayout": "Save Layout",
-      "Cancel": "Cancel"
+      "Cancel": "Annuler"
     },
     "RefSelect": {
-      "AddColumn": "Add Column",
-      "NoColumnsAdd": "No columns to add"
+      "AddColumn": "Ajouter une colonne",
+      "NoColumnsAdd": "Aucune colonne à ajouter"
     },
     "SelectionSummary": {
-      "CopiedClipboard": "Copied to clipboard"
+      "CopiedClipboard": "Copié dans le presse-papier"
     },
     "TypeTransformation": {
-      "Cancel": "Cancel",
-      "Preview": "Preview",
-      "UpdateFormula": "Update formula (Shift+Enter)",
-      "Revise": "Revise",
+      "Cancel": "Annuler",
+      "Preview": "Aperçu",
+      "UpdateFormula": "Mettre à jour la formule (Shift+Entrée)",
+      "Revise": "Réviser",
       "Apply": "Apply"
     },
     "ValidationPanel": {
