@@ -24,8 +24,11 @@ const {confirmModal} = require('app/client/ui2018/modals');
 const {Sort} = require('app/common/SortSpec');
 const isEqual = require('lodash/isEqual');
 const {cssMenuItem} = require('popweasel');
+import {t} from 'app/client/lib/localization';
 
 const testId = makeTestId('test-vconfigtab-');
+
+const translate = (x, args) => t(`components.ViewConfigTab.${x}`, args);
 
 /**
  * Helper class that combines one ViewSection's data for building dom.
@@ -132,21 +135,21 @@ ViewConfigTab.prototype.buildSortDom = function() {
       cssRow(
         cssExtraMarginTop.cls(''),
         grainjsDom.maybe(hasChanged, () => [
-          primaryButton('Save', {style: 'margin-right: 8px;'},
+          primaryButton(translate('Save'), {style: 'margin-right: 8px;'},
             grainjsDom.on('click', () => { section.activeSortJson.save(); }),
             testId('sort-save'),
             grainjsDom.boolAttr('disabled', this.gristDoc.isReadonly),
           ),
           // Let's use same label (revert) as the similar button which appear in the view section.
           // menu.
-          basicButton('Revert',
+          basicButton(translate('Revert'),
             grainjsDom.on('click', () => { section.activeSortJson.revert(); }),
             testId('sort-reset')
           )
         ]),
         cssFlex(),
         grainjsDom.maybe(section.isSorted, () =>
-          basicButton('Update Data', {style: 'margin-left: 8px; white-space: nowrap;'},
+          basicButton(translate('UpdateData'), {style: 'margin-left: 8px; white-space: nowrap;'},
             grainjsDom.on('click', () => { updatePositions(this.gristDoc, section); }),
             testId('sort-update'),
             grainjsDom.show((use) => use(use(section.table).supportsManualSort)),
@@ -200,9 +203,9 @@ ViewConfigTab.prototype._buildSortRow = function(colRef, sortSpec, columns) {
     });
     return {computed, allowedTypes, flag, label};
   }
-  const orderByChoice = computedFlag('orderByChoice', ['Choice'], 'Use choice position');
-  const naturalSort   = computedFlag('naturalSort', ['Text'], 'Natural sort');
-  const emptyLast     = computedFlag('emptyLast', null, 'Empty values last');
+  const orderByChoice = computedFlag('orderByChoice', ['Choice'], translate('UseChoicePosition'));
+  const naturalSort   = computedFlag('naturalSort', ['Text'], translate('NaturalSort'));
+  const emptyLast     = computedFlag('emptyLast', null, translate('EmptyValuesLast'));
   const flags = [orderByChoice, emptyLast, naturalSort];
 
   const column = columns.get().find(col => col.value === Sort.getColRef(colRef));
@@ -278,7 +281,7 @@ ViewConfigTab.prototype._buildAddToSortBtn = function(columns) {
       grainjsDom.autoDispose(showAddNew),
       grainjsDom.autoDispose(available),
       cssTextBtn(
-        cssPlusIcon('Plus'), 'Add Column',
+        cssPlusIcon('Plus'), translate('AddColumn'),
         testId('sort-add')
       ),
       grainjsDom.hide((use) => use(showAddNew) || !use(available).length),
@@ -304,7 +307,7 @@ ViewConfigTab.prototype._buildAddToSortBtn = function(columns) {
       return cssRow(cssSortRow(
         dom.autoDispose(col),
         cssSortSelect(
-          select(col, [], {defaultLabel: 'Add Column'}),
+          select(col, [], {defaultLabel: translate('AddColumn')}),
           menu(() => [
             menuCols,
             grainjsDom.onDispose(() => { showAddNew.set(false); })
@@ -347,17 +350,12 @@ ViewConfigTab.prototype._makeOnDemand = function(table) {
   }
 
   if (table.onDemand()) {
-    confirmModal('Unmark table On-Demand?', 'Unmark On-Demand', onConfirm,
-      dom('div', 'If you unmark table ', dom('b', table), ' as On-Demand, ' +
-        'its data will be loaded into the calculation engine and will be available ' +
-        'for use in formulas. For a big table, this may greatly increase load times.',
-        dom('br'), dom('br'), 'Changing this setting will reload the document for all users.')
+    confirmModal(translate('UnmarkOnDemandTitle'), translate('UnmarkOnDemandButton'), onConfirm,
+      dom('div', translate('UnmarkOnDemandText', {table: dom('b', table), br: dom('br')}))
     );
   } else {
-    confirmModal('Make table On-Demand?', 'Make On-Demand', onConfirm,
-      dom('div', 'If you make table ', dom('b', table), ' On-Demand, ' +
-        'its data will no longer be loaded into the calculation engine and will not be available ' +
-        'for use in formulas. It will remain available for viewing and editing.',
+    confirmModal(translate('MakeOnDemandTitle'), translate('MakeOnDemanButton'), onConfirm,
+      dom('div', translate('MakeOnDemandText', {table: dom('b', table)}),
         dom('br'), dom('br'), 'Changing this setting will reload the document for all users.')
     );
   }
@@ -372,9 +370,9 @@ ViewConfigTab.prototype._buildAdvancedSettingsDom = function() {
     const table = sectionData.section.table();
     const isCollapsed = ko.observable(true);
     return [
-      kf.collapserLabel(isCollapsed, 'Advanced settings', dom.testId('ViewConfig_advanced')),
+      kf.collapserLabel(isCollapsed, translate('AdvancedSettings'), dom.testId('ViewConfig_advanced')),
       kf.helpRow(kd.hide(isCollapsed),
-        'Big tables may be marked as "on-demand" to avoid loading them into the data engine.',
+        translate('BigTablesMaybeMarked'),
         kd.style('text-align', 'left'),
         kd.style('margin-top', '1.5rem')
       ),
@@ -383,7 +381,7 @@ ViewConfigTab.prototype._buildAdvancedSettingsDom = function() {
       ),
       kf.row(kd.hide(isCollapsed),
         kf.buttonGroup(kf.button(() => this._makeOnDemand(table),
-          kd.text(() => table.onDemand() ? 'Unmark On-Demand' : 'Make On-Demand'),
+          kd.text(() => table.onDemand() ? translate('UnmarkOnDemandButton') : translate('MakeOnDemanButton')),
           dom.testId('ViewConfig_onDemandBtn')
         ))
       ),
@@ -401,7 +399,7 @@ ViewConfigTab.prototype._buildFilterDom = function() {
     const hasChangedObs = Computed.create(null, (use) => use(section.filterSpecChanged) || !use(section.activeFilterBar.isSaved))
 
     async function save() {
-      await docModel.docData.bundleActions("Update Filter settings", () => Promise.all([
+      await docModel.docData.bundleActions(translate("UpdateFilterSettings"), () => Promise.all([
         section.saveFilters(),          // Save filter
         section.activeFilterBar.save(), // Save bar
       ]));
@@ -438,7 +436,7 @@ ViewConfigTab.prototype._buildFilterDom = function() {
         grainjsDom.domComputed((use) => {
           const filters = use(section.filters);
           return cssTextBtn(
-            cssPlusIcon('Plus'), 'Add Filter',
+            cssPlusIcon('Plus'), translate('Add Filter'),
             addFilterMenu(filters, section, popupControls, {placement: 'bottom-end'}),
             testId('add-filter-btn'),
           );
@@ -462,12 +460,12 @@ ViewConfigTab.prototype._buildFilterDom = function() {
         cssExtraMarginTop.cls(''),
         testId('save-filter-btns'),
         primaryButton(
-          'Save', {style: 'margin-right: 8px'},
+          translate('Save'), {style: 'margin-right: 8px'},
           grainjsDom.on('click', save),
           grainjsDom.boolAttr('disabled', this.gristDoc.isReadonly),
         ),
         basicButton(
-          'Revert',
+          translate('Revert'),
           grainjsDom.on('click', revert),
         )
       ))

@@ -682,6 +682,31 @@
       "StatusMessageGracePeriodElse": "Document limits {{- link}}. In {{gracePeriodDays}} days, this document will be read-only.",
       "StatusMessageDeleteOnly": "This document {{- link}} free plan limits and is now read-only, but you can delete rows."
     },
+    "ViewConfigTab": {
+      "Save": "Save",
+      "Revert": "Revert",
+      "UpdateData": "Update Data",
+      "UseChoicePosition": "Use choice position",
+      "NaturalSort": "Natural sort",
+      "EmptyValuesLast": "Empty values last",
+      "AddColumn": "Add Column",
+      "UnmarkOnDemandTitle": "Unmark table On-Demand?",
+      "UnmarkOnDemandButton": "Unmark On-Demand",
+      "UnmarkOnDemandText": "If you unmark table {{- table}}' as On-Demand, its data will be loaded into the calculation engine and will be available for use in formulas. For a big table, this may greatly increase load times.{{- br}}{{-br}}Changing this setting will reload the document for all users.",
+      "MakeOnDemandTitle": "Make table On-Demand?",
+      "MakeOnDemanButton": "Make On-Demand",
+      "MakeOnDemandText": "If you make table {{table}} On-Demand, its data will no longer be loaded into the calculation engine and will not be available for use in formulas. It will remain available for viewing and editing.",
+      "AdvancedSettings": "Advanced settings",
+      "BigTablesMaybeMarked": "Big tables may be marked as \"on-demand\" to avoid loading them into the data engine.",
+      "UpdateFilterSettings": "Update Filter settings",
+      "AddFilter": "Add Filter",
+      "Form": "Form",
+      "Compact": "Compact",
+      "Blocks": "Blocks",
+      "EditCardLayout": "Edit Card Layout",
+      "PluginColon": "Plugin: ",
+      "SectionColon": "Section: "
+    },
     "Drafts":{
       "UndoDiscard":"Undo discard",
       "RestoreLastEdit":"Restore last edit"

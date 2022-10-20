@@ -371,8 +371,8 @@ export class CustomSectionConfig extends Disposable {
       }
       switch(level) {
         case AccessLevel.none: return cssConfirmLine(translate("WidgetNoPermissison"));
-        case AccessLevel.read_table: return cssConfirmLine(translate("WidgetNeedRead", {read: dom("b", "read")}));
-        case AccessLevel.full: return cssConfirmLine(translate("WidgetNeedFullAccess", {fullAccess: dom("b", "full access")}));
+        case AccessLevel.read_table: return cssConfirmLine(translate("WidgetNeedRead", {read: dom("b", "read")})); // TODO i18next
+        case AccessLevel.full: return cssConfirmLine(translate("WidgetNeedFullAccess", {fullAccess: dom("b", "full access")})); // TODO i18next
         default: throw new Error(`Unsupported ${level} access level`);
       }
     }
