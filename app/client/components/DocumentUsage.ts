@@ -10,6 +10,9 @@ import {Features, isFreePlan} from 'app/common/Features';
 import {capitalizeFirstWord} from 'app/common/gutil';
 import {canUpgradeOrg} from 'app/common/roles';
 import {Computed, Disposable, dom, DomContents, DomElementArg, makeTestId, styled} from 'grainjs';
+import {t} from 'app/client/lib/localization';
+
+const translate = (x: string, args?: any): string => t(`components.DocumentUsage.${x}`, args);
 
 const testId = makeTestId('test-doc-usage-');
 
@@ -22,8 +25,7 @@ const DEFAULT_MAX_DATA_SIZE = DEFAULT_MAX_ROWS * 2 * 1024; // 40MB (2KiB per row
 // Default used by the progress bar to visually indicate attachments size usage.
 const DEFAULT_MAX_ATTACHMENTS_SIZE = 1 * 1024 * 1024 * 1024; // 1GiB
 
-const ACCESS_DENIED_MESSAGE = 'Usage statistics are only available to users with '
-  + 'full access to the document data.';
+const ACCESS_DENIED_MESSAGE = translate('UsageStatisticsOnlyFullAccess');
 
 /**
  * Displays statistics about document usage, such as number of rows used.
@@ -59,7 +61,7 @@ export class DocumentUsage extends Disposable {
       // Invalid row limits are currently treated as if they are undefined.
       const maxValue = maxRows && maxRows > 0 ? maxRows : undefined;
       return {
-        name: 'Rows',
+        name: translate('Rows'),
         currentValue: typeof rowCount !== 'object' ? undefined : rowCount.total,
         maximumValue: maxValue ?? DEFAULT_MAX_ROWS,
         unit: 'rows',
@@ -74,14 +76,14 @@ export class DocumentUsage extends Disposable {
       // Invalid data size limits are currently treated as if they are undefined.
       const maxValue = maxSize && maxSize > 0 ? maxSize : undefined;
       return {
-        name: 'Data Size',
+        name: translate('DataSize'),
         currentValue: typeof dataSize !== 'number' ? undefined : dataSize,
         maximumValue: maxValue ?? DEFAULT_MAX_DATA_SIZE,
         unit: 'MB',
         shouldHideLimits: maxValue === undefined,
         tooltipContent: () => cssTooltipBody(
-          dom('div', 'The total size of all data in this document, excluding attachments.'),
-          dom('div', 'Updates every 5 minutes.'),
+          dom('div', translate('TotalSize')),
+          dom('div', translate('Updates')),
         ),
         formatValue: (val) => {
           // To display a nice, round number for `maximumValue`, we first convert
@@ -99,7 +101,7 @@ export class DocumentUsage extends Disposable {
       // Invalid attachments size limits are currently treated as if they are undefined.
       const maxValue = maxSize && maxSize > 0 ? maxSize : undefined;
       return {
-        name: 'Attachments Size',
+        name: translate('AttachmentsSize'),
         currentValue: typeof attachmentsSize !== 'number' ? undefined : attachmentsSize,
         maximumValue: maxValue ?? DEFAULT_MAX_ATTACHMENTS_SIZE,
         unit: 'GB',
@@ -137,7 +139,7 @@ export class DocumentUsage extends Disposable {
 
   public buildDom() {
     return dom('div',
-      cssHeader('Usage', testId('heading')),
+      cssHeader(translate('Usage'), testId('heading')),
       dom.domComputed(this._areAllMetricsPending, (isLoading) => {
         if (isLoading) { return cssSpinner(loadingSpinner(), testId('loading')); }
 
@@ -203,32 +205,24 @@ export function buildLimitStatusMessage(
   switch (status) {
     case 'approachingLimit': {
       return [
-        'This document is ',
-        disableRawDataLink ? 'approaching' : buildRawDataPageLink('approaching'),
-        ' free plan limits.'
+        translate('StatusMessageApproachingLimit', {link: disableRawDataLink ? 'approaching' : buildRawDataPageLink('approaching')})
       ];
     }
     case 'gracePeriod': {
       const gracePeriodDays = features?.gracePeriodDays;
       if (!gracePeriodDays) {
         return [
-          'Document limits ',
-          disableRawDataLink ? 'exceeded' : buildRawDataPageLink('exceeded'),
-          '.'
+          translate('StatusMessageGracePeriod', {link: disableRawDataLink ? 'exceeded' : buildRawDataPageLink('exceeded')})
         ];
       }
 
       return [
-        'Document limits ',
-        disableRawDataLink ? 'exceeded' : buildRawDataPageLink('exceeded'),
-        `. In ${gracePeriodDays} days, this document will be read-only.`
+        translate('StatusMessageGracePeriodElse', {link: disableRawDataLink ? 'exceeded' : buildRawDataPageLink('exceeded'), gracePeriodDays})
       ];
     }
     case 'deleteOnly': {
       return [
-        'This document ',
-        disableRawDataLink ? 'exceeded' : buildRawDataPageLink('exceeded'),
-        ' free plan limits and is now read-only, but you can delete rows.'
+        translate('StatusMessageDeleteOnly', {link: disableRawDataLink ? 'exceeded' : buildRawDataPageLink('exceeded')})
       ];
     }
   }
@@ -239,11 +233,12 @@ export function buildUpgradeMessage(
   variant: 'short' | 'long',
   onUpgrade: () => void,
 ) {
-  if (!canUpgrade) { return 'Contact the site owner to upgrade the plan to raise limits.'; }
+  if (!canUpgrade) { return translate('LimitContactSiteOwner'); }
 
-  const upgradeLinkText = 'start your 30-day free trial of the Pro plan.';
+  const upgradeLinkText = translate('UpgradeLinkText')
+  // TODO i18next
   return [
-    variant === 'short' ? null : 'For higher limits, ',
+    variant === 'short' ? null : translate('ForHigherLimits'),
     buildUpgradeLink(
       variant === 'short' ? capitalizeFirstWord(upgradeLinkText) : upgradeLinkText,
       () => onUpgrade(),
