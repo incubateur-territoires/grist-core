@@ -82,6 +82,10 @@ import * as ko from 'knockout';
 import cloneDeepWith = require('lodash/cloneDeepWith');
 import isEqual = require('lodash/isEqual');
 
+import {t} from 'app/client/lib/localization';
+
+const translate = (x: string, args?: any): string => t(`GristDoc.${x}`, args);
+
 const G = getBrowserGlobals('document', 'window');
 
 // Re-export some tools to move them from main webpack bundle to the one with GristDoc.
@@ -305,7 +309,7 @@ export class GristDoc extends DisposableWithEvents {
     const importSourceElems = ImportSourceElement.fromArray(this.docPluginManager.pluginsList);
     const importMenuItems = [
       {
-        label: 'Import from file',
+        label: translate('ImportFromFile'),
         action: () => Importer.selectAndImport(this, importSourceElems, null, createPreview),
       },
       ...importSourceElems.map(importSourceElem => ({
@@ -583,7 +587,7 @@ export class GristDoc extends DisposableWithEvents {
       }
     }
     const res = await docData.bundleActions(
-      `Added new linked section to view ${viewName}`,
+      translate("AddedNewLinkedSection", {viewName}),
       () => this.addWidgetToPageImpl(val, tableId ?? null)
     );
 
@@ -660,7 +664,7 @@ export class GristDoc extends DisposableWithEvents {
     }
 
     return await this._viewLayout!.freezeUntil(docData.bundleActions(
-      `Saved linked section ${section.title()} in view ${viewModel.name()}`,
+      translate("SavedLinkedSectionIn", {title:section.title(), name: viewModel.name()}),
       async () => {
 
         // if table changes or a table is made a summary table, let's replace the view section by a

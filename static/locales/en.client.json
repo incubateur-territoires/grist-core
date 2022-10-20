@@ -640,14 +640,14 @@
       "FindPrevious": "Find Previous "
     }
   },
-  "components":{
+  "components": {
     "ActionLog": {
       "ActionLogFailed":"Action Log failed to load",
       "TableRemovedInAction":"Table {{tableId}} was subsequently removed in action #{{actionNum}}",
       "RowRemovedInAction":"This row was subsequently removed in action {{action.actionNum}}",
       "ColumnRemovedInAction":"Column {{colId}} was subsequently removed in action #{{action.actionNum}}"
     },
-    "ChartView":{
+    "ChartView": {
       "EachYFollowedByOne":"Each Y series is followed by a series for the length of error bars.",
       "EachYFollowedByTwo":"Each Y series is followed by two series, for top and bottom error bars.",
       "CreateSeparateSeries":"Create separate series for each value of the selected column.",
@@ -655,11 +655,11 @@
       "SelectedNewGroupDataColumnd":"selected new group data columnd",
       "ToggleChartAggregation":"Toggle chart aggregation"
     },
-    "CodeEditorPanel":{
+    "CodeEditorPanel": {
       "AccessDenied":"Access denied",
       "CodeViewOnlyFullAccess.":"Code View is available only when you have full document access."
     },
-    "DataTables":{
+    "DataTables": {
       "RawDataTables":"Raw Data Tables",
       "ClickToCopy":"Click to copy",
       "TableIDCopied":"Table ID copied to clipboard",
@@ -667,7 +667,7 @@
       "NoEditAccess":"You do not have edit access to this document",
       "DeleteData":"Delete {{formattedTableName}} data, and remove it from all pages?"
     },
-    "DocumentUsage":{
+    "DocumentUsage": {
       "UsageStatisticsOnlyFullAccess":"Usage statistics are only available to users with full access to the document data.",
       "TotalSize":"The total size of all data in this document, excluding attachments.",
       "Updates":"Updates every 5 minutes.",
@@ -707,9 +707,54 @@
       "PluginColon": "Plugin: ",
       "SectionColon": "Section: "
     },
-    "Drafts":{
+    "Drafts": { 
       "UndoDiscard":"Undo discard",
       "RestoreLastEdit":"Restore last edit"
+    },
+    "duplicatePage": {
+      "DoesNotCopyData":"Note that this does not copy data, but creates another view of the same data.",
+      "DuplicatePageName":"Duplicate page {{pageName}}"
+    },
+    "GristDoc": {
+      "ImportFromFile":"Import from file",
+      "AddedNewLinkedSection":"Added new linked section to view {{viewName}}",
+      "SavedLinkedSectionIn":"Saved linked section {{title}} in view {{name}}"
+    },
+    "Importer": {
+      "UpdateExistingRecords":"Update existing records",
+      "MergeRowsThatMatch":"Merge rows that match these fields:",
+      "SelectFieldsToMatch":"Select fields to match on"
+    },
+    "PluginScreen": {
+      "ImportFailed":"Import failed: "
+    },
+    "RecordLayout": {
+      "UpdatingRecordLayout.":"Updating record layout."
+    },
+    "RecordLayoutEditor": {
+      "AddField":"Add Field",
+      "CreateNewField":"Create New Field",
+      "ShowField":"Show field {{label}}",
+      "SaveLayout":"Save Layout",
+      "Cancel":"Cancel"
+    },
+    "RefSelect": {
+      "AddColumn":"Add Column",
+      "NoColumnsAdd":"No columns to add"
+    },
+    "SelectionSummary": {
+      "CopiedClipboard":"Copied to clipboard"
+    },
+    "TypeTransformation": {
+      "Cancel":"Cancel",
+      "Preview":"Preview",
+      "UpdateFormula":"Update formula (Shift+Enter)",
+      "Revise":"Revise",
+      "Apply":"Apply"
+    },
+    "ValidationPanel": {
+      "RuleLength":"Rule {{number}}",
+      "UpdateFormula":"Update formula (Shift+Enter)"
     }
   }
 }

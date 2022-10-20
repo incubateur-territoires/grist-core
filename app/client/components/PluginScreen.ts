@@ -6,6 +6,10 @@ import { PluginInstance } from 'app/common/PluginInstance';
 import { RenderTarget } from 'app/plugin/RenderOptions';
 import { Disposable, dom, DomContents, Observable, styled } from 'grainjs';
 
+import {t} from 'app/client/lib/localization';
+
+const translate = (x: string, args?: any): string => t(`PluginScreen.${x}`, args);
+
 /**
  * Rendering options for the PluginScreen modal.
  */
@@ -52,7 +56,7 @@ export class PluginScreen extends Disposable {
   public renderError(message: string) {
     this.render([
       this._buildModalTitle(),
-      cssModalBody('Import failed: ', message, testId('importer-error')),
+      cssModalBody(translate('ImportFailed'), message, testId('importer-error')),
       cssModalButtons(
         bigBasicButton('Close',
           dom.on('click', () => this.close()),

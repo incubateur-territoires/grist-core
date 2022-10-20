@@ -12,6 +12,9 @@ import * as gutil from 'app/common/gutil';
 import {Disposable, dom, fromKo, styled} from 'grainjs';
 import ko from 'knockout';
 import {menu, menuItem} from 'popweasel';
+import {t} from 'app/client/lib/localization';
+
+const translate = (x: string, args?: any): string => t(`RefSelect.${x}`, args);
 
 interface Item {
   label: string;
@@ -94,7 +97,7 @@ export class RefSelect extends Disposable {
           testId('ref-select-item'),
         )
       ),
-      cssAddLink(cssAddIcon('Plus'), 'Add Column',
+      cssAddLink(cssAddIcon('Plus'), translate('AddColumn'),
         menu(() => [
           ...this._validCols.peek()
             .filter((col) => !this._addedSet.peek().has(col.colId.peek()))
@@ -102,7 +105,7 @@ export class RefSelect extends Disposable {
               menuItem(() => this._addFormulaField({ label: col.label(), value: col.colId() }),
                 col.label.peek())
             ),
-          cssEmptyMenuText("No columns to add"),
+          cssEmptyMenuText(translate("NoColumnsAdd")),
           testId('ref-select-menu'),
         ]),
         testId('ref-select-add'),

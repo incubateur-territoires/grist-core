@@ -5,6 +5,9 @@ var dom = require('../lib/dom');
 var kd = require('../lib/koDom');
 var kf = require('../lib/koForm');
 var AceEditor = require('./AceEditor');
+var  {t} = require('app/client/lib/localization');
+
+const translate = (x, args) => t(`ValidationPanel.${x}`, args);
 
 /**
  * Document level configuration settings.
@@ -30,7 +33,7 @@ dispose.makeDisposable(ValidationPanel);
 ValidationPanel.prototype.onAddRule = function() {
   this.validationsTable.sendTableAction(["AddRecord", null, {
     tableRef: this.docTables.at(0).id(),
-    name: "Rule " + (this.validations.peekLength + 1),
+    name: translate("RuleLength", {length: this.validations.peekLength + 1}),
     formula: ""
   }])
   .then(function() {
@@ -83,7 +86,7 @@ ValidationPanel.prototype.buildDom = function() {
             2, '',
             1, kf.buttonGroup(
               kf.button(() => editor.writeObservable(),
-                'Apply', { title: 'Update formula (Shift+Enter)' },
+                'Apply', { title: translate('UpdateFormula')},
                 kd.toggleClass('disabled', editorUpToDate)
               )
             )
