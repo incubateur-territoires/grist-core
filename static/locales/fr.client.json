@@ -693,8 +693,8 @@
       "UnmarkOnDemandTitle": "Unmark table On-Demand?",
       "UnmarkOnDemandButton": "Unmark On-Demand",
       "UnmarkOnDemandText": "If you unmark table {{- table}}' as On-Demand, its data will be loaded into the calculation engine and will be available for use in formulas. For a big table, this may greatly increase load times.{{- br}}{{-br}}Changing this setting will reload the document for all users.",
-      "MakeOnDemandTitle": "Make table On-Demand?",
-      "MakeOnDemanButton": "Make On-Demand",
+      "MakeOnDemandTitle": "Rendre la table dynamique ?",
+      "MakeOnDemanButton": "Rendre dynamique",
       "MakeOnDemandText": "If you make table {{table}} On-Demand, its data will no longer be loaded into the calculation engine and will not be available for use in formulas. It will remain available for viewing and editing.",
       "AdvancedSettings": "Paramètres avancés",
       "BigTablesMaybeMarked": "Big tables may be marked as \"on-demand\" to avoid loading them into the data engine.",
@@ -722,8 +722,8 @@
     },
     "Importer": {
       "UpdateExistingRecords": "Update existing records",
-      "MergeRowsThatMatch": "Merge rows that match these fields:",
-      "SelectFieldsToMatch": "Select fields to match on"
+      "MergeRowsThatMatch": "Fusionner les lignes si ces champs correspondent:",
+      "SelectFieldsToMatch": "Sélectionner les champs pour l'appairage"
     },
     "PluginScreen": {
       "ImportFailed": "Échec de l'importation: "
