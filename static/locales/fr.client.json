@@ -11,7 +11,7 @@
     "ChangePassword": "Modifier le mot de passe",
     "AllowGoogleSigning": "Autoriser la connexion à ce compte avec Google",
     "TwoFactorAuth": "Authentification à deux facteurs",
-    "TwoFactorAuthDescription": "L'authentification à double facteur est une couche additionnelle de sécurité pour votre compte Grist qui permet de s'assurer que vous êtes la seule personne qui peut accéder à votre compte, même si quelqu'un d'autre connait votre mot de passe",
+    "TwoFactorAuthDescription": "Two-factor authentication is an extra layer of security for your Grist account designed to ensure that you're the only person who can access your account, even if someone knows your password.",
     "Theme": "Thème",
     "APIKey": "Clé d’API",
     "WarningUsername": "Les noms d'utilisateurs ne doivent contenir que des lettres, des chiffres, et certains caractères spéciaux"
@@ -33,7 +33,7 @@
     "AddNew": "Nouveau"
   },
   "AppHeader": {
-    "HomePage": "Page d’accueil",
+    "HomePage": "Home Page",
     "Legacy": "Ancienne version",
     "PersonalSite": "Espace personnel",
     "TeamSite": "Espace d'équipe"
@@ -42,7 +42,7 @@
     "AboutToDeleteAPIKey": "Vous êtes sur le point de supprimer une clé API. Cela causera le rejet de toutes les requêtes futures utilisant cette clé API. Voulez-vous toujours la supprimer ?",
     "AnonymousAPIKey": "Cette clé API peut être utilisée pour accéder à ce compte de manière anonyme via l'API.",
     "ByGenerating": "En générant une clé API, vous pourrez faire des appels API pour votre propre compte.",
-    "ClickToShow": "Cliquer pour afficher",
+    "ClickToShow": "Click to show",
     "Create": "Créer",
     "OwnAPIKey": "Cette clé API peut être utilisée pour accéder à votre compte via l'API. Ne partagez pas votre clé API avec qui que ce soit.",
     "Remove": "Supprimer",
@@ -83,8 +83,8 @@
     "AllExcept": "Pas ces valeurs",
     "None": "Aucun",
     "NoMatchingValues": "Aucune valeur trouvée",
-    "OtherMatching": "Autres correspondances",
-    "OtherNonMatching": "Autres non-correspondances",
+    "OtherMatching": "Other Matching",
+    "OtherNonMatching": "Other Non-Matching",
     "OtherValues": "Autres valeurs",
     "FutureValues": "Futures valeurs",
     "Others": "Autres"
@@ -101,8 +101,8 @@
     "Optional": " (facultatif)",
     "ReadSelectedTable": "Lire les données source sélectionnées",
     "SelectCustomWidget": "Sélectionner une vue personnalisée",
-    "WidgetNeedFullAccess": "Le widget a besoin de {{fullAccess}} à ce document.",
-    "WidgetNeedRead": "Le widget a besoin de {{read}} la table actuelle.",
+    "WidgetNeedFullAccess": "Widget needs {{fullAccess}} to this document.",
+    "WidgetNeedRead": "Widget needs to {{read}} the current table.",
     "WidgetNoPermissison": "La vue ne nécessite aucune autorisation.",
     "WrongTypesMenuText_one": "{{wrongTypeCount}} non-{{columnType}} column is not shown",
     "WrongTypesMenuText_others": "{{wrongTypeCount}} non-{{columnType}} columns are not shown"
@@ -166,35 +166,35 @@
     "TimeZone": "Fuseau horaire :",
     "Locale": "Langue :",
     "Currency": "Devise :",
-    "LocalCurrency": "Devise locale ({{currency}})",
+    "LocalCurrency": "Local currency ({{currency}})",
     "EngineRisk": "Engine (experimental {{span}} change at own risk):",
-    "Save": "Enregistrer",
+    "Save": "Save",
     "SaveAndReload": "Enregistrer et recharger"
   },
   "DuplicateTable": {
     "NewName": "Nom de la nouvelle table",
-    "AdviceWithLink": "Au lieu de dupliquer les tables, il est généralement préférable de segmenter les données en utilisant des vues liées. {{link}}",
+    "AdviceWithLink": "Instead of duplicating tables, it's usually better to segment data using linked views. {{link}}",
     "CopyAllData": "Copier toutes les données en plus de la structure de la table.",
     "WarningACL": "Seules les règles d'accès par défaut du document s’appliqueront à la copie."
   },
   "errorPages": {
     "AccessDenied": "Accès refusé{{suffix}}",
     "DeniedOrganizationDocuments": "Vous n’avez pas accès aux documents de cette organisation.",
-    "SignInWithDifferentAccount": "Vous êtes connecté en tant que {{email}}. Vous pouvez vous connecter avec un autre compte ou demander un accès à un administrateur.",
+    "SignInWithDifferentAccount": "You are signed in as {{email}}. You can sign in with a different account, or ask an administrator for access.",
     "SignInToAccess": "Connectez-vous pour accéder aux documents de cette organisation.",
     "GoToMainPage": "Aller à la page principale",
     "SignIn": "Connexion",
     "AddAcount": "Ajouter un compte",
     "SignedOut": "Déconnexion{{suffix}}",
+    "GenericError": "Error{{suffix}}",
     "SignedOutNow": "Vous êtes maintenant déconnecté.",
-    "GenericError": "Erreur{{suffix}}",
     "SignedInAgain": "Reconnectez-vous",
     "PageNotFound": "Page non trouvée{{suffix}}",
-    "NotFoundMainText": "La page demandée n’a pas pu être trouvée.{{separator}}Veuillez vérifier l’URL et réessayer.",
+    "NotFoundMainText": "The requested page could not be found.{{separator}}Please check the URL and try again.",
     "ContactSupport": "Contacter le support",
     "SomethingWentWrong": "Une erreur s’est produite",
-    "ErrorHappened_message": "Une erreur s’est produite : {{message}}",
-    "ErrorHappened_unknown": "Une erreur inconnue s’est produite."
+    "ErrorHappened_message": "There was an error: {{message}}",
+    "ErrorHappened_unknown": "There was an unknown error."
   },
   "FieldConfig": {
     "ColumnLabel": "LABEL ET ID DE LA COLONNE",
@@ -218,25 +218,25 @@
     "TriggerFormula": "TRIGGER FORMULA"
   },
   "ExampleInfo": {
-    "Title_CRM": "CRM léger",
-    "WelcomeTitle_CRM": "Bienvenue dans le modèle de CRM léger",
-    "WelcomeText_CRM": "Consultez le tutoriel associé pour savoir comment lier des données et créer des mises en page de haute productivité.",
-    "WelcomeTutorialName_CRM": "Tutoriel : créer un CRM",
-    "Title_investmentResearch": "Recherche d’investissements",
-    "WelcomeTitle_investmentResearch": "Bienvenue sur le modèle de recherche d'investissements",
-    "WelcomeText_investmentResearch": "Consulter le tutoriel associé pour apprendre à créer des tableaux récapitulatifs et des graphiques, et pour relier les graphiques de façon dynamique.",
-    "WelcomeTutorialName_investmentResearch": "Tutoriel : analyser et visualiser",
+    "Title_CRM": "Lightweight CRM",
+    "WelcomeTitle_CRM": "Welcome to the Lightweight CRM template",
+    "WelcomeText_CRM": "Check out our related tutorial for how to link data, and create high-productivity layouts.",
+    "WelcomeTutorialName_CRM": "Tutorial: Create a CRM",
+    "Title_investmentResearch": "Investment Research",
+    "WelcomeTitle_investmentResearch": "Welcome to the Investment Research template",
+    "WelcomeText_investmentResearch": "Check out our related tutorial to learn how to create summary tables and charts, and to link charts dynamically.",
+    "WelcomeTutorialName_investmentResearch": "Tutorial: Analyze & Visualize",
     "Title_afterschool": "Afterschool Program",
     "WelcomeTitle_afterschool": "Welcome to the Afterschool Program template",
-    "WelcomeText_afterschool": "Consultez e tutoriel associé pour savoir comment modéliser des données d'entreprise, utiliser les formules et gérer la complexité.",
+    "WelcomeText_afterschool": "Check out our related tutorial for how to model business data, use formulas, and manage complexity.",
     "WelcomeTutorialName_afterschool": "Tutorial: Manage Business Data"
   },
   "FieldMenus": {
     "UsingSettings_common": "Using common settings",
     "UsingSettings_separate": "Using separate settings",
     "Settings_useseparate": "Use separate settings",
-    "Settings_savecommon": "Save common settings",
-    "Settings_revertcommon": "Revert common settings"
+    "Settings_savecommon": "Save as common settings",
+    "Settings_revertcommon": "Revert to common settings"
   },
   "FilterBar": {
     "AddFilter": "Ajouter un filtre"
@@ -249,7 +249,7 @@
   },
   "GridViewMenus": {
     "AddColumn": "Ajouter une colonne",
-    "ShowColumn": "Afficher la colonne {{- label}}",
+    "ShowColumn": "Show column {{- label}}",
     "ColumnOptions": "Options de la colonne",
     "FilterData": "Filtrer les données",
     "Sort": "Trier",
@@ -291,6 +291,7 @@
     "PersonalIntroGetStarted": "Commencez en créant votre premier document Grist.",
     "AnonIntroGetStarted": "Get started by exploring templates, or creating your first Grist document.",
     "Welcome": "Bienvenue sur Grist !",
+    "VisitHelpCenter": "Visit our {{link}} to learn more.",
     "HelpCenter": "Centre d'aide",
     "InviteTeamMembers": "Inviter un nouveau membre",
     "BrowseTemplates": "Parcourir les modèles",
@@ -309,7 +310,7 @@
     "Workspaces": "Dossiers",
     "WorkspaceDeleteTitle": "Supprimer le dossier {{workspace}} et tous les documents qu'il contient ?",
     "WorkspaceDeleteText": "Le dossier va être mis à la corbeille.",
-    "ManageUsers": "Gérer les utilisateurs",
+    "ManageUsers": "Manage Users",
     "AccessDetails": "Access Details"
   },
   "LeftPanelCommon": {
@@ -356,7 +357,7 @@
     "Next": "Suivant"
   },
   "WidgetTitle": {
-    "OverrideTitle": "Renommer la vue",
+    "OverrideTitle": "Override widget title",
     "DataTableName": "NOM DE LA TABLE",
     "NewTableName": "Indiquer un nom de table",
     "WidgetTitle": "TITRE DE LA VUE",
@@ -364,19 +365,19 @@
     "Cancel": "Annuler"
   },
   "WelcomeQuestions": {
-    "WelcomeToGrist": "Bienvenue sur Grist !",
-    "ProductDevelopment": "Développement de produit",
-    "FinanceAccounting": "Finance & comptabilité",
-    "MediaProduction": "Production de média",
-    "ITTechnology": "Technologie informatique",
+    "WelcomeToGrist": "Welcome to Grist!",
+    "ProductDevelopment": "Product Development",
+    "FinanceAccounting": "Finance & Accounting",
+    "MediaProduction": "Media Production",
+    "ITTechnology": "IT & Technology",
     "Marketing": "Marketing",
-    "Research": "Recherche",
-    "Sales": "Ventes",
-    "Education": "Éducation",
-    "HRManagement": "RH & Gestion",
-    "Other": "Autres",
-    "WhatBringsYouToGrist": "Pourquoi utilisez-vous Grist ? Aidez-nous à l’améliorer.",
-    "TypeHere": "Écrire ici"
+    "Research": "Research",
+    "Sales": "Sales",
+    "Education": "Education",
+    "HRManagement": "HR & Management",
+    "Other": "Other",
+    "WhatBringsYouToGrist": "What brings you to Grist? Please help us serve you better.",
+    "TypeHere": "Type here"
   },
   "OpenVideoTour": {
     "YouTubeVideoPlayer": "Lecteur vidéo YouTube",
@@ -390,7 +391,7 @@
     "Delete": "Supprimer"
   },
   "PageWidgetPicker": {
-    "BuildingWidget": "Vue {{- label}} en construction",
+    "BuildingWidget": "Building {{- label}} widget",
     "SelectWidget": "Choisir la vue",
     "SelectData": "Choisir les données source",
     "GroupBy": "Grouper par",
@@ -573,19 +574,19 @@
     "ACUserManager": {
       "InviteNewMember": "Inviter un nouveau membre",
       "EmailInputPlaceholder": "Entrer votre adresse e-mail",
-      "InviteEmail": "Nous allons envoyer une invitation à {{email}}"
+      "InviteEmail": "We'll email an invite to {{email}}"
     }
   },
   "models": {
     "AppModel": {
-      "TeamSiteSuspended": "Le site de cette équipe est suspendu. Les documents peuvent être lus, mais pas modifiés."
+      "TeamSiteSuspended": "This team site is suspended. Documents can be read, but not modified."
     },
     "DocPageModel": {
       "ErrorAccessingDocument": "Erreur lors de l'accès au document",
       "Reload": "Recharger",
-      "ReloadingOrRecoveryMode": "Vous pouvez essayer de recharger le document ou de le passer mode récupération. Le mode de récupération ouvre le document pour être entièrement accessible aux propriétaires, et inaccessible aux autres. Il désactive également les formules. [{{error}}]",
-      "AccessError_denied": "Désolé, l’accès à ce document a été refusé. [{{error}}]",
-      "AccessError_recover": "Les propriétaires de documents peuvent tenter de récupérer le document. [{{error}}]",
+      "ReloadingOrRecoveryMode": "You can try reloading the document, or using recovery mode. Recovery mode opens the document to be fully accessible to owners, and inaccessible to others. It also disables formulas. [{{error}}]",
+      "AccessError_denied": "Sorry, access to this document has been denied. [{{error}}]",
+      "AccessError_recover": "Document owners can attempt to recover the document. [{{error}}]",
       "EnterRecoveryMode": "Passer en mode récupération",
       "AddPage": "Ajouter une page",
       "AddWidgetToPage": "Ajouter une vue à la page",
@@ -695,7 +696,7 @@
       "UnmarkOnDemandButton": "Unmark On-Demand",
       "UnmarkOnDemandText": "If you unmark table {{- table}}' as On-Demand, its data will be loaded into the calculation engine and will be available for use in formulas. For a big table, this may greatly increase load times.{{- br}}{{-br}}Changing this setting will reload the document for all users.",
       "MakeOnDemandTitle": "Rendre la table dynamique ?",
-      "MakeOnDemandButton": "Rendre dynamique",
+      "MakeOnDemandButton": "Make On-Demand",
       "MakeOnDemandText": "If you make table {{table}} On-Demand, its data will no longer be loaded into the calculation engine and will not be available for use in formulas. It will remain available for viewing and editing.",
       "AdvancedSettings": "Paramètres avancés",
       "BigTablesMayBeMarked": "Big tables may be marked as \"on-demand\" to avoid loading them into the data engine.",
@@ -735,7 +736,7 @@
     "RecordLayoutEditor": {
       "AddField": "Ajouter un champ",
       "CreateNewField": "Créer un nouveau champ",
-      "ShowField": "Afficher le champ {{- label}}",
+      "ShowField": "Show field {{- label}}",
       "SaveLayout": "Enregistrer cette disposition",
       "Cancel": "Annuler"
     },
@@ -754,7 +755,7 @@
       "Apply": "Appliquer"
     },
     "ValidationPanel": {
-      "RuleLength": "Règle {{length}}",
+      "RuleLength": "Rule {{length}}",
       "UpdateFormula": "Mettre à jour la formule (Maj+Entrée)"
     }
   }
