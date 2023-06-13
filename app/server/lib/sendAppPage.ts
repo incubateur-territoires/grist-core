@@ -78,6 +78,7 @@ export function makeGristConfig(options: MakeGristConfigOptons): GristLoadConfig
     userLocale: (req as RequestWithLogin | undefined)?.user?.options?.locale,
     telemetry: server ? getTelemetryConfig(server) : undefined,
     deploymentType: server?.getDeploymentType(),
+    disallowGuestAccess: shouldDisallowGuestAccess(),
     ...extra,
   };
 }
@@ -155,6 +156,11 @@ export function makeSendAppPage(opts: {
 function shouldSupportAnon() {
   // Enable UI for anonymous access if a flag is explicitly set in the environment
   return process.env.GRIST_SUPPORT_ANON === "true";
+}
+
+function shouldDisallowGuestAccess() {
+  // Disallow Guest access if a flag is explicitly set in the environment
+  return process.env.GRIST_DISALLOW_GUEST_ACCESS === "true";
 }
 
 function getFeatures(): IFeature[] {

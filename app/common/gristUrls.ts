@@ -634,6 +634,10 @@ export interface GristLoadConfig {
 
   // The Grist deployment type (e.g. core, enterprise).
   deploymentType?: GristDeploymentType;
+
+  // If set, disallow access from guest accounts.
+  disallowGuestAccess?: boolean;
+
 }
 
 export const Features = StringUnion(
