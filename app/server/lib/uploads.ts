@@ -2,7 +2,7 @@ import {ApiError} from 'app/common/ApiError';
 import {InactivityTimer} from 'app/common/InactivityTimer';
 import {FetchUrlOptions, FileUploadResult, UPLOAD_URL_PATH, UploadResult} from 'app/common/uploads';
 import {getDocWorkerUrl} from 'app/common/UserAPI';
-import {getAuthorizedUserId, getTransitiveHeaders, getUserId, isSingleUserMode,
+import {getAuthorizedUserId, getTransitiveHeaders, getUserId, isAnonymousUser, isSingleUserMode,
         RequestWithLogin} from 'app/server/lib/Authorizer';
 import {expressWrap} from 'app/server/lib/expressWrap';
 import {downloadFromGDrive, isDriveUrl} from 'app/server/lib/GoogleImport';
@@ -122,6 +122,13 @@ export async function handleOptionalUpload(req: Request, res: Response): Promise
     userId: mreq.userId,
     altSessionId: mreq.altSessionId,
   };
+
+  const isAnonymous = isAnonymousUser(req);
+  if (isAnonymous && process.env.GRIST_DISALLOW_ANON_CREATION === "true") {
+    throw new ApiError("Document creation by guests is disabled", 401, {
+      userError: "Foobar Document creation by guests is disallowed. Please sign in and retry."
+    });
+  }
 
   log.rawDebug(`Prepared to receive upload into tmp dir ${tmpDir}`, meta);
 

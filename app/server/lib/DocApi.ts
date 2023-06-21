@@ -1065,6 +1065,15 @@ export class DocWorkerApi {
       const userId = getUserId(req);
       let uploadId: number|undefined;
       let parameters: {[key: string]: any};
+      const isAnonymous = isAnonymousUser(req);
+
+      // The dummy condition is to lure the TS compiler which otherwise raise an error
+      if (isAnonymous && process.env.GRIST_DISALLOW_ANON_CREATION === "true") {
+        throw new ApiError("Document creation by guests is disabled", 401, {
+          userError: "Document creation by guests is disallowed. Please sign in and retry."
+        });
+      }
+
       if (req.is('multipart/form-data')) {
         const formResult = await handleOptionalUpload(req, res);
         if (formResult.upload) {
@@ -1083,7 +1092,6 @@ export class DocWorkerApi {
                                                                    browserSettings);
         return res.json(result.id);
       }
-      const isAnonymous = isAnonymousUser(req);
       const {docId} = makeForkIds({userId, isAnonymous, trunkDocId: NEW_DOCUMENT_CODE,
                                    trunkUrlId: NEW_DOCUMENT_CODE});
       await this._docManager.createNamedDoc(makeExceptionalDocSession('nascent', {

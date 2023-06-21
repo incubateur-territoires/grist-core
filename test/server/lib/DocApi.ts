@@ -4140,8 +4140,58 @@ function testDocApi() {
 
   });
 
+
   // PLEASE ADD MORE TESTS HERE
 }
+  describe('when GRIST_DISALLOW_ANON_CREATION="true"', function () {
+    let server: TestServer;
+    const suiteName =  `disallowed-guest-data`;
+    const dataDir = path.join(tmpDir, suiteName);
+    before(async function () {
+      const additionalEnvConfiguration = {
+        ALLOWED_WEBHOOK_DOMAINS: `example.com,localhost:${webhooksTestPort}`,
+        GRIST_DATA_DIR: dataDir,
+        GRIST_DISALLOW_ANON_CREATION: "true"
+      };
+      // await home.stop();
+      // await docs.stop();
+      await fse.mkdirs(dataDir);
+      // Useful?
+      await setupDataDir(dataDir);
+      server = await TestServer.startServer(
+        'home,docs', tmpDir, suitename, additionalEnvConfiguration
+      );
+      console.log('server.serverUrl = ', server.serverUrl);
+    });
+    after(function () {
+      return server.stop();
+    });
+
+    it('POST /api/docs rejects the creation of a doc by anonymous users', async function () {
+      const user = nobody;
+      const formData = new FormData();
+      formData.append('upload', 'A,B\n1,2\n3,4\n', 'table1.csv');
+      const config = defaultsDeep({headers: formData.getHeaders()}, user);
+      console.log('server.serverUrl = ', server.serverUrl);
+      const resp = await axios.post(`${server.serverUrl}/api/docs`, formData, config);
+      // console.log('resp = ', resp);
+      assert.equal(resp.status, 401);
+      assert.exists(resp.data.error);
+      assert.equal(
+        resp.data.details.userError,
+        "Document creation by guests is disallowed. Please sign in and retry."
+      );
+    });
+
+    it('POST /api/docs accepts the creation of a doc by authenticated users', async function () {
+      const user = chimpy;
+      const formData = new FormData();
+      formData.append('upload', 'A,B\n1,2\n3,4\n', 'table1.csv');
+      const config = defaultsDeep({headers: formData.getHeaders()}, user);
+      const resp = await axios.post(`${server.serverUrl}/api/docs`, formData, config);
+      assert.equal(resp.status, 200);
+    });
+  });
 
 interface WebhookRequests {
   add: object[][];

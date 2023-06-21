@@ -258,7 +258,7 @@ GRIST_DATA_DIR      | directory in which to store document caches.
 GRIST_DEFAULT_EMAIL | if set, login as this user if no other credentials presented
 GRIST_DEFAULT_PRODUCT  | if set, this controls enabled features and limits of new sites. See names of PRODUCTS in Product.ts.
 GRIST_DEFAULT_LOCALE  | Locale to use as fallback when Grist cannot honour the browser locale.
-GRIST_DISALLOW_GUEST_ACCESS | if set to 'true', enforce users to register in order to create or edit documents.
+GRIST_DISALLOW_ANON_CREATION | if set to 'true', enforce users to register in order to create or import documents.
 GRIST_DOMAIN        | in hosted Grist, Grist is served from subdomains of this domain.  Defaults to "getgrist.com".
 GRIST_EXPERIMENTAL_PLUGINS | enables experimental plugins
 GRIST_HIDE_UI_ELEMENTS | comma-separated list of UI features to disable. Allowed names of parts: `helpCenter,billing,templates,multiSite,multiAccounts,sendToDrive,tutorials`. If a part also exists in GRIST_UI_FEATURES, it will still be disabled.
