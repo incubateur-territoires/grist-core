@@ -43,6 +43,7 @@ export * from './WidgetAPI';
 export * from './CustomSectionAPI';
 
 import {IRpcLogger, Rpc} from 'grain-rpc';
+import EventEmitter from 'events';
 
 export const rpc: Rpc = new Rpc({logger: createRpcLogger()});
 
@@ -111,6 +112,8 @@ export const docApi: GristDocAPI & GristView = {
 };
 
 export const on = rpc.on.bind(rpc);
+export const off = rpc.off.bind(rpc);
+export const once = rpc.once.bind(rpc);
 
 // Exposing widgetApi methods in a module scope.
 
@@ -323,43 +326,29 @@ export function mapColumnNamesBack(data: any, options?: {
   return mapColumnNames(data, {...options, reverse: true});
 }
 
-/**
- * For custom widgets, add a handler that will be called whenever the
- * row with the cursor changes - either by switching to a different row, or
- * by some value within the row potentially changing.  Handler may
- * in the future be called with null if the cursor moves away from
- * any row.
- */
-export function onRecord(callback: (data: RowRecord | null, mappings: WidgetColumnMap | null) => unknown) {
+export const eventBus = new EventEmitter();
+
+const rpcEventMatchers: Array<(msg: any) => Promise<boolean>> = [
   // TODO: currently this will be called even if the content of a different row changes.
-  on('message', async function(msg) {
-    if (!msg.tableId || !msg.rowId || msg.rowId === 'new') { return; }
-    const rec = await docApi.fetchSelectedRecord(msg.rowId);
-    callback(rec, await getMappingsIfChanged(msg));
-  });
-}
-
-/**
- * For custom widgets, add a handler that will be called whenever the
- * new (blank) row is selected.
- */
-export function onNewRecord(callback: (mappings: WidgetColumnMap | null) => unknown) {
-  on('message', async function(msg) {
+  async function matchOnRecord(msg: any): Promise<boolean> {
     if (msg.tableId && msg.rowId === 'new') {
-      callback(await getMappingsIfChanged(msg));
+      const rec = await docApi.fetchSelectedRecord(msg.rowId);
+      eventBus.emit('record', rec, await getMappingsIfChanged(msg));
+      return true;
     }
-  });
-}
-
-/**
- * For custom widgets, add a handler that will be called whenever the
- * selected records change.  Handler will be called with a list of records.
- */
-export function onRecords(callback: (data: RowRecord[], mappings: WidgetColumnMap | null) => unknown) {
-  on('message', async function(msg) {
-    if (!msg.tableId || !msg.dataChange) { return; }
+    return false;
+  },
+  async function matchOnNewRecord(msg: any): Promise<boolean> {
+    if (msg.tableId && msg.rowId === 'new') {
+      eventBus.emit('newRecord', await getMappingsIfChanged(msg));
+      return true;
+    }
+    return false;
+  },
+  async function matchOnRecords(msg: any): Promise<boolean> {
+    if (!msg.tableId || !msg.dataChange) { return false; }
     const data = await docApi.fetchSelectedTable();
-    if (!data.id) { return; }
+    if (!data.id) { return false; }
     const rows: RowRecord[] = [];
     for (let i = 0; i < data.id.length; i++) {
       const row: RowRecord = {id: data.id[i]};
@@ -368,8 +357,52 @@ export function onRecords(callback: (data: RowRecord[], mappings: WidgetColumnMa
       }
       rows.push(row);
     }
-    callback(rows, await getMappingsIfChanged(msg));
+    eventBus.emit('records', rows, await getMappingsIfChanged(msg));
+    return true;
+  },
+  async function matchOnOption(msg: any): Promise<boolean> {
+    if (msg.settings) {
+      eventBus.emit('option', msg.options || null, msg.settings);
+      return true;
+    }
+    return false;
+  }
+];
+
+(function () {
+  on('message', async (msg) => {
+    let shouldStop = false;
+    for (let i = 0; i < rpcEventMatchers.length && !shouldStop; i++) {
+      shouldStop = await rpcEventMatchers[i](msg);
+    }
   });
+})();
+
+/**
+ * For custom widgets, add a handler that will be called whenever the
+ * row with the cursor changes - either by switching to a different row, or
+ * by some value within the row potentially changing.  Handler may
+ * in the future be called with null if the cursor moves away from
+ * any row.
+ */
+export function onRecord(callback: (data: RowRecord | null, mappings: WidgetColumnMap | null) => unknown) {
+  return eventBus.on('record', callback);
+}
+
+/**
+ * For custom widgets, add a handler that will be called whenever the
+ * new (blank) row is selected.
+ */
+export function onNewRecord(callback: (mappings: WidgetColumnMap | null) => unknown) {
+  return eventBus.on('newRecord', callback);
+}
+
+/**
+ * For custom widgets, add a handler that will be called whenever the
+ * selected records change.  Handler will be called with a list of records.
+ */
+export function onRecords(callback: (data: RowRecord[], mappings: WidgetColumnMap | null) => unknown) {
+  return eventBus.on('records', callback);
 }
 
 
@@ -382,9 +415,6 @@ export function onRecords(callback: (data: RowRecord[], mappings: WidgetColumnMa
  */
 export function onOptions(callback: (options: any, settings: InteractionOptions) => unknown) {
   on('message', async function(msg) {
-    if (msg.settings) {
-      callback(msg.options || null, msg.settings);
-    }
   });
 }
 
