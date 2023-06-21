@@ -98,6 +98,14 @@ export class DocHistory extends Disposable implements IDomComponent {
             ),
             cssMenuDots(icon('Dots'),
               menu(() => [
+                  // menuItemLink(
+                  //   dom.attr(
+                  //     'href',
+                  //     use => urlState().makeUrl(
+                  //       {... use(urlState().state), doc: "" }
+                  //     )
+                  //   ), "xxxFlorent Afficher courant"
+                  // ),
                   menuItemLink(setLink(snapshot), t("Open Snapshot")),
                   menuItemLink(setLink(snapshot, origUrlId), t("Compare to Current"),
                     menuAnnotate(t("Beta"))),

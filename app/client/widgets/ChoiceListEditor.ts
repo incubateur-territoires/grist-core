@@ -239,7 +239,7 @@ export class ChoiceListEditor extends NewBaseEditor {
     return cssChoiceACItem(
       (item.isNew ?
         [cssChoiceACItem.cls('-new'), cssPlusButton(cssPlusIcon('Plus'))] :
-        [cssChoiceACItem.cls('-with-new', this._showAddNew)]
+        [cssChoiceACItem.cls('-with-new', this._showAddNew), cssPlusButton(cssPlusIcon('Tick'))]
       ),
       choiceToken(
         buildHighlightedDom(item.label, highlightFunc, cssMatchText),
