@@ -1235,3 +1235,17 @@ def migration39(tdset):
   if 'description' not in tdset.all_tables['_grist_Views_section'].columns:
     doc_actions.append(add_column('_grist_Views_section', 'description', 'Text'))
   return tdset.apply_doc_actions(doc_actions)
+
+@migration(schema_version=40)
+def migration40(tdset):
+  """
+  Adds source tables for synchronized tables
+  """
+
+  return tdset.apply_doc_actions([
+    add_column('_grist_Tables', 'sourceTableId', 'Ref:_grist_Source_table'),
+    actions.AddTable('_grist_Source_table', [
+      schema.make_column("docId", "Text"),
+      schema.make_column("tableId", "Int"), # External to the document, thus not a foreign key
+    ])
+  ])

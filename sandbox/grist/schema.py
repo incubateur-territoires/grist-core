@@ -58,6 +58,7 @@ def schema_create_actions():
       make_column("onDemand",     "Bool"),
 
       make_column("rawViewSectionRef", "Ref:_grist_Views_section"),
+      make_column("sourceTableId", "Ref:_grist_Source_table")
     ]),
 
     # All columns in all user tables.
@@ -348,6 +349,12 @@ def schema_create_actions():
       # JSON representation of the metadata.
       make_column("content",        "Text"),
       make_column("userRef",        "Text"),
+    ]),
+
+    # Source of a table when the user triggers a table synchronization
+    actions.AddTable('_grist_Source_table', [
+      make_column("docId", "Text"),
+      make_column("tableId", "Int"), # External to the document, thus not a foreign key
     ]),
   ]
 
