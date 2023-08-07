@@ -49,9 +49,9 @@ export class TableOperationsImpl implements TableOperations {
     });
   }
 
-  public async upsert(recordOrRecords: Types.AddOrUpdateRecord|Types.AddOrUpdateRecord[],
-                      upsertOptions?: UpsertOptions): Promise<void> {
-    await withRecords(recordOrRecords, async (records) => {
+  public upsert(recordOrRecords: Types.AddOrUpdateRecord|Types.AddOrUpdateRecord[],
+                      upsertOptions?: UpsertOptions): Promise<number|number[]> {
+    return withRecords(recordOrRecords, async (records) => {
       const tableId = await this._platform.getTableId();
       const options = {
         add: upsertOptions?.add,
@@ -75,9 +75,9 @@ export class TableOperationsImpl implements TableOperations {
         const fields = convertToBulkColValues(group.map(r => ({fields: r.fields || {}})));
         return ["BulkAddOrUpdateRecord", tableId, require, fields, options];
       });
-      await this._applyUserActions(tableId, [...fieldNames(records)],
+      const result = await this._applyUserActions(tableId, [...fieldNames(records)],
                                    actions, recordOptions);
-      return [];
+      return result.retValues;
     });
   }
 

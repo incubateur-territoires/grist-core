@@ -989,6 +989,7 @@ class UserActions(object):
     col_keys = set(col_values.keys())
 
     # Arguments for `BulkAddRecord` and `BulkUpdateRecord` below
+    op_and_record_ids = []
     add_record_ids = []
     add_record_values = {k: [] for k in col_keys | require_add_keys - {'id'}}
     update_record_ids = []
@@ -997,30 +998,40 @@ class UserActions(object):
     for i in range(length):
       current_require = {key: vals[i] for key, vals in six.iteritems(decoded_require)}
       records = list(table.lookup_records(**current_require))
-      if not records and add:
-        values = {key: require[key][i] for key in require_add_keys}
-        values.update({key: vals[i] for key, vals in six.iteritems(col_values)})
-        add_record_ids.append(values.pop("id", None))
-        for key, value in six.iteritems(values):
-          add_record_values[key].append(value)
+      if not records:
+        if add:
+          values = {key: require[key][i] for key in require_add_keys}
+          values.update({key: vals[i] for key, vals in six.iteritems(col_values)})
+          op_and_record_ids.append(("add", values.pop("id", None)))
+          for key, value in six.iteritems(values):
+            add_record_values[key].append(value)
+        else:
+          op_and_record_ids.append(None)
 
-      if records and update:
-        if len(records) > 1:
-          if on_many == "first":
-            records = records[:1]
-          elif on_many == "none":
-            continue
+      if records:
+        if update:
+          if len(records) > 1:
+            if on_many == "first":
+              records = records[:1]
+            elif on_many == "none":
+              continue
 
-        for record in records:
-          update_record_ids.append(record.id)
-          for key, vals in six.iteritems(col_values):
-            update_record_values[key].append(vals[i])
+          op_and_record_ids.append(("update", [record.id for record in records]))
+          for record in records:
+            for key, vals in six.iteritems(col_values):
+              update_record_values[key].append(vals[i])
+        else:
+          op_and_record_ids.append(None)
 
+    add_record_ids = [ x[1] for x in op_and_record_ids if x and x[0] == "add" ]
     if add_record_ids:
       self.BulkAddRecord(table_id, add_record_ids, add_record_values)
 
+    update_record_ids = [ id for item in op_and_record_ids if item and item[0] == "update" for id in item[1] ]
     if update_record_ids:
       self.BulkUpdateRecord(table_id, update_record_ids, update_record_values)
+
+    return [ {"operation": x[0], "ids": x[1]} if x else None for x in op_and_record_ids ]
 
   @useraction
   def AddOrUpdateRecord(self, table_id, require, col_values, options):

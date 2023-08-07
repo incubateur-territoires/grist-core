@@ -676,8 +676,8 @@ export class DocWorkerApi {
                               ["first", "none", "all"]) as 'first'|'none'|'all'|undefined,
           allowEmptyRequire: isAffirmative(req.query.allow_empty_require),
         };
-        await ops.upsert(body.records, options);
-        res.json(null);
+        const result = await ops.upsert(body.records, options);
+        res.json(result);
       })
     );
 
