@@ -1,0 +1,10 @@
+{
+  "extends": "../buildtools/tsconfig-base.json",
+  "files": [],
+  "include": ["src/*"],
+  "compilerOptions": {
+    "outDir": "./_build"
+  },
+  "rootDir": "./",
+  "baseUrl": "./"
+}
