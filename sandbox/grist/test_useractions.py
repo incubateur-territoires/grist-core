@@ -1169,6 +1169,13 @@ class TestUserActions(test_engine.EngineTestCase):
       [],
     )
 
+    check(
+      { "first_name": "John" },
+      {},
+      {"replace_all": True, "on_many": "all"},
+      [["BulkRemoveRecord", "Table1", [3, 100, 101, 102] ]]
+    )
+
   def test_bulk_add_or_update(self):
     sample = testutil.parse_test_sample({
       "SCHEMA": [
@@ -1197,17 +1204,17 @@ class TestUserActions(test_engine.EngineTestCase):
     check(
       {
         "first_name": [
-        "John",
-        "John",
-        "John",
-        "Bob",
-      ],
-      "last_name": [
-        "Doe",
-        "Smith",
-        "Johnson",
-        "Johnson",
-      ],
+          "John",
+          "John",
+          "John",
+          "Bob",
+        ],
+        "last_name": [
+          "Doe",
+          "Smith",
+          "Johnson",
+          "Johnson",
+        ],
       },
       {
         "color": [

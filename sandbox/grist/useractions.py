@@ -946,6 +946,7 @@ class UserActions(object):
 
     update = options.get("update", True)
     add = options.get("add", True)
+    replace_all = options.get("replace_all", False)
 
     on_many = options.get("on_many", "first")
     if on_many not in ("first", "none", "all"):
@@ -994,33 +995,42 @@ class UserActions(object):
     update_record_ids = []
     update_record_values = {k: [] for k in col_keys - {'id'}}
 
+    delete_record_ids = []
+
     for i in range(length):
       current_require = {key: vals[i] for key, vals in six.iteritems(decoded_require)}
-      records = list(table.lookup_records(**current_require))
-      if not records and add:
+      overall_record_ids = list(table.lookup_records(**current_require))
+      if not overall_record_ids and add:
         values = {key: require[key][i] for key in require_add_keys}
         values.update({key: vals[i] for key, vals in six.iteritems(col_values)})
         add_record_ids.append(values.pop("id", None))
         for key, value in six.iteritems(values):
           add_record_values[key].append(value)
 
-      if records and update:
-        if len(records) > 1:
+      if overall_record_ids and update:
+        if len(overall_record_ids) > 1:
           if on_many == "first":
-            records = records[:1]
+            overall_record_ids = overall_record_ids[:1]
           elif on_many == "none":
             continue
 
-        for record in records:
+        for record in overall_record_ids:
           update_record_ids.append(record.id)
           for key, vals in six.iteritems(col_values):
             update_record_values[key].append(vals[i])
+
+    if replace_all:
+      overall_record_ids = set([rec.id for rec in table.lookup_records()])
+      delete_record_ids = list(overall_record_ids - set(update_record_ids))
 
     if add_record_ids:
       self.BulkAddRecord(table_id, add_record_ids, add_record_values)
 
     if update_record_ids:
       self.BulkUpdateRecord(table_id, update_record_ids, update_record_values)
+
+    if delete_record_ids:
+      self.BulkRemoveRecord(table_id, delete_record_ids)
 
   @useraction
   def AddOrUpdateRecord(self, table_id, require, col_values, options):
