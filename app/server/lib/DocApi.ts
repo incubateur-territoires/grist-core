@@ -692,6 +692,7 @@ export class DocWorkerApi {
           onMany: stringParam(req.query.onmany || "first", "onmany",
                               ["first", "none", "all"]) as 'first'|'none'|'all'|undefined,
           allowEmptyRequire: isAffirmative(req.query.allow_empty_require),
+          replaceall: isAffirmative(req.query.replaceall),
         };
         await ops.upsert(body.records, options);
         res.json(null);

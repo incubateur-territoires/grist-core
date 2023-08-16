@@ -57,7 +57,8 @@ export class TableOperationsImpl implements TableOperations {
         add: upsertOptions?.add,
         update: upsertOptions?.update,
         on_many: upsertOptions?.onMany,
-        allow_empty_require: upsertOptions?.allowEmptyRequire
+        allow_empty_require: upsertOptions?.allowEmptyRequire,
+        replace_all: upsertOptions?.replaceall
       };
       const recordOptions: OpOptions = pick(upsertOptions, 'parseStrings');
 

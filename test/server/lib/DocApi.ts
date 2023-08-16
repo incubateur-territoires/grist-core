@@ -1546,6 +1546,21 @@ function testDocApi() {
         {id: [1, 2, 3, 4], A: [99, 99, 99, 99], B: [99, 99, 99, 99]},
         {allow_empty_require: "1", onmany: "all"},
       );
+
+      // replaceall option removes records that are not specified in the request body
+      await check([
+          {
+            require: {id: 1},
+            fields: {A: 0},
+          },
+          {
+            require: {id: 3},
+            fields: {B: 1},
+          },
+        ],
+        {id: [1, 3], A: [0, 99], B: [99, 99]},
+        {replaceall: "1", onmany: "all"},
+      );
     });
 
     it("should 404 for missing tables", async () => {

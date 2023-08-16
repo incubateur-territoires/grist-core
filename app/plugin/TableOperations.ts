@@ -55,4 +55,6 @@ export interface UpsertOptions extends OpOptions {
   onMany?: 'none' | 'first' | 'all';
   /** Allow "wildcard" operation. Defaults to false. */
   allowEmptyRequire?: boolean;
+  /** Removes the records that are not provided in the request body */
+  replaceall?: boolean;
 }

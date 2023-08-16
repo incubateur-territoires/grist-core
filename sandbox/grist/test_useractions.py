@@ -1290,6 +1290,22 @@ class TestUserActions(test_engine.EngineTestCase):
       "require values must be unique",
     )
 
+    check(
+      {
+        "first_name": [
+          "John",
+          "John",
+        ],
+        "last_name": [
+          "Doe",
+          "Johnson"
+        ],
+      },
+      {},
+      {"replace_all": True, "on_many": "all"},
+      [["BulkRemoveRecord", "Table1", [2,4] ]]
+    )
+
   def test_reference_lookup(self):
     sample = testutil.parse_test_sample({
       "SCHEMA": [
