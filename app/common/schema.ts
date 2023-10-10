@@ -234,6 +234,7 @@ export interface SchemaTypes {
     summarySourceTable: number;
     onDemand: boolean;
     rawViewSectionRef: number;
+    sourceTableId: number;
   };
 
   "_grist_Tables_column": {
@@ -282,6 +283,11 @@ export interface SchemaTypes {
     databaseRef: number;
     tableName: string;
   };
+
+  "_grist_Source_table": {
+    docId: string;
+    tableId: number;
+  }
 
   "_grist_TableViews": {
     tableRef: number;

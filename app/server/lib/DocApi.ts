@@ -261,6 +261,17 @@ export class DocWorkerApi {
         res.json({records});
       })
     );
+    /**
+     * Creates a new synchronization for the specified table.
+     * The request body should contain the following fields:
+     * - `docId`: the id of the document associated with the tableId
+     * - `tableId`: the id of the table to fetch content from
+     */
+    this._app.post('/api/docs/:docId/tables/:tableId/sync', canEdit, withDoc(async (activeDoc, req, res) => {
+      const { docId, tableId } = req.body;
+      // TODO continue here
+      res.send(syncId);
+    }));
 
     const registerWebhook = async (activeDoc: ActiveDoc, req: RequestWithLogin, webhook: WebhookFields) => {
       const {fields, url} = await getWebhookSettings(activeDoc, req, null, webhook);
