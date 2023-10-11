@@ -267,10 +267,32 @@ export class DocWorkerApi {
      * - `docId`: the id of the document associated with the tableId
      * - `tableId`: the id of the table to fetch content from
      */
-    this._app.post('/api/docs/:docId/tables/:tableId/sync', canEdit, withDoc(async (activeDoc, req, res) => {
-      const { docId, tableId } = req.body;
-      // TODO continue here
-      res.send(syncId);
+    this._app.post('/api/docs/:docId/tables/:tableId/source', canEdit, withDoc(async (activeDoc, req, res) => {
+      const { docId: sourceDocId, tableId: sourceTableId } = req.body;
+      const metaTables = await getMetaTables(activeDoc, req);
+
+      // FIXME if this is a tableId, don't convert anything
+      const targetTableRef = tableIdToRef(metaTables, req.params.tableId);
+
+      const docSession = docSessionFromRequest(req);
+      const sourceMetaTables = await getMetaTables(
+        await this._docManager.fetchDoc(docSession, sourceDocId),
+        req
+      );
+      let sourceTableRef = null;
+      try {
+        sourceTableRef = tableIdToRef(sourceMetaTables, sourceTableId);
+      } catch (e) {
+        throw new ApiError(`Table ${sourceTableId} does not exist in document ${sourceDocId}`, 404);
+      }
+      const sandboxRes = await handleSandboxError("", [],
+        activeDoc.applyUserActions(docSession, [
+          [ "AddTableSource", targetTableRef, sourceDocId, sourceTableRef ]
+        ])
+      );
+      const sourceId = sandboxRes.retValues[0];
+
+      res.json({sourceId});
     }));
 
     const registerWebhook = async (activeDoc: ActiveDoc, req: RequestWithLogin, webhook: WebhookFields) => {

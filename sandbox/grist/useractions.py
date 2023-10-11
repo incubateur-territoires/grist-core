@@ -2145,6 +2145,21 @@ class UserActions(object):
     view_rec = self._docmodel.views.table.get_record(view_id)
     self._docmodel.remove([view_rec])
 
+  @useraction
+  def AddTableSource(self, table_ref, source_doc_id, source_table_ref):
+    """
+    Add a new source table to a table so it can be synchronized later.
+    """
+    table = self._docmodel.tables.table.get_record(table_ref)
+    if table.sourceTableId:
+      raise ValueError("Table already has a source table")
+    source_id = self.AddRecord("_grist_Source_table", None, {
+      "docId": source_doc_id,
+      "tableId": source_table_ref,
+    })
+    self._docmodel.update([table], sourceTableId=source_id)
+    return source_id
+
   #----------------------------------------
   # User actions on viewSections.
   #----------------------------------------

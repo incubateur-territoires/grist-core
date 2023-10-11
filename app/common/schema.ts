@@ -4,7 +4,7 @@ import { GristObjCode } from "app/plugin/GristData";
 
 // tslint:disable:object-literal-key-quotes
 
-export const SCHEMA_VERSION = 39;
+export const SCHEMA_VERSION = 40;
 
 export const schema = {
 
@@ -55,6 +55,11 @@ export const schema = {
     skipinitialspace    : "Bool",
     encoding            : "Text",
     hasHeaders          : "Bool",
+  },
+
+  "_grist_Source_table": {
+    docId               : "Text",
+    tableId             : "Int",
   },
 
   "_grist_External_database": {

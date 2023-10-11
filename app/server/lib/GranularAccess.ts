@@ -115,6 +115,7 @@ const SPECIAL_ACTIONS = new Set(['InitNewDoc',
                                  'ConvertFromColumn',
                                  'AddHiddenColumn',
                                  'RespondToRequests',
+                                 'AddTableSource',
                                 ]);
 
 // Odd-ball actions marked as deprecated or which seem unlikely to be used.

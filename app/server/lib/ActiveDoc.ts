@@ -267,7 +267,8 @@ export class ActiveDoc extends EventEmitter {
   private _afterShutdownCallback?: () => Promise<void>;
   private _doShutdown?: Promise<void>;
   private _intervals: Interval[] = [];
-  private _syncs: Map<number, { docId: string, tableId: number }>;
+  // FIXME useful?
+  // private _syncs: Map<number, { docId: string, tableId: number }>;
 
   constructor(docManager: DocManager, docName: string, private _options?: ICreateActiveDocOptions) {
     super();
@@ -2285,17 +2286,17 @@ export class ActiveDoc extends EventEmitter {
     return this;
   }
 
-  private async _loadSynchronizations(docSession: OptDocSession) {
-    this._log.debug(docSession, "loading table synchronizations");
-    const tablesTable = this.docData!.getMetaTable('_grist_Tables');
-    const sourceTable = this.docData!.getMetaTable('_grist_Source_table');
-    const sourceById = new Map(sourceTable.getRecords().map(row => [row.id, row]));
-    const syncTables = tablesTable.getRecords().filter(row => row.sourceTableId);
-    this._syncs = new Map(syncTables.map(row => {
-      const source = sourceById.get(row.sourceTableId)!;
-      return [row.id, pick(source, ['docId', 'tableId'])];
-    }));
-  }
+  // private async _loadSynchronizations(docSession: OptDocSession) {
+  //   this._log.debug(docSession, "loading table synchronizations");
+  //   const tablesTable = this.docData!.getMetaTable('_grist_Tables');
+  //   const sourceTable = this.docData!.getMetaTable('_grist_Source_table');
+  //   const sourceById = new Map(sourceTable.getRecords().map(row => [row.id, row]));
+  //   const syncTables = tablesTable.getRecords().filter(row => row.sourceTableId);
+  //   this._syncs = new Map(syncTables.map(row => {
+  //     const source = sourceById.get(row.sourceTableId)!;
+  //     return [row.id, pick(source, ['docId', 'tableId'])];
+  //   }));
+  // }
 
   /**
    * Start loading the specified tables from the db, without waiting for completion.
@@ -2338,7 +2339,7 @@ export class ActiveDoc extends EventEmitter {
         });
       } else {
         await this._loadTables(docSession, pendingTableNames);
-        await this._loadSynchronizations(docSession);
+        // await this._loadSynchronizations(docSession);
         const tableStats = await this._pyCall('get_table_stats');
         log.rawInfo("Loading complete, table statistics retrieved...", {
           ...this.getLogMeta(docSession),
