@@ -295,6 +295,23 @@ export class DocWorkerApi {
       res.json({sourceId});
     }));
 
+    this._app.delete('/api/docs/:docId/tables/:tableId/source', canEdit,
+      withDoc(async (activeDoc, req, res) => {
+        const { tableId } = req.params;
+        const docSession = docSessionFromRequest(req);
+        const tablesTable = activeDoc.docData!.getMetaTable("_grist_Tables");
+        const tableRef = tableIdToRef(await getMetaTables(activeDoc, req), tableId);
+        const sourceId = tablesTable.getValue(tableRef, 'sourceTableId');
+        await handleSandboxError("", [],
+          activeDoc.applyUserActions(docSession, [
+            [ "UpdateRecord", "_grist_Tables", tableRef, { sourceTableId: null } ],
+            [ "RemoveRecord", "_grist_Source_table", sourceId ]
+          ])
+        );
+        res.json({success: true});
+      })
+    );
+
     const registerWebhook = async (activeDoc: ActiveDoc, req: RequestWithLogin, webhook: WebhookFields) => {
       const {fields, url} = await getWebhookSettings(activeDoc, req, null, webhook);
       if (!fields.eventTypes?.length) {

@@ -23,6 +23,7 @@ export const schema = {
     summarySourceTable  : "Ref:_grist_Tables",
     onDemand            : "Bool",
     rawViewSectionRef   : "Ref:_grist_Views_section",
+    sourceTableId       : "Ref:_grist_Source_table",
   },
 
   "_grist_Tables_column": {
