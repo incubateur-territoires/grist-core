@@ -95,13 +95,20 @@ export function buildPageDom(name: Observable<string>, actions: PageActions, ...
               dom.on('click', (ev) => isTargetSelected(ev.target as HTMLElement) && isRenaming.set(true)),
               overflowTooltip(),
             ),
+            // FIXME
+            // Maybe we should not display this button here, a page may show different widgets
+            // It may make more sense to only show this button in the "raw data" menu
+            cssPageInitial(
+              testId('refresh'),
+              '🔁',
+              dom.show(() => false),
+            ),
             cssPageMenuTrigger(
               cssPageMenuIcon('Dots'),
               menu(pageMenu, {placement: 'bottom-start', parentSelectorToMark: '.' + itemHeader.className}),
               dom.on('click', (ev) => { ev.stopPropagation(); ev.preventDefault(); }),
 
-              // Let's prevent dragging to start when un-intentionally holding the mouse down on '...' menu.
-              dom.on('mousedown', (ev) => ev.stopPropagation()),
+              // Let's prevent dragging to start when un-intentionally holding the mouse down on '...' menu. dom.on('mousedown', (ev) => ev.stopPropagation()),
               testId('dots'),
             ),
             // Prevents the default dragging behaviour that Firefox support for links which conflicts
