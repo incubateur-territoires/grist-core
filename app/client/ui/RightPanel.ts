@@ -62,6 +62,7 @@ import {
   subscribe
 } from 'grainjs';
 import * as ko from 'knockout';
+import {makeButtonSelect} from '../ui2018/buttonSelect';
 
 // some unicode characters
 const BLACK_CIRCLE = '\u2022';
@@ -256,6 +257,11 @@ export class RightPanel extends Disposable {
     this._gristDoc.viewModel.activeSection()?.selectedFields(selectedColumns.peek() || []);
 
     const docModel = this._gristDoc.docModel;
+    let valUnique = false;
+    const unique = owner.autoDispose(ko.computed(() => {
+      return valUnique;
+    }));
+
     const origColRef = owner.autoDispose(ko.computed(() => fieldBuilder()?.origColumn.origColRef() || 0));
     const origColumn = owner.autoDispose(docModel.columns.createFloatingRowModel(origColRef));
     const isColumnValid = owner.autoDispose(ko.computed(() => Boolean(origColRef())));
@@ -275,6 +281,10 @@ export class RightPanel extends Disposable {
         buildConfigContainer(
           cssSection(
             dom.create(buildNameConfig, origColumn, cursor, isMultiSelect),
+          ),
+          cssLabel(t('Constraints')),
+          cssRow(
+            makeButtonSelect(unique, [{value: 'unique', label: t('Unique')}], (val) => {unique}, testId('numeric-unique'))
           ),
           cssSection(
             dom.create(buildDescriptionConfig, origColumn.description, { cursor, "testPrefix": "column" }),
