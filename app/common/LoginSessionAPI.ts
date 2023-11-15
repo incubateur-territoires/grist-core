@@ -9,6 +9,8 @@ export interface UserProfile {
   connectId?: string|null, // used by GristConnect to identify user in external provider.
   loginMethod?: 'Google'|'Email + Password'|'External';
   locale?: string|null;
+
+  extra?: object; // extra fields from the user profile, e.g. from OIDC.
 }
 
 // User profile including user id and user ref.  All information in it should

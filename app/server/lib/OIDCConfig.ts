@@ -44,6 +44,8 @@ import { Sessions } from './Sessions';
 import log from 'app/server/lib/log';
 import { appSettings } from './AppSettings';
 import { RequestWithLogin } from './Authorizer';
+import {pick} from 'lodash';
+import {UserProfile} from 'app/common/LoginSessionAPI';
 
 const CALLBACK_URL = '/oauth2/callback';
 
@@ -160,7 +162,7 @@ export class OIDCConfig {
     return codeVerifier;
   }
 
-  private _makeUserProfileFromUserInfo(userInfo: UserinfoResponse) {
+  private _makeUserProfileFromUserInfo(userInfo: UserinfoResponse): Partial<UserProfile> {
       const email = userInfo.email;
       const fname = userInfo.given_name ?? '';
       const lname = userInfo.family_name ?? '';
@@ -174,6 +176,7 @@ export class OIDCConfig {
       return {
         email,
         name: fullname,
+        extra: pick(userInfo, process.env.GRIST_OIDC_SP_EXTRA_PROPS_TO_STORE?.split(',') || [])
       };
   }
 }

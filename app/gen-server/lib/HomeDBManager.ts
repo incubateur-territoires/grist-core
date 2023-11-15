@@ -211,6 +211,7 @@ function isNonGuestGroup(group: Group): group is NonGuestGroup {
 export interface UserProfileChange {
   name?: string;
   isFirstTimeUser?: boolean;
+  options?: Partial<UserOptions>;
 }
 
 // Identifies a request to access a document. This combination of values is also used for caching
@@ -599,6 +600,10 @@ export class HomeDBManager extends EventEmitter {
         user.name = props.name;
         needsSave = true;
       }
+      if (Object.keys(props.options ?? []).length > 0) {
+        user.options = {...(user.options ?? {}), ...(props.options)};
+        needsSave = true;
+      }
       if (props.isFirstTimeUser !== undefined && props.isFirstTimeUser !== user.isFirstTimeUser) {
         user.isFirstTimeUser = props.isFirstTimeUser;
         needsSave = true;
@@ -691,6 +696,7 @@ export class HomeDBManager extends EventEmitter {
         // Set the user's name if our provider knows it.  Otherwise use their username
         // from email, for lack of something better.  If we don't have a profile at this
         // time, then leave the name blank in the hopes of learning it when the user logs in.
+        console.log('profile = ', profile);
         user.name = (profile && (profile.name || email.split('@')[0])) || '';
         needUpdate = true;
       }
