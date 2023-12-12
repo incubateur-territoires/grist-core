@@ -10,7 +10,7 @@ module.exports = {
   // https://stackoverflow.com/a/47833471/328565 and https://stackoverflow.com/a/69557309/328565).
   parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2022,
     requireConfigFile: false,
   },
   ignorePatterns: [
