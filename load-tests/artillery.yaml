@@ -1,0 +1,80 @@
+config:
+  # This is a test server run by team Artillery
+  # It's designed to be highly scalable
+  target: http://localhost:8484
+  processor: './functions.js'
+
+  phases:
+  - duration: 60
+    arrivalRate: 1
+    rampTo: 5
+    name: Warm up phase
+  # - duration: 60
+  #   arrivalRate: 3
+  #   rampTo: 30
+  #   name: Ramp up load
+  # - duration: 30
+  #   arrivalRate: 5
+  #   rampTo: 100
+  #   name: Spike phase
+
+  # Load & configure a couple of useful plugins
+  # https://docs.art/reference/extensions
+  plugins:
+    ensure: {}
+    expect: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+    fake-data: {}
+  variables:
+    docId: dz3XJVmfkmyaRmCkkN8Abk
+    wsTarget: "ws://localhost:8484/dw/self/v/unknown/o/docs?counter=10&newClient=1&browserSettings=%7B%22timezone%22%3A%22Europe%2FParis%22%7D&user=you%40example.com"
+before:
+  flow:
+    - log: "Get bearer"
+    - get:
+        url: "/o/docs/login?next=%2F"
+        cookie:
+          saved: "grist_sid"
+    - get:
+        url: "/o/docs/api/profile/apiKey"
+        capture:
+          regexp: .*
+          as: "bearer"
+scenarios:
+  # - name: "Authenticate"
+  #   flow:
+  #     - log: "Get auth token"
+  #     - get:
+  #         url: "/o/docs/login?next=%2F"
+  #         cookie:
+  #           saved: "grist_sid"
+  #     - log: "Run test"
+  #     - post:
+  #         url: /o/docs/api/docs/dz3XJVmfkmya/tables/Table1/records
+  #         json:
+  #           records:
+  #             - fields:
+  #                 hello: "{{ $randWord() }}"
+  #                 B: "{{ $randNumber() }}"
+  #         expect:
+  #           - statusCode: 200
+  - name: "Fill as many rows as possible"
+    engine: ws
+    beforeScenario: generateReqId
+    flow:
+      - connect:
+          target: "{{wsTarget}}&clientId={{ randomClientId }}"
+          headers:
+            authorization: "Bearer {{ bearer }}"
+          expect:
+            - statusCode: 101
+      - send:
+          payload: '{"reqId":{{reqId}},"method":"openDoc","args":["{{docId}}","default",null]}'
+          capture:
+            - json: $.data.docFD
+              as: docFD
+            - json: $.data.clientId
+              as: clientId
+      - send: '{"reqId":{{reqId}},"method":"applyUserActions","args":[0,[["BulkAddRecord","Table1",[null],{"hello":["{{$randWord}}"],"B":["{{$randNumber}}"],"C":[0]}]],{"desc":null,"linkId":null}]}'
+
