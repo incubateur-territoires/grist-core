@@ -42,33 +42,13 @@ before:
           regexp: .*
           as: "bearer"
 scenarios:
-  # - name: "Authenticate"
-  #   flow:
-  #     - log: "Get auth token"
-  #     - get:
-  #         url: "/o/docs/login?next=%2F"
-  #         cookie:
-  #           saved: "grist_sid"
-  #     - log: "Run test"
-  #     - post:
-  #         url: /o/docs/api/docs/dz3XJVmfkmya/tables/Table1/records
-  #         json:
-  #           records:
-  #             - fields:
-  #                 hello: "{{ $randWord() }}"
-  #                 B: "{{ $randNumber() }}"
-  #         expect:
-  #           - statusCode: 200
   - name: "Fill as many rows as possible"
     engine: ws
-    beforeScenario: generateReqId
     flow:
+      - log: "connection to document"
       - connect:
-          target: "{{wsTarget}}&clientId={{ randomClientId }}"
-          headers:
-            authorization: "Bearer {{ bearer }}"
-          expect:
-            - statusCode: 101
+          function: "connectToWs"
+      - log: "Open Document"
       - send:
           payload: '{"reqId":{{reqId}},"method":"openDoc","args":["{{docId}}","default",null]}'
           capture:
@@ -76,5 +56,6 @@ scenarios:
               as: docFD
             - json: $.data.clientId
               as: clientId
+
       - send: '{"reqId":{{reqId}},"method":"applyUserActions","args":[0,[["BulkAddRecord","Table1",[null],{"hello":["{{$randWord}}"],"B":["{{$randNumber}}"],"C":[0]}]],{"desc":null,"linkId":null}]}'
 

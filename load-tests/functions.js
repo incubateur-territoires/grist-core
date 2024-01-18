@@ -1,15 +1,18 @@
-module.exports = { logHeaders, logResponse, generateReqId };
-function logHeaders(requestParams, context, ee, next) {
+module.exports.logHeaders = function (requestParams, context, ee, next) {
   console.log(requestParams);
   return next();
 }
 
-function logResponse(requestParams, response, context, ee, next) {
+module.exports.logResponse = function (requestParams, response, context, ee, next) {
   console.log(response);
   return next();
 }
 
-function generateReqId(requestParams, context, ee, next) {
+module.exports.connectToWs = function (params, context, next) {
+  params.target = `${context.vars.wsTarget}`;
+  params.headers = {
+    'Authorization': `Bearer ${context.vars.bearer}`
+  };
   let reqId = 0;
   Object.defineProperty(context.vars, 'reqId', {
     get: function () {
@@ -20,5 +23,3 @@ function generateReqId(requestParams, context, ee, next) {
   });
   return next();
 }
-
-
