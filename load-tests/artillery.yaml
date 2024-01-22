@@ -48,7 +48,7 @@ scenarios:
       - log: "connection to document"
       - connect:
           function: "connectToWs"
-      - log: "Open Document"
+      - log: "Open Document. ReqId = {{reqId}}"
       - send:
           payload: '{"reqId":{{reqId}},"method":"openDoc","args":["{{docId}}","default",null]}'
           capture:

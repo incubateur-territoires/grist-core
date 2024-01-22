@@ -1,14 +1,14 @@
-module.exports.logHeaders = function (requestParams, context, ee, next) {
+const logHeaders = function (requestParams, context, ee, next) {
   console.log(requestParams);
   return next();
 }
 
-module.exports.logResponse = function (requestParams, response, context, ee, next) {
+const logResponse = function (requestParams, response, context, ee, next) {
   console.log(response);
   return next();
 }
 
-module.exports.connectToWs = function (params, context, next) {
+const connectToWs = function (params, context, next) {
   params.target = `${context.vars.wsTarget}`;
   params.headers = {
     'Authorization': `Bearer ${context.vars.bearer}`
@@ -22,4 +22,5 @@ module.exports.connectToWs = function (params, context, next) {
     configurable: true
   });
   return next();
-}
+};
+module.exports = { connectToWs, logHeaders, logResponse };
