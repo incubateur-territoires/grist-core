@@ -7,16 +7,16 @@ config:
   phases:
   - duration: 60
     arrivalRate: 1
-    rampTo: 5
+    rampTo: 3
     name: Warm up phase
-  # - duration: 60
-  #   arrivalRate: 3
-  #   rampTo: 30
-  #   name: Ramp up load
-  # - duration: 30
-  #   arrivalRate: 5
-  #   rampTo: 100
-  #   name: Spike phase
+  - duration: 60
+    arrivalRate: 3
+    rampTo: 5
+    name: Ramp up load
+  - duration: 30
+    arrivalRate: 5
+    # rampTo: 100
+    name: Spike phase
 
   # Load & configure a couple of useful plugins
   # https://docs.art/reference/extensions
@@ -27,8 +27,7 @@ config:
     metrics-by-endpoint: {}
     fake-data: {}
   variables:
-    docId: dz3XJVmfkmyaRmCkkN8Abk
-    wsTarget: "ws://localhost:8484/dw/self/v/unknown/o/docs?counter=10&newClient=1&browserSettings=%7B%22timezone%22%3A%22Europe%2FParis%22%7D&user=you%40example.com"
+    workspaceId: 24
 before:
   flow:
     - log: "Get bearer"
@@ -36,26 +35,113 @@ before:
         url: "/o/docs/login?next=%2F"
         cookie:
           saved: "grist_sid"
-    - get:
-        url: "/o/docs/api/profile/apiKey"
-        capture:
-          regexp: .*
-          as: "bearer"
-scenarios:
-  - name: "Fill as many rows as possible"
-    engine: ws
-    flow:
-      - log: "connection to document"
-      - connect:
-          function: "connectToWs"
-      - log: "Open Document. ReqId = {{reqId}}"
-      - send:
-          payload: '{"reqId":{{reqId}},"method":"openDoc","args":["{{docId}}","default",null]}'
-          capture:
-            - json: $.data.docFD
-              as: docFD
-            - json: $.data.clientId
-              as: clientId
 
-      - send: '{"reqId":{{reqId}},"method":"applyUserActions","args":[0,[["BulkAddRecord","Table1",[null],{"hello":["{{$randWord}}"],"B":["{{$randNumber}}"],"C":[0]}]],{"desc":null,"linkId":null}]}'
+    - log: "creating documents"
+    - post:
+        url: "/o/docs/api/workspaces/{{workspaceId}}/docs"
+        expect:
+          - statusCode: 200
+        json:
+          name: "scenario1"
+        capture:
+          - regexp: '"(?<id>.*)"'
+            group: id
+            as: scenario1DocId
+    - post:
+        url: "/o/docs/api/workspaces/{{workspaceId}}/docs"
+        expect:
+          - statusCode: 200
+        json:
+          name: "scenario2-formulas"
+        capture:
+          - regexp: '"(?<id>.*)"'
+            group: id
+            as: scenario2DocId
+    - put:
+        url: "/o/docs/api/docs/{{scenario2DocId}}/tables/Table1/columns?replaceall=1"
+        ifTrue: "Scenario 2"
+        expect:
+          - statusCode: 200
+        beforeRequest: "forgeScenario2ColumnsBody"
+
+    - log: "DONE creating documents"
+    # - get:
+    #     url: "/o/docs/api/profile/apiKey"
+    #     capture:
+    #       regexp: .*
+    #       as: "bearer"
+scenarios:
+  - name: "Scenario 1"
+    engine: http
+    flow:
+      - get:
+          url: "/o/docs/login?next=%2F"
+          cookie:
+            saved: "grist_sid"
+          expect:
+            - statusCode: 200
+      - loop:
+        - post:
+            url: "/o/docs/api/docs/{{scenario1DocId}}/tables/Table1/records"
+            json:
+              records:
+                - fields:
+                    A: "{{$randWord()}}"
+                    B: "{{$randNumber()}}"
+            expect:
+              - statusCode: 200
+        - think: 5
+        count: 30
+  - name: "Scenario 2"
+    engine: http
+    flow:
+      - get:
+          url: "/o/docs/login?next=%2F"
+          cookie:
+            saved: "grist_sid"
+          expect:
+            - statusCode: 200
+      - loop:
+        - post:
+            url: "/o/docs/api/docs/{{scenario2DocId}}/tables/Table1/records"
+            json:
+              records:
+                - fields:
+                    column0: "{{$randPhrase()}}"
+                    column1: "{{$randPhrase()}}"
+                    column2: "{{$randPhrase()}}"
+                    column3: "{{$randPhrase()}}"
+                    column4: "{{$randPhrase()}}"
+                    column5: "{{$randPhrase()}}"
+                    column6: "{{$randPhrase()}}"
+                    column7: "{{$randPhrase()}}"
+                    column8: "{{$randPhrase()}}"
+                    column9: "{{$randPhrase()}}"
+                    column10: "{{$randPhrase()}}"
+                    column11: "{{$randPhrase()}}"
+                    column12: "{{$randPhrase()}}"
+                    column13: "{{$randPhrase()}}"
+                    column14: "{{$randPhrase()}}"
+                    column15: "{{$randPhrase()}}"
+                    column16: "{{$randPhrase()}}"
+                    column17: "{{$randPhrase()}}"
+                    column18: "{{$randPhrase()}}"
+                    column19: ["L", "{{$randAlpha()}}", "{{$randAlpha()}}", "{{$randAlpha()}}"]
+            expect:
+              - statusCode: 200
+        - think: 5
+        count: 30
+  # - name: "Fill as many rows as possible"
+  #   engine: ws
+  #   flow:
+  #     - connect:
+  #         function: "connectToWs"
+  #     - send:
+  #         payload: '{"reqId":{{reqIdInc}},"method":"openDoc","args":["{{scenario1DocId}}","default",null]}'
+  #         capture:
+  #           - json: $.data.docFD
+  #             as: docFD
+  #           - json: $.data.clientId
+  #             as: clientId
+  #     - send: '{"reqId":{{reqIdInc}},"method":"applyUserActions","args":[0,[["BulkAddRecord","Table1",[null],{"hello":["{{$randWord()}}"],"B":["{{$randNumber()}}"],"C":[0]}]],{"desc":null,"linkId":null}]}'
 
