@@ -1,8 +1,10 @@
 config:
-  # This is a test server run by team Artillery
-  # It's designed to be highly scalable
   target: http://localhost:8484
   processor: './functions.js'
+  http:
+    defaults:
+      headers:
+        Authorization: "Bearer {{token}}"
 
   phases:
   - duration: 60
@@ -27,18 +29,20 @@ config:
     metrics-by-endpoint: {}
     fake-data: {}
   variables:
-    workspaceId: 24
+    runId: "{{$testRunId}}"
 before:
   flow:
-    - log: "Get bearer"
-    - get:
-        url: "/o/docs/login?next=%2F"
-        cookie:
-          saved: "grist_sid"
-
-    - log: "creating documents"
+    - log: "Creating the workspace"
     - post:
-        url: "/o/docs/api/workspaces/{{workspaceId}}/docs"
+        url: "/api/orgs/docs/workspaces"
+        beforeRequest: "forgeWorkspaceName"
+        capture:
+          - regexp: ".*"
+            as: workspaceId
+    - log: "Workspace {{ workspaceName }} created"
+    - log: "Creating documents"
+    - post:
+        url: "/api/workspaces/{{workspaceId}}/docs"
         expect:
           - statusCode: 200
         json:
@@ -48,7 +52,7 @@ before:
             group: id
             as: scenario1DocId
     - post:
-        url: "/o/docs/api/workspaces/{{workspaceId}}/docs"
+        url: "/api/workspaces/{{workspaceId}}/docs"
         expect:
           - statusCode: 200
         json:
@@ -58,31 +62,28 @@ before:
             group: id
             as: scenario2DocId
     - put:
-        url: "/o/docs/api/docs/{{scenario2DocId}}/tables/Table1/columns?replaceall=1"
-        ifTrue: "Scenario 2"
+        url: "/api/docs/{{scenario2DocId}}/tables/Table1/columns?replaceall=1"
         expect:
           - statusCode: 200
         beforeRequest: "forgeScenario2ColumnsBody"
+    - function: importHeavyDocument
 
     - log: "DONE creating documents"
     # - get:
-    #     url: "/o/docs/api/profile/apiKey"
+    #     url: "/api/profile/apiKey"
     #     capture:
     #       regexp: .*
     #       as: "bearer"
+after:
+  flow:
+    - log: "check out results in {{workspaceName}}"
 scenarios:
-  - name: "Scenario 1"
+  - name: "Scenario 1: Post as many rows as possible"
     engine: http
     flow:
-      - get:
-          url: "/o/docs/login?next=%2F"
-          cookie:
-            saved: "grist_sid"
-          expect:
-            - statusCode: 200
       - loop:
         - post:
-            url: "/o/docs/api/docs/{{scenario1DocId}}/tables/Table1/records"
+            url: "/api/docs/{{scenario1DocId}}/tables/Table1/records"
             json:
               records:
                 - fields:
@@ -92,18 +93,12 @@ scenarios:
               - statusCode: 200
         - think: 5
         count: 30
-  - name: "Scenario 2"
+  - name: "Scenario 2: Post as many rows as possible with formulas"
     engine: http
     flow:
-      - get:
-          url: "/o/docs/login?next=%2F"
-          cookie:
-            saved: "grist_sid"
-          expect:
-            - statusCode: 200
       - loop:
         - post:
-            url: "/o/docs/api/docs/{{scenario2DocId}}/tables/Table1/records"
+            url: "/api/docs/{{scenario2DocId}}/tables/Table1/records"
             json:
               records:
                 - fields:
@@ -131,17 +126,6 @@ scenarios:
               - statusCode: 200
         - think: 5
         count: 30
-  # - name: "Fill as many rows as possible"
-  #   engine: ws
-  #   flow:
-  #     - connect:
-  #         function: "connectToWs"
-  #     - send:
-  #         payload: '{"reqId":{{reqIdInc}},"method":"openDoc","args":["{{scenario1DocId}}","default",null]}'
-  #         capture:
-  #           - json: $.data.docFD
-  #             as: docFD
-  #           - json: $.data.clientId
-  #             as: clientId
-  #     - send: '{"reqId":{{reqIdInc}},"method":"applyUserActions","args":[0,[["BulkAddRecord","Table1",[null],{"hello":["{{$randWord()}}"],"B":["{{$randNumber()}}"],"C":[0]}]],{"desc":null,"linkId":null}]}'
-
+    # - name: "Scenario 8: Fetch a big table"
+    #   engine: http
+    #   flow:

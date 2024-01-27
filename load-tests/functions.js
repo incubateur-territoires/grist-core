@@ -1,6 +1,12 @@
+const {log} = require("console");
+const crypto = require("crypto");
+const fs = require("fs");
+const assert = require("assert");
+const path = require("path");
+const { blob } = require("node:stream/consumers");
+
 const logHeaders = function (requestParams, context, ee, next) {
-  console.log(requestParams);
-  return next();
+  console.log(requestParams); return next();
 }
 
 const logResponse = function (requestParams, response, context, ee, next) {
@@ -95,4 +101,63 @@ const forgeScenario2ColumnsBody = function (requestParams, context, ee, next) {
   return next();
 }
 
-module.exports = { connectToWs, logHeaders, logResponse, forgeScenario2ColumnsBody };
+function forgeWorkspaceName(requestParams, context, ee, next) {
+  context.vars.workspaceName = `load-test-${crypto.randomUUID().substring(0, 8)}`;
+  requestParams.json = {
+    "name": context.vars.workspaceName,
+  };
+  console.log('context.vars.workspaceName = ', context.vars.w);
+  return next();
+}
+
+async function importHeavyDocument(context, ee, next) {
+  const headers = {
+    'Authorization': `Bearer ${context.vars.token}`,
+  };
+  console.log('context.vars.target = ', context.vars.target);
+  const { docWorkerUrl, selfPrefix } = await (async function () {
+    const res = await fetch(`${context.vars.target}/api/worker/import`, {
+      method: 'GET',
+      headers,
+    });
+    assert.equal(res.status, 200, res.statusText);
+    return res.json();
+  })();
+
+  const importUrl = docWorkerUrl ?? `${context.vars.target}${selfPrefix}`;
+
+  const { uploadId } = await (async function () {
+    const url = `${importUrl}/o/docs/uploads`;
+    console.log('url = ', url);
+    const formData = new FormData();
+    const filename = path.resolve(__dirname, './assets/scenario2-formulas.grist');
+    console.log('filename = ', filename);
+    formData.append('upload', await blob(fs.createReadStream(filename)), path.basename(filename));
+    const res = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: formData,
+    });
+    assert.equal(res.status, 200, res.statusText);
+    return res.json();
+  })();
+
+  const { id: docId } = await (async function () {
+    const res = await fetch(`${importUrl}/o/docs/api/workspaces/${context.vars.workspaceId}/import`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        uploadId,
+      })
+    });
+    assert.equal(res.status, 200, res.statusText);
+    return res.json();
+  })();
+
+  context.vars.heavyDocId = docId;
+
+  return next();
+}
+
+
+module.exports = { importHeavyDocument, logHeaders, logResponse, forgeScenario2ColumnsBody, forgeWorkspaceName };
