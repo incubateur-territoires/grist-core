@@ -114,7 +114,6 @@ async function importHeavyDocument(context, ee, next) {
   const headers = {
     'Authorization': `Bearer ${context.vars.token}`,
   };
-  console.log('context.vars.target = ', context.vars.target);
   const { docWorkerUrl, selfPrefix } = await (async function () {
     const res = await fetch(`${context.vars.target}/api/worker/import`, {
       method: 'GET',
@@ -128,10 +127,8 @@ async function importHeavyDocument(context, ee, next) {
 
   const { uploadId } = await (async function () {
     const url = `${importUrl}/o/docs/uploads`;
-    console.log('url = ', url);
     const formData = new FormData();
-    const filename = path.resolve(__dirname, './assets/scenario2-formulas.grist');
-    console.log('filename = ', filename);
+    const filename = path.resolve(__dirname, './assets/heavy-doc.grist');
     formData.append('upload', await blob(fs.createReadStream(filename)), path.basename(filename));
     const res = await fetch(url, {
       method: 'POST',
@@ -143,12 +140,14 @@ async function importHeavyDocument(context, ee, next) {
   })();
 
   const { id: docId } = await (async function () {
+
     const res = await fetch(`${importUrl}/o/docs/api/workspaces/${context.vars.workspaceId}/import`, {
       method: 'POST',
-      headers,
-      body: JSON.stringify({
-        uploadId,
-      })
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ uploadId }),
     });
     assert.equal(res.status, 200, res.statusText);
     return res.json();

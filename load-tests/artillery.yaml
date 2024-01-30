@@ -126,6 +126,43 @@ scenarios:
               - statusCode: 200
         - think: 5
         count: 30
+  - name: "Scenario 3: Update many rows"
+    engine: http
+    flow:
+      - loop:
+        - post:
+            url: "/api/docs/{{heavyDocId}}/apply"
+            json:
+              -
+                - UpdateRecord
+                - Table1
+                - "{{$randNumber({ min: 0, max: 14000 })}}"
+                - column0: "{{$randPhrase()}}"
+                  column1: "{{$randPhrase()}}"
+                  column2: "{{$randPhrase()}}"
+                  column3: "{{$randPhrase()}}"
+                  column4: "{{$randPhrase()}}"
+                  column5: "{{$randPhrase()}}"
+                  column6: "{{$randPhrase()}}"
+                  column7: "{{$randPhrase()}}"
+                  column8: "{{$randPhrase()}}"
+                  column9: "{{$randPhrase()}}"
+                  column10: "{{$randPhrase()}}"
+                  column11: "{{$randPhrase()}}"
+                  column12: "{{$randPhrase()}}"
+                  column13: "{{$randPhrase()}}"
+                  column14: "{{$randPhrase()}}"
+                  column15: "{{$randPhrase()}}"
+                  column16: "{{$randPhrase()}}"
+                  column17: "{{$randPhrase()}}"
+                  column18: "{{$randPhrase()}}"
+                  column19: ["L", "{{$randAlpha()}}", "{{$randAlpha()}}", "{{$randAlpha()}}"]
+            expect:
+              - statusCode: 200
+        - think: 5
+        count: 1
+        # count: 30
+
     # - name: "Scenario 8: Fetch a big table"
     #   engine: http
     #   flow:
