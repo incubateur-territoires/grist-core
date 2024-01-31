@@ -41,6 +41,7 @@ before:
             as: workspaceId
     - log: "Workspace {{ workspaceName }} created"
     - log: "Creating documents"
+    - log: "Creating doc for scenario1"
     - post:
         url: "/api/workspaces/{{workspaceId}}/docs"
         expect:
@@ -51,6 +52,7 @@ before:
           - regexp: '"(?<id>.*)"'
             group: id
             as: scenario1DocId
+    - log: "Creating doc for scenario2"
     - post:
         url: "/api/workspaces/{{workspaceId}}/docs"
         expect:
@@ -61,11 +63,13 @@ before:
           - regexp: '"(?<id>.*)"'
             group: id
             as: scenario2DocId
+    - log: "Putting data for scenario2"
     - put:
         url: "/api/docs/{{scenario2DocId}}/tables/Table1/columns?replaceall=1"
         expect:
           - statusCode: 200
         beforeRequest: "forgeScenario2ColumnsBody"
+    - log: "Import heavy document"
     - function: importHeavyDocument
 
     - log: "DONE creating documents"

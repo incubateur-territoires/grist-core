@@ -106,7 +106,6 @@ function forgeWorkspaceName(requestParams, context, ee, next) {
   requestParams.json = {
     "name": context.vars.workspaceName,
   };
-  console.log('context.vars.workspaceName = ', context.vars.w);
   return next();
 }
 
