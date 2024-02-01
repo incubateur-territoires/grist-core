@@ -1,9 +1,11 @@
 const {log} = require("console");
-const crypto = require("crypto");
 const fs = require("fs");
 const assert = require("assert");
 const path = require("path");
 const { blob } = require("node:stream/consumers");
+const falso = require("@ngneat/falso");
+
+const HEAVY_DOC_LINES = 2000;
 
 const logHeaders = function (requestParams, context, ee, next) {
   console.log(requestParams); return next();
@@ -14,6 +16,7 @@ const logResponse = function (requestParams, response, context, ee, next) {
   return next();
 }
 
+/*
 const connectToWs = async function (params, context, next) {
   params.target = `${context.vars.wsTarget}`;
   const res = await fetch(`${context.vars.target}/o/docs/login?next=%2F`, {
@@ -39,6 +42,7 @@ const connectToWs = async function (params, context, next) {
   });
   return next();
 };
+*/
 
 
 const forgeScenario2ColumnsBody = function (requestParams, context, ee, next) {
@@ -102,19 +106,52 @@ const forgeScenario2ColumnsBody = function (requestParams, context, ee, next) {
 }
 
 function forgeWorkspaceName(requestParams, context, ee, next) {
-  context.vars.workspaceName = `load-test-${crypto.randomUUID().substring(0, 8)}`;
+  context.vars.workspaceName = `load-test ${new Date().toISOString()}`;
   requestParams.json = {
     "name": context.vars.workspaceName,
   };
   return next();
 }
 
-async function importHeavyDocument(context, ee, next) {
+function scenario3ForgeBody(requestParams, context, ee, next) {
+  requestParams.json = [
+    [
+      "UpdateRecord",
+      "Table1",
+      Math.floor(Math.random() * HEAVY_DOC_LINES),
+      {
+        ...Object.fromEntries(
+          Array.from({ length: 19 }, (_, i) => `column${i}`).map(
+            (col) => [col, falso.randPhrase()]
+          ),
+        ),
+        "column19": ["L", falso.randAlpha(), falso.randAlpha(), falso.randAlpha()],
+      }
+    ]
+  ];
+  return next();
+}
+
+async function importDocumentForScenario5(context, ee, next) {
+  const { token, target, workspaceId } = context.vars;
+  const docId = await importHeavyDocument("Scenario 5.grist", { token, target, workspaceId });
+  context.vars.scenario5DocId = docId;
+  return next();
+}
+
+async function importDocumentForScenario3(context, ee, next) {
+  const { token, target, workspaceId } = context.vars;
+  const docId = await importHeavyDocument("Scenario 3.grist", { token, target, workspaceId });
+  context.vars.scenario3DocId = docId;
+  return next();
+}
+
+async function importHeavyDocument(uploadFileName, { token, target, workspaceId }) {
   const headers = {
-    'Authorization': `Bearer ${context.vars.token}`,
+    'Authorization': `Bearer ${token}`,
   };
   const { docWorkerUrl, selfPrefix } = await (async function () {
-    const res = await fetch(`${context.vars.target}/api/worker/import`, {
+    const res = await fetch(`${target}/api/worker/import`, {
       method: 'GET',
       headers,
     });
@@ -122,13 +159,13 @@ async function importHeavyDocument(context, ee, next) {
     return res.json();
   })();
 
-  const importUrl = docWorkerUrl ?? `${context.vars.target}${selfPrefix}`;
+  const importUrl = docWorkerUrl ?? `${target}${selfPrefix}`;
 
   const { uploadId } = await (async function () {
     const url = `${importUrl}/o/docs/uploads`;
     const formData = new FormData();
-    const filename = path.resolve(__dirname, './assets/heavy-doc.grist');
-    formData.append('upload', await blob(fs.createReadStream(filename)), path.basename(filename));
+    const filepath = path.resolve(__dirname, `./assets/${HEAVY_DOC_LINES}-lines-doc.grist`);
+    formData.append('upload', await blob(fs.createReadStream(filepath)), uploadFileName);
     const res = await fetch(url, {
       method: 'POST',
       headers,
@@ -140,7 +177,7 @@ async function importHeavyDocument(context, ee, next) {
 
   const { id: docId } = await (async function () {
 
-    const res = await fetch(`${importUrl}/o/docs/api/workspaces/${context.vars.workspaceId}/import`, {
+    const res = await fetch(`${importUrl}/o/docs/api/workspaces/${workspaceId}/import`, {
       method: 'POST',
       headers: {
         ...headers,
@@ -152,10 +189,16 @@ async function importHeavyDocument(context, ee, next) {
     return res.json();
   })();
 
-  context.vars.heavyDocId = docId;
-
-  return next();
+  return docId;
 }
 
 
-module.exports = { importHeavyDocument, logHeaders, logResponse, forgeScenario2ColumnsBody, forgeWorkspaceName };
+module.exports = {
+  importDocumentForScenario3,
+  importDocumentForScenario5,
+  logHeaders,
+  logResponse,
+  forgeScenario2ColumnsBody,
+  forgeWorkspaceName,
+  scenario3ForgeBody
+};
