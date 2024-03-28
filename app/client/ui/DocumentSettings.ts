@@ -13,6 +13,7 @@ import {urlState} from 'app/client/models/gristUrlState';
 import {KoSaveableObservable} from 'app/client/models/modelUtil';
 import {docListHeader} from 'app/client/ui/DocMenuCss';
 import {showTransientTooltip} from 'app/client/ui/tooltips';
+import {DocApiKey} from 'app/client/ui/DocApiKey';
 import {primaryButtonLink} from 'app/client/ui2018/buttons';
 import {mediaSmall, testId, theme, vars} from 'app/client/ui2018/cssVars';
 import {select} from 'app/client/ui2018/menus';
@@ -23,7 +24,7 @@ import {EngineCode} from 'app/common/DocumentSettings';
 import {GristLoadConfig} from 'app/common/gristUrls';
 import {propertyCompare} from 'app/common/gutil';
 import {getCurrency, locales} from 'app/common/Locales';
-import {Computed, Disposable, dom, fromKo, IDisposableOwner, styled} from 'grainjs';
+import {Computed, Disposable, dom, fromKo, IDisposableOwner, Observable, styled} from 'grainjs';
 import * as moment from 'moment-timezone';
 
 const t = makeT('DocumentSettings');
@@ -31,6 +32,7 @@ const t = makeT('DocumentSettings');
 export class DocSettingsPage extends Disposable {
   private _docInfo = this._gristDoc.docInfo;
 
+  private _docApiKey = Observable.create<string>(this, '');
   private _timezone = this._docInfo.timezone;
   private _locale: KoSaveableObservable<string> = this._docInfo.documentSettingsJson.prop('locale');
   private _currency: KoSaveableObservable<string|undefined> = this._docInfo.documentSettingsJson.prop('currency');
@@ -90,6 +92,15 @@ export class DocSettingsPage extends Disposable {
         target: '_blank',
         href: getApiConsoleLink(docPageModel),
       })),
+      cssDataRow(t("API Key")),
+      cssDataRow(
+        dom.create(DocApiKey, {
+          docApiKey: this._docApiKey,
+          onCreate: () => this._createDocApiKey(),
+          onDelete: () => this._deleteDocApiKey(),
+          inputArgs: [{size: '5'}], // Lower size so that input can shrink below ~152px.
+        })
+      ),
       cssHeader(t('Webhooks'), cssBeta('Beta')),
       cssDataRow(primaryButtonLink(t('Manage Webhooks'), urlState().setLinkUrl({docPage: 'webhook'}))),
     );
@@ -105,6 +116,15 @@ export class DocSettingsPage extends Disposable {
       await this._docInfo.documentSettingsJson.prop('engine').saveOnly(val);
       await docPageModel.appModel.api.getDocAPI(docPageModel.currentDocId.get()!).forceReload();
     }
+  }
+
+  private async _createDocApiKey() {
+    // this._docApiKey.set(await this._appModel.api.createApiKey());
+  }
+
+  private async _deleteDocApiKey() {
+    // await this._appModel.api.deleteApiKey();
+    this._docApiKey.set('');
   }
 }
 

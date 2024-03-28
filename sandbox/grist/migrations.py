@@ -1307,18 +1307,3 @@ def migration41(tdset):
   ]
 
   return tdset.apply_doc_actions(doc_actions)
-
-@migration(schema_version=42)
-def migration42(tdset):
-  """
-  Add a table for doc api keys.
-  """
-  doc_actions = [
-    actions.AddTable("_grist_doc_api_keys", [
-      schema.make_column("user", "Ref:users"),
-      schema.make_column("apiKey", "Text"),
-      schema.make_column("docId", "Ref:docs"),
-    ]),
-  ]
-
-  return tdset.apply_doc_actions(doc_actions)
