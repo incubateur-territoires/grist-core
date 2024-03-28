@@ -1008,6 +1008,22 @@ export class DocWorkerApi {
       res.json({snapshots});
     }));
 
+    this._app.post('/api/docs/:docId/imports/upload', canEdit, throttled(async (req, res) => {
+      // FIXME: is it necessary to have the docId passed in parameters?
+      const uploadResult = await handleUpload(req, res);
+      const allowedExt = ["json", "csv"];
+      const unsupportedFileNames = uploadResult.files
+        .filter(f => !allowedExt.includes(f.ext))
+        .map(f => f.origName);
+      if (unsupportedFileNames.length > 0) {
+        await globalUploadSet.cleanup(uploadResult.uploadId);
+        throw new ApiError(`Files in unsupported format: ${unsupportedFileNames.join(', ')}.` +
+          ' Supported extensions: ".csv", ".json".', 400);
+      }
+
+      res.json({uploadId: uploadResult.uploadId});
+    }));
+
     this._app.get('/api/docs/:docId/usersForViewAs', isOwner, withDoc(async (activeDoc, req, res) => {
       const docSession = docSessionFromRequest(req);
       res.json(await activeDoc.getUsersForViewAs(docSession));
