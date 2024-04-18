@@ -89,6 +89,7 @@ export const BehavioralPrompt = StringUnion(
   'customURL',
   'calendarConfig',
   'formsAreHere',
+  'test',
 );
 export type BehavioralPrompt = typeof BehavioralPrompt.type;
 

@@ -336,4 +336,19 @@ data.")),
     ),
     deploymentTypes: ['saas', 'core', 'enterprise'],
   },
+  test: {
+    popupType: 'news',
+    title: () => "Hello world",
+    forceShow: true,
+    content: (...args: DomElementArg[]) => cssTooltipContent(
+      dom('div', t('Build simple forms right in Grist and share in a click with our new widget. {{learnMoreButton}}', {
+        learnMoreButton: cssNewsPopupLearnMoreButton(t('Learn more'), {
+          href: commonUrls.forms,
+          target: '_blank',
+        }),
+      })),
+      ...args,
+    ),
+    deploymentTypes: ['saas', 'core', 'enterprise'],
+  }
 };

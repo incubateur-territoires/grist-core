@@ -21,6 +21,7 @@ import {attachTheme, testId} from 'app/client/ui2018/cssVars';
 import {getPageTitleSuffix} from 'app/common/gristUrls';
 import {getGristConfig} from 'app/common/urlUtils';
 import {Computed, dom, IDisposable, IDisposableOwner, Observable, replaceContent, subscribe} from 'grainjs';
+import { Banner } from '../components/Banner';
 
 // When integrating into the old app, we might in theory switch between new-style and old-style
 // content. This function allows disposing the created content by old-style code.
@@ -117,6 +118,11 @@ function pagePanelsHome(owner: IDisposableOwner, appModel: AppModel, app: App) {
     contentMain: createDocMenu(pageModel),
     contentTop: buildHomeBanners(appModel),
     testId,
+    banner: Banner.create(null, {
+      style: 'info',
+      content: 'hello world',
+      showCloseButton: true
+    }).buildDom(),
   });
 }
 

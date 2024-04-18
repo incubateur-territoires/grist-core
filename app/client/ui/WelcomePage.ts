@@ -15,6 +15,7 @@ import { basicButtonLink, bigBasicButtonLink, bigPrimaryButton } from "app/clien
 import { mediaSmall, testId, theme, vars } from "app/client/ui2018/cssVars";
 import { cssLink } from "app/client/ui2018/links";
 import { WelcomePage as WelcomePageEnum } from 'app/common/gristUrls';
+import { Banner } from "../components/Banner";
 
 // Redirect from ..../welcome/thing to .../welcome/${name}
 function _redirectToSiblingPage(name: string) {
@@ -54,6 +55,10 @@ export class WelcomePage extends Disposable {
         content: null,
       },
       headerMain: [cssFlexSpace(), dom.create(AccountWidget, this._appModel)],
+      banner: Banner.create(null, {
+        style: 'warning',
+        content: 'hello world'
+      }).buildDom(),
       contentMain: (
         page === 'teams' ? dom.create(buildWelcomeSitePicker, this._appModel) :
         this._buildPageContent(page)
