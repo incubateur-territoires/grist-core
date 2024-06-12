@@ -28,7 +28,7 @@ import {EngineCode} from 'app/common/DocumentSettings';
 import {commonUrls, GristLoadConfig} from 'app/common/gristUrls';
 import {not, propertyCompare} from 'app/common/gutil';
 import {getCurrency, locales} from 'app/common/Locales';
-import {Computed, Disposable, dom, fromKo, IDisposableOwner, makeTestId, Observable, styled} from 'grainjs';
+import {Computed, Disposable, dom, fromKo, IDisposableOwner, makeTestId, observable, Observable, styled} from 'grainjs';
 import * as moment from 'moment-timezone';
 
 const t = makeT('DocumentSettings');
@@ -40,6 +40,7 @@ export class DocSettingsPage extends Disposable {
   private _timezone = this._docInfo.timezone;
   private _locale: KoSaveableObservable<string> = this._docInfo.documentSettingsJson.prop('locale');
   private _currency: KoSaveableObservable<string|undefined> = this._docInfo.documentSettingsJson.prop('currency');
+  // private _type: KoSaveableObservable<string|undefined> = this._docInfo.documentSettingsJson.prop('type');
   private _engine: Computed<EngineCode|undefined> = Computed.create(this, (
     use => use(this._docInfo.documentSettingsJson.prop('engine'))
   ))
@@ -58,6 +59,8 @@ export class DocSettingsPage extends Disposable {
     const canChangeEngine = getSupportedEngineChoices().length > 0;
     const docPageModel = this._gristDoc.docPageModel;
     const isTimingOn = this._gristDoc.isTimingOn;
+    const typeModel = observable(null);
+    docPageModel.getDocType().then((type) => typeModel.set(type));
 
     return cssContainer(
       dom.create(AdminSection, t('Document Settings'), [
@@ -188,6 +191,14 @@ export class DocSettingsPage extends Disposable {
           description: t('Notify other services on doc changes'),
           value: cssSmallLinkButton(t('Manage webhooks'), urlState().setLinkUrl({docPage: 'webhook'})),
         }),
+      ]),
+      dom.create(AdminSection, t('Document conversion'), [
+        dom.create(AdminSectionItem, {
+          id: 'document-type',
+          name: t('Document type'),
+          description: t('Convert the document'),
+        })
+        // value: dom.create(buildTypeSelect, this._type),
       ]),
     );
   }
@@ -336,6 +347,31 @@ function buildLocaleSelect(
     },
     testId("locale-autocomplete")
   );
+}
+
+function buildTypeSelect(
+  owner: IDisposableOwner,
+  type: KoSaveableObservable<string>
+) {
+  const typeList: ACSelectItem[] = [{
+    value: '',
+    label: t('Regular')
+  }, {
+    value: 'template',
+    label: t('Template')
+  },
+  {
+    value: 'tutorial',
+    label: t('Tutorial')
+  }].map((el) => el.label.trim().toLowerCase());
+  const valueObs = Computed.create(owner, use => use(type));
+  const acIndex = new ACIndexImpl<LocaleItem>(typeList, {maxResults: 200, keepOrder: true});
+  return buildACSelect(owner, {
+    acIndex, valueObs,
+    save(_value, item: ACSelectItem|undefined) {
+      type.saveOnly(item?.value ?? '').catch(reportError);
+    }
+  });
 }
 
 const cssContainer = styled('div', `
