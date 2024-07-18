@@ -86,8 +86,7 @@ import {
 import {ServerColumnGetters} from 'app/server/lib/ServerColumnGetters';
 import {localeFromRequest} from "app/server/lib/ServerLocale";
 import {isUrlAllowed, WebhookAction, WebHookSecret} from "app/server/lib/Triggers";
-import {fetchDoc, globalUploadSet, handleOptionalUpload, handleUpload,
-        makeAccessId} from "app/server/lib/uploads";
+import {fetchDoc, globalUploadSet, handleOptionalUpload, handleUpload, makeAccessId} from "app/server/lib/uploads";
 import * as assert from 'assert';
 import contentDisposition from 'content-disposition';
 import {Application, NextFunction, Request, RequestHandler, Response} from "express";
@@ -1011,17 +1010,24 @@ export class DocWorkerApi {
     this._app.post('/api/docs/:docId/imports/upload', canEdit, throttled(async (req, res) => {
       // FIXME: is it necessary to have the docId passed in parameters?
       const uploadResult = await handleUpload(req, res);
-      const allowedExt = ["json", "csv"];
+      const allowedExt = [".json", ".csv"];
       const unsupportedFileNames = uploadResult.files
         .filter(f => !allowedExt.includes(f.ext))
         .map(f => f.origName);
       if (unsupportedFileNames.length > 0) {
         await globalUploadSet.cleanup(uploadResult.uploadId);
-        throw new ApiError(`Files in unsupported format: ${unsupportedFileNames.join(', ')}.` +
+        throw new ApiError(`Files format not supported: ${unsupportedFileNames.join(', ')}.` +
           ' Supported extensions: ".csv", ".json".', 400);
       }
 
       res.json({uploadId: uploadResult.uploadId});
+    }));
+
+    this._app.post('/api/docs/:docId/imports', canEdit, throttled(async (req, res) => {
+      const uploadId = req.body.source.upload;
+      const accessId = makeAccessId(req, getAuthorizedUserId(req));
+      const info = globalUploadSet.getUploadInfo(uploadId, accessId);
+      res.json({uploadId: info.uploadId, files: info.files.map(f => f.absPath)});
     }));
 
     this._app.get('/api/docs/:docId/usersForViewAs', isOwner, withDoc(async (activeDoc, req, res) => {

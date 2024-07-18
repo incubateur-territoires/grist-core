@@ -5334,6 +5334,58 @@ function testDocApi() {
     assert.match(resp.data.error, /database interrupt/);
   });
 
+  describe('/api/docs/:docId/imports', function () {
+    let docUrl: string;
+
+    function uploadMultiple(files: Array<{content: string, name: string}>) {
+      const formData = new FormData();
+      for (const file of files) {
+        formData.append(`upload`, file.content, file.name);
+      }
+      return axios.post(`${docUrl}/imports/upload`, formData, chimpy);
+    }
+
+    function upload(fileContent: string, fileName: string) {
+      return uploadMultiple([{content: fileContent, name: fileName}]);
+    }
+
+    before(async function () {
+      ({docUrl} = await generateDocAndUrl());
+    });
+
+    it('should reject when 1 file has invalid format', async function () {
+      const valid = {content: '{}', name: 'foo.json'};
+      const invalid = {content: 'whatever', name: 'invalid.txt'};
+      let res = await uploadMultiple([valid, invalid]);
+      assert.equal(res.status, 400);
+      assert.deepEqual(res.data, {
+        error: 'Files format not supported: invalid.txt. Supported extensions: ".csv", ".json".'
+      });
+
+      // also change the order, check that the behavior is the same.
+      res = await uploadMultiple([invalid, valid]);
+      assert.equal(res.status, 400);
+    });
+
+    it('should accept uploading a json file', async function () {
+      const res = await upload('{}', 'table1.json');
+      assert.equal(res.status, 200);
+      assert.isNumber(res.data.uploadId);
+      const resImport = await axios.post(`${docUrl}/imports`, {source: {upload: res.data.uploadId}}, chimpy);
+      console.log('resImport = ', resImport);
+      assert.equal(resImport.status, 200);
+    });
+
+    it('should accept uploading a csv file and a json file', async function () {
+      const res = await uploadMultiple([
+        { content: 'col1;col2\nval1;val2', name: 'table1.csv' },
+        { content: '{}', name: 'table1.json' }
+      ]);
+      assert.equal(res.status, 200);
+      assert.isNumber(res.data.uploadId);
+    });
+  });
+
   // PLEASE ADD MORE TESTS HERE
 }
 
