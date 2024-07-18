@@ -5372,7 +5372,6 @@ function testDocApi() {
       assert.equal(res.status, 200);
       assert.isNumber(res.data.uploadId);
       const resImport = await axios.post(`${docUrl}/imports`, {source: {upload: res.data.uploadId}}, chimpy);
-      console.log('resImport = ', resImport);
       assert.equal(resImport.status, 200);
     });
 

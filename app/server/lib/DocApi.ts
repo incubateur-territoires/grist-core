@@ -29,6 +29,7 @@ import {MetaRowRecord} from 'app/common/TableData';
 import {TelemetryMetadataByLevel} from "app/common/Telemetry";
 import {WebhookFields} from "app/common/Triggers";
 import TriggersTI from 'app/common/Triggers-ti';
+import TableImportTI from 'app/common/TableImport-ti';
 import {DocReplacementOptions, DocState, DocStateComparison, DocStates, NEW_DOCUMENT_CODE} from 'app/common/UserAPI';
 import {HomeDBManager, makeDocAuthResult} from 'app/gen-server/lib/homedb/HomeDBManager';
 import * as Types from "app/plugin/DocApiTypes";
@@ -142,6 +143,9 @@ const {
   WebhookSubscribe,
   WebhookSubscribeCollection,
 } = t.createCheckers(TriggersTI);
+
+// schema validator for table import api.
+const { TableImportRequestBody } = t.createCheckers(TableImportTI);
 
 /**
  * Middleware for validating request's body with a Checker instance.
@@ -1007,7 +1011,7 @@ export class DocWorkerApi {
       res.json({snapshots});
     }));
 
-    this._app.post('/api/docs/:docId/imports/upload', canEdit, throttled(async (req, res) => {
+    this._app.post('/api/docs/:docId/imports/upload', expressWrap(async (req, res) => {
       // FIXME: is it necessary to have the docId passed in parameters?
       const uploadResult = await handleUpload(req, res);
       const allowedExt = [".json", ".csv"];
@@ -1023,12 +1027,14 @@ export class DocWorkerApi {
       res.json({uploadId: uploadResult.uploadId});
     }));
 
-    this._app.post('/api/docs/:docId/imports', canEdit, throttled(async (req, res) => {
-      const uploadId = req.body.source.upload;
-      const accessId = makeAccessId(req, getAuthorizedUserId(req));
-      const info = globalUploadSet.getUploadInfo(uploadId, accessId);
-      res.json({uploadId: info.uploadId, files: info.files.map(f => f.absPath)});
-    }));
+    this._app.post('/api/docs/:docId/imports', canEdit, validate(TableImportRequestBody),
+      throttled(async (req, res) => {
+        const uploadId = req.body.source.upload;
+        const accessId = makeAccessId(req, getAuthorizedUserId(req));
+        const info = globalUploadSet.getUploadInfo(uploadId, accessId);
+        res.json({uploadId: info.uploadId, files: info.files.map(f => f.origName)});
+      })
+    );
 
     this._app.get('/api/docs/:docId/usersForViewAs', isOwner, withDoc(async (activeDoc, req, res) => {
       const docSession = docSessionFromRequest(req);
