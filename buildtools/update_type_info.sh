@@ -19,7 +19,7 @@ for root in "$@"; do
       echo "Cannot find src $src for $ti, aborting"
       exit 1
     fi
-    if [ $src -nt $ti ]; then
+    if [ $src -nt $ti -o "$(wc -c $ti | cut -d " " -f 1)" -eq 0 ]; then
       echo "Updating $ti from $src"
       node_modules/.bin/ts-interface-builder $src
     fi
