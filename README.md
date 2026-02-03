@@ -1,3 +1,9 @@
+# This fork is archived
+
+Please go to this repository for the active fork from the GristGouv team: https://github.com/betagouv/grist-core
+
+---
+
 # Grist
 
 Grist is a modern relational spreadsheet. It combines the flexibility of a spreadsheet with the robustness of a database.
